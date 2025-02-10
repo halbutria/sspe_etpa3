@@ -1,0 +1,191 @@
+<form [formGroup]="validateForm" > 
+  <div class="container-load clearfix cargando" *ngIf="showLoading">
+    <div class="spinner-border float-end" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div class="content-steps-info" *ngIf="!(verValidacionCuenta|async)">
+    <div class="row">
+      <div class="col-md-6">
+        <label>
+          <span class="text-danger" *ngIf="f['TipoDocumentoId'].hasError('required')">*</span>
+          Tipo de documento</label>
+        <div class="form-group form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="TipoDocumentoId"
+            (change)="validaNumeroDocumento($event)" [ngClass]="{ 'is-valid': (f['TipoDocumentoId'].dirty || submitted) && !f['TipoDocumentoId'].errors,
+          'is-invalid': (f['TipoDocumentoId'].dirty || submitted) && f['TipoDocumentoId'].errors }">
+            <option [value]="tipo.id" *ngFor="let tipo of listTipoDocumento">{{ tipo.nombre }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="(f['TipoDocumentoId'].dirty || submitted) && f['TipoDocumentoId'].errors">
+            * Tipo de documento requerido
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>
+          <span class="text-danger" *ngIf="f['NumeroDocumento'].hasError('required')">*</span>
+          Número de documento</label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="NumeroDocumento"
+            (keyup)="validateOnlyNumberInput($event)" [ngClass]="{ 'is-valid': (f['NumeroDocumento'].dirty || submitted) && !f['NumeroDocumento'].errors,
+          'is-invalid': (f['NumeroDocumento'].dirty || submitted) && f['NumeroDocumento'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['NumeroDocumento'].dirty || submitted) && f['NumeroDocumento'].errors">
+            <span class="text-danger" *ngIf="requiredNumDoc">
+              * Número de documento requerido
+            </span>
+            <span class="text-danger" *ngIf="maxLengthValidNumDoc">
+              * Excede la longitud máxima
+            </span>
+            <span class="text-danger" *ngIf="minLengthValidNumDoc">
+              * Mínimo debe ser de 6 dígitos
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>
+          <span class="text-danger" *ngIf="f['ConfirmacionNumeroDocumento'].hasError('required')">*</span>
+         Confirmar número de documento</label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="ConfirmacionNumeroDocumento"
+            [ngClass]="{ 'is-valid': (f['ConfirmacionNumeroDocumento'].dirty || submitted) && !f['ConfirmacionNumeroDocumento'].errors && !validateForm .errors?.['mismatch'],
+          'is-invalid': (f['ConfirmacionNumeroDocumento'].dirty || submitted) && f['ConfirmacionNumeroDocumento'].errors }"
+          (paste)="(false)">        
+          <div class="invalid-feedback" *ngIf="(f['ConfirmacionNumeroDocumento'].dirty || submitted) && f['ConfirmacionNumeroDocumento'].errors || validateForm .errors?.['mismatch']">
+            <span class="text-danger" *ngIf="requiredNumDoc">
+              * Confirmación Número de documento requerido
+            </span>
+           
+            <span class="text-danger" *ngIf="validateForm .errors?.['mismatch']">
+              * Número de documento y confirmación no coinciden
+            </span>            
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>
+          <span class="text-danger" *ngIf="f['CorreoElectronico'].hasError('required')">*</span>
+          Correo electrónico</label>
+        <div class="form-group form-group-no-border">
+          <input type="email" class="form-control" placeholder="" formControlName="CorreoElectronico" [ngClass]="{ 'is-valid': (f['CorreoElectronico'].dirty || submitted) && !f['CorreoElectronico'].errors,
+          'is-invalid': (f['CorreoElectronico'].dirty || submitted) && f['CorreoElectronico'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['CorreoElectronico'].dirty || submitted) && f['CorreoElectronico'].errors">
+            * Digite un correo electrónico válido
+          </div>
+        </div>
+      </div>
+      <!-- Fecha de expedición del documento -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['fechaExpedicionDocumento'].hasError('required')">*</span>
+          Fecha de expedición del documento
+        </label>
+        <div class="form-group">
+          <div class="input-group date">
+            <input class="form-control date-btn" placeholder="dd/mm/yyyy" formControlName="fechaExpedicionDocumento" [(ngModel)]="model" [maxDate]="maxDateHoy"
+              [minDate]="minDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [ngClass]="{ 'is-valid': (f['fechaExpedicionDocumento'].dirty || submitted) && !f['fechaExpedicionDocumento'].errors,
+            'is-invalid': (f['fechaExpedicionDocumento'].dirty || submitted) && f['fechaExpedicionDocumento'].errors }">
+            <div class="input-group-append" role="button" (click)="d.toggle()">
+              <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="(f['fechaExpedicionDocumento'].dirty || submitted) && f['fechaExpedicionDocumento'].errors">
+            * Fecha de expedición del documento</div>
+        </div>
+      </div>
+      <div class="container-legacy">
+        <!-- Terminos y condiciones -->
+        <div class="box-legacy">
+          <div class="title">
+            <span>Términos y condiciones</span>
+          </div>
+          <div class="form-switch">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="1" formControlName="terminosCondiciones"
+                (change)="toggleCheckbox($event, 'terminosCondiciones')">
+              <span class="text-danger" *ngIf="f['terminosCondiciones'].hasError('required')"> *</span> Al crear una cuenta
+              aceptas nuestros términos y condiciones
+              <span class="form-check-sign"></span>
+              <span class="invalid-feedback"
+              *ngIf="(f['terminosCondiciones'].dirty || submitted) && f['terminosCondiciones'].invalid">
+              * Selección de términos y condiciones es requerida
+              </span>
+            </label>
+            <a class="btn d-flex pt-0 pb-0 ps-0 pe-0"
+              href="../../../../assets/docs/TÉRMINOS Y CONDICIONES 201601_V_1.0-POTENCIAL_EMPLEADOR.pdf" target="_blank">
+              <fa-icon style="font-size: 22px" class="text-danger" [icon]="['fas', 'file-download']"></fa-icon>
+            </a>
+          </div>
+        </div>
+        <!-- Tratamiento de datos --> 
+        <div class="box-legacy">
+          <div class="title">
+            <span>Tratamiento de datos</span>
+          </div>
+          <div class="form-switch">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="1" formControlName="tratamientoDatosPersonales"
+                (change)="toggleCheckbox($event, 'tratamientoDatosPersonales')">
+              <span class="text-danger" *ngIf="f['tratamientoDatosPersonales'].hasError('required')"> *</span> Acepto haber
+              leído y conocer la política de tratamiento de datos personales
+              <span class="form-check-sign"></span>
+              <span class="invalid-feedback"
+              *ngIf="(f['tratamientoDatosPersonales'].dirty || submitted) && f['tratamientoDatosPersonales'].errors">
+              * Selección de política de tratamiento de datos personales es requerida
+            </span>
+            </label>
+            
+          </div>
+        </div>
+        <div class="box-legacy-btn">
+          <button type="submit" class="btn btn-primary-form" [disabled]="!validateForm.valid" (click)="validateAction()">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-steps-info" *ngIf="verValidacionCuenta|async" >
+    <div class="row">
+      <div class="col-md-12 mb-2">
+      <p>Se ha enviado un código de verificación al correo electrónico que proporcionaste para que puedas continuar con el proceso de registro.
+      <a class="btn btn-link" (click)="verFormualrioRegistro($event)">Cambiar Correo electrónico </a> </p>
+      </div>
+      <div class="col-md-6">
+        <label>
+          <span class="text-danger" *ngIf="f['codigoVerificacion'].hasError('required')">*</span>
+          Código de verificación</label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="codigoVerificacion"
+          (keyup)="validateOnlyNumberInput($event)" maxlength="7"
+          [ngClass]="{ 'is-valid': (f['codigoVerificacion'].dirty || submitted) && !f['codigoVerificacion'].errors,
+          'is-invalid': (f['codigoVerificacion'].dirty || submitted) && f['codigoVerificacion'].errors }">
+            <div class="invalid-feedback" *ngIf="(f['codigoVerificacion'].dirty || submitted) && f['codigoVerificacion'].errors">
+              * Código de verificación requerido       
+          </div>
+          <div class="invalid-feedback" *ngIf="validacionDepin">
+            *Código de verificación inválido.
+          </div>
+        </div>
+      </div>      
+    </div>
+  
+    <br>
+    <div class="row">
+      <div class="col">
+        <a class="btn btn-link" (click)="reenviarPin($event)" [class.disabled]="!permitirReenviarPin">
+          Reenviar código de verificación</a>
+          <div class="invalid-feedback" *ngIf="!permitirReenviarPin" >
+            Código de verificación reenviado.
+          </div>
+      </div>
+      <div class="col-2 ms-auto me-3">
+        <button type="submit" class="btn btn-primary-form" [disabled]="!validateForm.valid" (click)="validatePin()">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,2903 @@
+{
+	"Routes": [
+		{
+			"DownstreamPathTemplate": "/Ciudadano",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			//"AuthenticationOptions": {
+			//	"AuthenticationProviderKey": "Bearer",
+			//	"AllowedScopes": []
+			//},
+			//"FileCacheOptions": {
+			//	"TtlSeconds": 1,
+			//	"Region": "somename"
+			//},
+			"UpstreamPathTemplate": "/api/Ciudadano",
+			"UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+			//"DelegatingHandlers": [
+			//	"CiudadanoHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/Ciudadano/existe",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Ciudadano/existe",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/Ciudadano/DesactivarActivar",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Ciudadano/DesactivarActivar",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/Ciudadano/CambioTieneExperienciaPrevia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Ciudadano/CambioTieneExperienciaPrevia",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/InformacionLaboral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/InformacionLaboral",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/InformacionLaboral/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/InformacionLaboral/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/InformacionLaboral/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/InformacionLaboral/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionNoFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionNoFormal",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionNoFormal/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionNoFormal/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionNoFormal/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionNoFormal/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionFormal",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionFormal/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionFormal/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionFormal/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionFormal/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/TipoNotificacion/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/TipoNotificacion/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			//"DelegatingHandlers": [
+			//	"TipoNotificacionHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/TipoNotificacion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/TipoNotificacion",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CargoInteres/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			//"DelegatingHandlers": [
+			//	"CargoInteresHandler"
+			//],
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CargoInteres/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/ConocimientoCompetencia/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/ConocimientoCompetencia/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/ConocimientoCompetencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/ConocimientoCompetencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/ConocimientoCompetencia/",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/ConocimientoCompetencia/",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Experiencia/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Experiencia/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CambioEstado",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioEstado",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/CambioTieneEducacionFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioTieneEducacionFormal",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CambioTieneEducacionNoFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioTieneEducacionNoFormal",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CambioTieneInformacionLaboral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioTieneInformacionLaboral",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Experiencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Experiencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Experiencia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Experiencia",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+
+
+		{
+			"DownstreamPathTemplate": "/HabilidadDestreza/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/HabilidadDestreza/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/HabilidadDestreza/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/HabilidadDestreza/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/HabilidadDestreza",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/HabilidadDestreza",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Idioma/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Idioma/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/Idioma/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Idioma/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Idioma",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Idioma",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/RedesSociales/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/RedesSociales/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/RedesSociales/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/RedesSociales/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/RedesSociales",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/RedesSociales",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/PorcentajesAvance/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/PorcentajesAvance/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/VerificarCuenta",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/VerificarCuenta",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/VerificarCuenta/verificarPin",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/VerificarCuenta/verificarPin",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/filtro/{tipo}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/filtro/{tipo}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "parametrico"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/salario",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"UpstreamPathTemplate": "/api/parametrico/salario",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "parametrico"
+		},
+
+
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/lista/{tipo}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/lista/{tipo}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoDocumento/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			//"FileCacheOptions": {
+			//	"TtlSeconds": 1,
+			//	"Region": "somename"
+			//},
+			"UpstreamPathTemplate": "/api/parametrico/TipoDocumento/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoDocumento",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoDocumento",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoDireccion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoDireccion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoDireccion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoDireccion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoContrato/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoContrato/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoContrato",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoContrato",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoCapacitacion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoCapacitacion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoCapacitacion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoCapacitacion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoExperiencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoExperiencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoExperiencia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoExperiencia",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoExperienciaPrevia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoExperienciaPrevia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoExperienciaPrevia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoExperienciaPrevia",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoLibretaMilitar/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoLibretaMilitar/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoLibretaMilitar",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoLibretaMilitar",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoNotificacion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoNotificacion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoNotificacion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoNotificacion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoPoblacion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoPoblacion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoPoblacion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoPoblacion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoPoblacionVulnerable/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoPoblacionVulnerable/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoPoblacionVulnerable",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoPoblacionVulnerable",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoProyecto/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoProyecto/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoProyecto",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoProyecto",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoSalario/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoSalario/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoSalario",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoSalario",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoSituacionLaboral/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoSituacionLaboral/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoSituacionLaboral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoSituacionLaboral",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoUbicacion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoUbicacion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoUbicacion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoUbicacion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TituloNivelEducativo/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TituloNivelEducativo/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TituloNivelEducativo",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TituloNivelEducativo",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/NivelCompetencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NivelCompetencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/NivelCompetencia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NivelCompetencia",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/NivelDominioIdioma/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NivelDominioIdioma/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/NivelDominioIdioma",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NivelDominioIdioma",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/CriterioMatch/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CriterioMatch/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/CriterioMatch",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CriterioMatch",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/PlantillaDescripcionVacante/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/PlantillaDescripcionVacante/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/PlantillaDescripcionVacante",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/PlantillaDescripcionVacante",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoAmpliarZona/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoAmpliarZona/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoAmpliarZona",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoAmpliarZona",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoCambioPrestador/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoCambioPrestador/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoCambioPrestador",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoCambioPrestador",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/PlantillaMensaje/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/PlantillaMensaje/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/PlantillaMensaje",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/PlantillaMensaje",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/Institucion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Institucion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/Institucion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Institucion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/CUOCOcupacion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CUOCOcupacion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/CUOCOcupacion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CUOCOcupacion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/CUOCConocimiento/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CUOCConocimiento/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/CUOCConocimiento",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CUOCConocimiento",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionTipoVia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionTipoVia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionTipoVia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionTipoVia",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionLetra/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionLetra/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionLetra",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionLetra",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionCuadrante/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionCuadrante/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionCuadrante",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionCuadrante",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionComplemento/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionComplemento/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/DireccionComplemento",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DireccionComplemento",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/Profesion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Profesion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/Profesion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Profesion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/RangoSalarial/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/RangoSalarial/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/RangoSalarial",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/RangoSalarial",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/AreaInfluencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/AreaInfluencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/AreaInfluencia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/AreaInfluencia",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/DivisionTerritorial/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DivisionTerritorial/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/DivisionTerritorial",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/DivisionTerritorial",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/NucleoConocimientoHidrocarburos/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NucleoConocimientoHidrocarburos/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/NucleoConocimientoHidrocarburos",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NucleoConocimientoHidrocarburos",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/ConfiguracionAvanceHojaVida/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ConfiguracionAvanceHojaVida/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/ConfiguracionAvanceHojaVida",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ConfiguracionAvanceHojaVida",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/PreguntaSeguridad/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/PreguntaSeguridad/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/PreguntaSeguridad",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/PreguntaSeguridad",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/JornadaLaboral/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/JornadaLaboral/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/JornadaLaboral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/JornadaLaboral",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/MensajePreseleccion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MensajePreseleccion/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/MensajePreseleccion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MensajePreseleccion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/FluidezIdioma/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/FluidezIdioma/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/FluidezIdioma",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/FluidezIdioma",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/Terminos/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Terminos/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/Terminos",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Terminos",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/SubsectorEconomico/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/SubsectorEconomico/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/SubsectorEconomico",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/SubsectorEconomico",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoRechazo/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoRechazo/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoRechazo",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoRechazo",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoPrestador/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoPrestador/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoPrestador",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoPrestador",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/EstadoVacante/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/EstadoVacante/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/EstadoVacante",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/EstadoVacante",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/AsociarInstitucionNivelEducativo/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/AsociarInstitucionNivelEducativo/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/AsociarInstitucionNivelEducativo",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/AsociarInstitucionNivelEducativo",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/ObtenerInstitucionesPorNivelEducativo/{NivelEducativoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ObtenerInstitucionesPorNivelEducativo/{NivelEducativoId}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/ObtenerInstitucionesPorNivelEducativo",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ObtenerInstitucionesPorNivelEducativo",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/EliminarAsociacionInstitucionNivelEducativo/{NivelEducativoId}/{InstitucionId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/EliminarAsociacionInstitucionNivelEducativo/{NivelEducativoId}/{InstitucionId}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/AreaConocimiento/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/AreaConocimiento/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/AreaConocimiento",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/AreaConocimiento",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/InformacionLaboral/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/InformacionLaboral/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/InformacionLaboral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/InformacionLaboral",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/SectorEconomico/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 15,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/SectorEconomico/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/SectorEconomico",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 15,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/SectorEconomico",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Prestador/lista/{DepartamentoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/Prestador/lista/{DepartamentoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/CategoriaLicencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CategoriaLicencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/CategoriaLicencia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/CategoriaLicencia",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/Idioma/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Idioma/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/Idioma",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Idioma",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoExcepcionalidad/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoExcepcionalidad/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/MotivoExcepcionalidad",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/MotivoExcepcionalidad",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/ModalidadTrabajo/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ModalidadTrabajo/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/ModalidadTrabajo",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ModalidadTrabajo",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Prestador/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/Prestador/{Id}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/Discapacidad/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Discapacidad/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/Discapacidad",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Discapacidad",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/ObtenerNivelesEducativosPorInstitucion/{InstitucionId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 15,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ObtenerNivelesEducativosPorInstitucion/{InstitucionId}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/ObtenerNivelesEducativosPorInstitucion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 15,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/ObtenerNivelesEducativosPorInstitucion",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/PuntoAtencion/lista/{PrestadorId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/PuntoAtencion/lista/{PrestadorId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/Genero/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Genero/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/Genero",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/Genero",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoZonaGeografica/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoZonaGeografica/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/TipoZonaGeografica",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/TipoZonaGeografica",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/Parametrico/NivelEducativo/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NivelEducativo/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "parametrico"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/NivelEducativo",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 1,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/NivelEducativo",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "parametrico"
+		},
+		{
+			"DownstreamPathTemplate": "/PuntoAtencion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/PuntoAtencion/{Id}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Vacante",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"DelegatingHandlers": [
+				"VacanteHandler"
+			],
+			"UpstreamPathTemplate": "/api/Vacante",
+			"UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Vacante/{VacanteId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Vacante/{VacanteId}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Vacante/Archivo/{Tipo}/{ArchivoId}/{Archivo}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Vacante/Archivo/{Tipo}/{ArchivoId}/{Archivo}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Empresa",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Empresa/lista",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa/lista",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Empresa/responsable",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa/responsable",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Empresa/responsable/lista",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa/responsable/lista",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/EmpresaSede/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/EmpresaSede/{Id}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+
+
+
+
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 9000
+				}
+			],
+			"UpstreamPathTemplate": "/{everything}",
+			"UpstreamHttpMethod": [ "GET", "POST", "UPDATE", "DELETE" ],
+			"DangerousAcceptAnyServerCertificateValidator": true
+		},
+		{
+			"DownstreamPathTemplate": "/demo/{everything}",
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8000
+				}
+			],
+			"UpstreamPathTemplate": "/demo/{everything}",
+			"UpstreamHttpMethod": [ "GET", "POST", "UPDATE", "DELETE" ],
+			"DangerousAcceptAnyServerCertificateValidator": true
+		}
+	],
+	"SwaggerEndPoints": [
+		{
+			"Key": "Ciudadanos",
+			"Config": [
+				{
+					"Name": "Ciudadano API",
+					"Version": "v1",
+					"Url": "http://localhost:8083/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "parametrico",
+			"Config": [
+				{
+					"Name": "Parametrico API",
+					"Version": "v1",
+					"Url": "http://localhost:8082/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "prestador",
+			"Config": [
+				{
+					"Name": "Prestador API",
+					"Version": "v1",
+					"Url": "http://localhost:5118/swagger/v1/swagger.json"
+				}
+			]
+		},
+
+		{
+			"Key": "Intermediacion",
+			"Config": [
+				{
+					"Name": "Intermediacion API",
+					"Version": "v1",
+					"Url": "http://localhost:5054/swagger/v1/swagger.json"
+				}
+			]
+		}
+	]
+}

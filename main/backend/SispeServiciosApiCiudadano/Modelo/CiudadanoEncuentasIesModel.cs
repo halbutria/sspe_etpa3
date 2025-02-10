@@ -1,0 +1,83 @@
+﻿using SispeServicios.DbContextBase.Modelo;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SispeServicios.Api.Ciudadano.Modelo
+{
+    public class CiudadanoEncuentasIesModel : EntidadBase
+    {
+        public Guid CiudadanoId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int NumeroRegistro { get; set; }
+        public int TipoDocumentoId { get; set; }
+        public string NumeroDocumento { get; set; }
+        public string PrimerNombre { get; set; }
+        public string? SegundoNombre { get; set; }
+        public string PrimerApellido { get; set; }
+        public string? SegundoApellido { get; set; }
+        public int? SexoId { get; set; }
+        public int? EstadoCivilId { get; set; }
+        public int? PaisResidenciaId { get; set; }
+        public string? DepartamentoResidenciaId { get; set; }
+        public string? MunicipioResidenciaId { get; set; }
+
+        public int? EgresadoId { get; set; }
+        public string? Programa { get; set; }
+        public DateTime? FechaInicioPrograma { get; set; }
+        public DateTime? FechaFinPrograma { get; set; }
+        public int? TiempoTranscurridoPrimerEmpleoId { get; set; }
+        public int? EmpleosRelacionadoId { get; set; }
+        public int? TieneEmpleoId { get; set; }
+        public int? TrabajaPorCuentaPropiaId { get; set; }
+        public int? TiempoTrabajoSemanalId { get; set; }
+        public int? IngresoSalarialId { get; set; }
+        public int? CambiarTrabajoActualId { get; set; }
+        public int? MotivoCambioEmpleoId { get; set; }
+        public string? OtroMotivoCambioEmpleo { get; set; }
+        public int? MedioEmpleadoParaBusquedaEmepladoId { get; set; }
+        public int? sectorEmpresaId { get; set; }
+        public int? AntiguedadEmpleoId { get; set; }
+        public int? TipoContratoId { get; set; }
+        public int? JerarquiaEmeploId { get; set; }
+        public int? SatisfechoConTrabajoActualId { get; set; }
+        public int? SatisfechoConNumeroHorasTrabajadaId { get; set; }
+        public int? SatisfechoConAplicacionConocimientosId { get; set; }
+        public int? SatisfechoConRemuneracionId { get; set; }
+        public int? SatisfechoConBeneficiosId { get; set; }
+        public int? SatisfechoConJornadaLaboralId { get; set; }
+        public int? SectorEconomicoId { get; set; }
+        public int? ConsideracionTrabajoActualId { get; set; }
+        public int? GradoRelacionProfesionEmpleoActualId { get; set; }
+        public int? AreaTrabajoId { get; set; }
+        public int? TamanioEmpresaId { get; set; }
+        public int? RazonesTrabajoIndependienteId { get; set; }
+        public int? FormaTrabajoRealizadoId { get; set; }
+        public int? MotivoDesvinculacionUltimoEmpleoId { get; set; }
+        public int? DisponibleParaTrabajar8SemanasId { get; set; }
+        public int? DisponibleParaTrabajar12MesesId { get; set; }
+        public int? FundamentacionTeoricaId { get; set; }
+        public int? RelacionTeoriaPracticaId { get; set; }
+        public int? DesarrolloHabilidadesInvestigacionId { get; set; }
+        public int? FormacionIntegralId { get; set; }
+        public int? RecomiendaElProgramaUniversidadId { get; set; }
+        public int? RazonRecomendarProgramaId { get; set; }
+        public int? ConoceAcreditacionUniversidadId { get; set; }
+        public int? ConcervaRelacionConUniversidadId { get; set; }
+        public int? AporteFormacionDesempenioLaboralId { get; set; }
+        public int? EstudioPostgradoTerminadoId { get; set; }
+        public string? NombrePostgrado { get; set; }
+        public string? UniversidadPostgrado { get; set; }
+        public int? RealizandoEstudiosPostgradoId { get; set; }
+        public string? NombrePostgradoEnCurso { get; set; }
+        public string? UniversidadPostgradoEnCurso { get; set; }
+        public int? CapacitacionRequeridaMejorarId { get; set; }
+        public int? AreaCapacitacionRequeridaId { get; set; }
+        public string? CapacitacionRequeridaMejorar { get; set; }
+        public int? GradoEscolariadPadreId { get; set; }
+        public int? GradoEscolariadMadreId { get; set; }
+        public int? TrabajoDuranteSuCarreraId { get; set; }
+        public int? RazonTrabajoDuranteSuCarreraId { get; set; }
+        public int? CuandoComenzoTrabajarId { get; set; }
+        public int? EfectosTrabajoDuranteEstudiosId { get; set; }
+        public string? OtrosEfectosTrabajoDuranteEstudios { get; set; }
+    }
+}

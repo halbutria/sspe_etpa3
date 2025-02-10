@@ -1,0 +1,33 @@
+<app-header></app-header>
+  
+<div class="counter">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active">
+    <li [ngbNavItem]="1">
+      
+      <a ngbNavLink><span>1</span> Registro</a>
+      <ng-template ngbNavContent>
+        <app-validate></app-validate>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2" [disabled]="!showBasicData">
+      
+      <a ngbNavLink><span>2</span> Datos básicos</a>
+      <ng-template ngbNavContent>
+        <app-basic-data></app-basic-data>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3" [disabled]="!showAddNotifications">
+      
+      <a ngbNavLink><span>3</span> Medios de notificación</a>
+      <ng-template ngbNavContent>
+        <app-notifications></app-notifications>
+      </ng-template>
+    </li>
+  </ul>
+</div>
+
+<div class="container-steps-info">
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>
+
+<app-footer></app-footer>

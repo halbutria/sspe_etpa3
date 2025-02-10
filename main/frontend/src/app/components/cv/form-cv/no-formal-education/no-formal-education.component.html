@@ -1,0 +1,59 @@
+<div class="container-fluid m-2">
+  <div class="container-load clearfix cargando" *ngIf="showLoading">
+    <div class="spinner-border float-end" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container d-flex">
+      <form [formGroup]="tieneForm">
+        <label class="me-2">¿Tienes educación informal?</label>
+        <div class="btn-group" role="group" aria-label="Si y no de tiene educación no formal">
+          <input type="radio" class="btn-check" formControlName="tiene" value="true" id="si-tiene"
+            [checked]="checkedTieneEducacionNoFormalSi" autocomplete="off"
+            (change)="cambiaTieneEducacionNoFormal($event)">
+          <label class="btn btn-outline-danger" for="si-tiene">SI</label>
+
+          <input type="radio" class="btn-check" formControlName="tiene" value="false" id="no-tiene"
+            [checked]="checkedTieneEducacionNoFormalNo" autocomplete="off"
+            (change)="cambiaTieneEducacionNoFormal($event)">
+          <label class="btn btn-outline-danger" for="no-tiene">NO</label>
+        </div>
+      </form>
+
+      <div class="content-nueva-educacion">
+        <button class="btn btn-outline-warning" type="button" (click)="openModalForm('new')"
+          [disabled]="disableBtnAdd">Agregar</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Card para mostrar las educaciones no formales agregadas y guardadas del ciudadano -->
+  <div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let info of listNoFormalEducation">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ this.parametricosService.getById(info.tipoCertificadoCapacitacionId.toString(),
+            PARAMETRICOS.TIPO_CAPACITACION) | async }}
+          </h5>
+          <ul class="list-group">
+            <li class="list-group-item fs-6">{{ info.nombrePrograma }}</li>
+            <li class="list-group-item fs-6">{{ info.institucion }}</li>
+            <li class="list-group-item fs-6">{{ this.parametricosService.getById(info.estadoId.toString(),
+              PARAMETRICOS.ESTADO_EDUCACION_NO_FORMAL) | async }}</li>
+          </ul>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <button class="btn btn-secondary" (click)="openModalForm('edit', info)">
+            <fa-icon class="fa-2xl" [icon]="['fas', 'edit']"></fa-icon>
+          </button>
+          <button class="btn btn-danger" (click)="deleteNoFormalEducation(info)">
+            <fa-icon class="fa-2xl" [icon]="['fas', 'trash-alt']"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

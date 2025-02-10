@@ -1,0 +1,215 @@
+<form [formGroup]="previousExperienceForm" (ngSubmit)="addPreviousExperience()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ typeStr }} - Experiencia Previa</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row pt-4 pe-4 pb-4 ps-4">
+      <!-- Tipo de experiencia -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['tipoExperienciaId'].hasError('required')">*</span>
+          Tipo de experiencia
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="tipoExperienciaId" [ngClass]="{ 'is-valid': (f['tipoExperienciaId'].dirty || submitted) && !f['tipoExperienciaId'].errors,
+                  'is-invalid': (f['tipoExperienciaId'].dirty || submitted) && f['tipoExperienciaId'].errors }">
+            <option [value]="tipoExp.id" *ngFor="let tipoExp of cvService.$tipoExpPrevia | async">
+              {{tipoExp.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['tipoExperienciaId'].dirty || submitted) && f['tipoExperienciaId'].errors">
+            * Tipo de experiencia requerido
+          </div>
+        </div>
+      </div>
+      <!-- Título obtenido relacionado con experiencia previa -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['ciudadanoEducacionFormalId'].hasError('required')">*</span>
+          Título obtenido relacionado con experiencia previa
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="ciudadanoEducacionFormalId"
+            [ngClass]="{ 'is-valid': (f['ciudadanoEducacionFormalId'].dirty || submitted) && !f['ciudadanoEducacionFormalId'].errors,
+                  'is-invalid': (f['ciudadanoEducacionFormalId'].dirty || submitted) && f['ciudadanoEducacionFormalId'].errors }">
+            <option [value]="titulo.id" *ngFor="let titulo of listTitulosEdFormal">
+              {{titulo.tituloObtenido}}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['ciudadanoEducacionFormalId'].dirty || submitted) && f['ciudadanoEducacionFormalId'].errors">
+            * Título obtenido requerido
+          </div>
+        </div>
+      </div>
+      <!-- Lugar dónde realizó su experiencia previa -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['lugarExperiencia'].hasError('required')">*</span>
+          Lugar dónde realizó su experiencia previa
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="lugarExperiencia" [ngClass]="{ 'is-valid': (f['lugarExperiencia'].dirty || submitted) && !f['lugarExperiencia'].errors,
+                'is-invalid': (f['lugarExperiencia'].dirty || submitted) && f['lugarExperiencia'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['lugarExperiencia'].dirty || submitted) && f['lugarExperiencia'].errors">
+            * Cuántas personas trabajan con usted es requerido
+          </div>
+        </div>
+      </div>
+      <!-- Fecha de ingreso -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['fechaIngreso'].hasError('required')">*</span>
+          Fecha de ingreso
+        </label>
+        <div class="form-group">
+          <div class="input-group date">
+            <input class="form-control" placeholder="dd/mm/yyyy" formControlName="fechaIngreso"
+              [(ngModel)]="fechaIngreso" ngbDatepicker #dIngreso="ngbDatepicker" (click)="dIngreso.toggle()"
+              [minDate]="minDate" [maxDate]="maxDate" [ngClass]="{ 'is-valid': (f['fechaIngreso'].dirty || submitted) && !f['fechaIngreso'].errors,
+                  'is-invalid': (f['fechaIngreso'].dirty || submitted) && f['fechaIngreso'].errors }">
+            <div class="input-group-append" role="button" (click)="dIngreso.toggle()">
+              <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="(f['fechaIngreso'].dirty || submitted) && f['fechaIngreso'].errors">
+            * Fecha de ingreso requerida
+          </div>
+        </div>
+      </div>
+      <!-- Fecha de retiro -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['fechaRetiro'].hasError('required')">*</span>
+          Fecha de retiro
+        </label>
+        <div class="form-group">
+          <div class="input-group date">
+            <input class="form-control" placeholder="dd/mm/yyyy" formControlName="fechaRetiro" [(ngModel)]="fechaRetiro"
+              ngbDatepicker #fretiro="ngbDatepicker" (click)="fretiro.toggle()" [minDate]="minDateRetiro"
+              [maxDate]="maxDate" [ngClass]="{ 'is-valid': (f['fechaRetiro'].dirty || submitted) && !f['fechaRetiro'].errors,
+                  'is-invalid': (f['fechaRetiro'].dirty || submitted) && f['fechaRetiro'].errors }">
+            <div class="input-group-append" role="button" (click)="fretiro.toggle()">
+              <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="(f['fechaRetiro'].dirty || submitted) && f['fechaRetiro'].errors">
+            * Fecha de retiro requerida
+          </div>
+        </div>
+      </div>
+      <!-- Ocupación equivalente -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['ocupacionId'].hasError('required')">*</span>
+          Ocupación equivalente
+        </label>
+        <div class="form-group-no-border">
+          <ejs-dropdownlist *ngIf="(cvService.$denominaciones | async) as denominaciones; else loadingDenominaciones"
+            id='ocupaciones' class="form-select sinflecha_ejs" [placeholder]='"Seleccionar una ocupación"' [allowFiltering]="true"
+            formControlName="ocupacionId" [dataSource]='denominaciones' [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="cambiaOcupacion($event)" [ngClass]="{ 'is-valid': (f['ocupacionId'].dirty || submitted) && !f['ocupacionId'].errors,
+          'is-invalid': (f['ocupacionId'].dirty || submitted) && f['ocupacionId'].errors }"></ejs-dropdownlist>
+          <ng-template #loadingDenominaciones>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback" *ngIf="(f['ocupacionId'].dirty || submitted) && f['ocupacionId'].errors">
+            * Ocupación equivalente requerido
+          </div>
+        </div>
+      </div>
+      <!-- Conocimientos -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['conocimientoCompetenciaExperienciaPrevia'].hasError('required')">*</span>
+          Conocimientos
+        </label>
+        <div class="form-group">
+          <ejs-multiselect class="form-select sinflecha_ejs" name="conocimientos" id="conocimientos"
+            [ngClass]="{ 'is-valid': (f['conocimientoCompetenciaExperienciaPrevia'].dirty || submitted) && !f['conocimientoCompetenciaExperienciaPrevia'].errors,
+          'is-invalid': (f['conocimientoCompetenciaExperienciaPrevia'].dirty || submitted) && f['conocimientoCompetenciaExperienciaPrevia'].errors }" [dataSource]='listConocimientos'
+            [placeholder]='"Seleccionar uno o varios"' [fields]="{ text: 'nombre', value: 'id' }"
+            (select)="seleccionarMultiCampo($event, 'conocimientoCompetenciaExperienciaPrevia')"
+            (removing)="quitarMulticampo($event, 'conocimientoCompetenciaExperienciaPrevia')" mode="Box"
+            [formControl]="conocimientosControl"></ejs-multiselect>
+          <div class="invalid-feedback"
+            *ngIf="(f['conocimientoCompetenciaExperienciaPrevia'].dirty || submitted) && f['conocimientoCompetenciaExperienciaPrevia'].errors">
+            * Conocimientos requerido
+          </div>
+        </div>
+      </div>
+      <!-- Habilidades -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['habilidadDestrezaExperienciaPrevia'].hasError('required')">*</span>
+          Habilidades
+        </label>
+        <div class="form-group">
+          <ejs-multiselect class="form-select sinflecha_ejs" name="cargos" id="cargos"
+            [ngClass]="{ 'is-valid': (f['habilidadDestrezaExperienciaPrevia'].dirty || submitted) && !f['habilidadDestrezaExperienciaPrevia'].errors,
+          'is-invalid': (f['habilidadDestrezaExperienciaPrevia'].dirty || submitted) && f['habilidadDestrezaExperienciaPrevia'].errors }" [dataSource]='listHabilidades'
+            [placeholder]='"Seleccionar una o varias"' [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="seleccionarMultiCampo($event, 'habilidadDestrezaExperienciaPrevia')"
+            (removing)="quitarMulticampo($event, 'habilidadDestrezaExperienciaPrevia')" mode="Box"
+            [formControl]="habilidadesControl"></ejs-multiselect>
+          <div class="invalid-feedback"
+            *ngIf="(f['habilidadDestrezaExperienciaPrevia'].dirty || submitted) && f['habilidadDestrezaExperienciaPrevia'].errors">
+            * Habilidades requerido
+          </div>
+        </div>
+      </div>
+
+      <nav class="navbar navbar-expand-lg head-navigation mt-4 mb-2">
+        <div class="container">
+          <span class="navbar-brand">Datos referencia laboral</span>
+        </div>
+      </nav>
+
+      <!-- Nombre de la empresa -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['nombre'].hasError('required')">*</span>
+          Nombre
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="nombre" [ngClass]="{ 'is-valid': (f['nombre'].dirty || submitted) && !f['nombre'].errors,
+                'is-invalid': (f['nombre'].dirty || submitted) && f['nombre'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['nombre'].dirty || submitted) && f['nombre'].errors">
+            * Nombre requerido
+          </div>
+        </div>
+      </div>
+      <!-- Teléfono contacto -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['telefono'].hasError('required')">*</span>
+          Teléfono contacto
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="telefono"
+            (keyup)="validateOnlyNumberInput($event, 'telefono')" [ngClass]="{ 'is-valid': (f['telefono'].dirty || submitted) && !f['telefono'].errors,
+                'is-invalid': (f['telefono'].dirty || submitted) && f['telefono'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['telefono'].dirty || submitted) && f['telefono'].errors">
+            * Teléfono contacto requerido
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

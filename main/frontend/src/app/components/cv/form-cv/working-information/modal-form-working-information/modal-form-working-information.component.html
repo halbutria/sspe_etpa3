@@ -1,0 +1,314 @@
+<form [formGroup]="workingInformationForm" (ngSubmit)="addWorkingInformation()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ typeStr }} - Información laboral</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row pt-4 pe-4 pb-4 ps-4 div-informacion-laboral ">
+      <!-- Tipo de experiencia -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['tipoExperienciaId'].hasError('required')">*</span>
+          Tipo de experiencia
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="tipoExperienciaId" [ngClass]="{ 'is-valid': (f['tipoExperienciaId'].dirty || submitted) && !f['tipoExperienciaId'].errors,
+                  'is-invalid': (f['tipoExperienciaId'].dirty || submitted) && f['tipoExperienciaId'].errors }">
+            <option [value]="tipoExp.id" *ngFor="let tipoExp of cvService.$tipoExperiencia | async">
+              {{tipoExp.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['tipoExperienciaId'].dirty || submitted) && f['tipoExperienciaId'].errors">
+            * Tipo de experiencia requerido
+          </div>
+        </div>
+      </div>
+      <!-- ¿Qué producto o servicio, produce o comercializa? -->
+      <div class="col-md-6 mb-2" *ngIf="showFieldChildTipoExp">
+        <label>
+          <span class="text-danger" *ngIf="f['productoServicioProduceComercializa'].hasError('required')">*</span>
+          ¿Qué producto o servicio, produce o comercializa?
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="productoServicioProduceComercializa"
+            [ngClass]="{ 'is-valid': (f['productoServicioProduceComercializa'].dirty || submitted) && !f['productoServicioProduceComercializa'].errors,
+                'is-invalid': (f['productoServicioProduceComercializa'].dirty || submitted) && f['productoServicioProduceComercializa'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['productoServicioProduceComercializa'].dirty || submitted) && f['productoServicioProduceComercializa'].errors">
+            * Producto o servicio que produce o comercializa requerido
+          </div>
+        </div>
+      </div>
+      <!-- Cuántas personas trabajan con usted? -->
+      <div class="col-md-6 mb-2" *ngIf="showFieldChildTipoExp">
+        <label>
+          <span class="text-danger" *ngIf="f['cuantasPresonasTrabajanConUsted'].hasError('required')">*</span>
+          ¿Cuántas personas trabajan con usted?
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="cuantasPresonasTrabajanConUsted"
+            (keyup)="validateOnlyNumberInput($event, 'cuantasPresonasTrabajanConUsted')"
+            [ngClass]="{ 'is-valid': (f['cuantasPresonasTrabajanConUsted'].dirty || submitted) && !f['cuantasPresonasTrabajanConUsted'].errors,
+                'is-invalid': (f['cuantasPresonasTrabajanConUsted'].dirty || submitted) && f['cuantasPresonasTrabajanConUsted'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['cuantasPresonasTrabajanConUsted'].dirty || submitted) && f['cuantasPresonasTrabajanConUsted'].errors">
+            <span class="text-danger" *ngIf="f['cuantasPresonasTrabajanConUsted'].hasError('required')">
+              * Cuántas personas trabajan con usted es requerido
+            </span>
+            <span class="text-danger" *ngIf="f['cuantasPresonasTrabajanConUsted'].hasError('maxlength')">
+              * No puede superar los 999
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Sector -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['sectorId'].hasError('required')">*</span>
+          Sector
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="sectorId" [ngClass]="{ 'is-valid': (f['sectorId'].dirty || submitted) && !f['sectorId'].errors,
+                  'is-invalid': (f['sectorId'].dirty || submitted) && f['sectorId'].errors }">
+            <option [value]="area.id" *ngFor="let area of cvService.$sector | async">
+              {{area.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="(f['sectorId'].dirty || submitted) && f['sectorId'].errors">
+            * Sector requerida
+          </div>
+        </div>
+      </div>
+      <!-- País -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['paisId'].hasError('required')">*</span>
+          País
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="paisId" [ngClass]="{ 'is-valid': (f['paisId'].dirty || submitted) && !f['paisId'].errors,
+                  'is-invalid': (f['paisId'].dirty || submitted) && f['paisId'].errors }">
+            <option [value]="pais.id" *ngFor="let pais of cvService.$paisesNacimiento | async">
+              {{pais.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="(f['paisId'].dirty || submitted) && f['paisId'].errors">
+            * País requerido
+          </div>
+        </div>
+      </div>
+      <!-- Nombre de la empresa -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['nombreEmpresa'].hasError('required')">*</span>
+          Nombre de la empresa
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="nombreEmpresa" [ngClass]="{ 'is-valid': (f['nombreEmpresa'].dirty || submitted) && !f['nombreEmpresa'].errors,
+                'is-invalid': (f['nombreEmpresa'].dirty || submitted) && f['nombreEmpresa'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['nombreEmpresa'].dirty || submitted) && f['nombreEmpresa'].errors">
+            * Nombre de la empresa requerido
+          </div>
+        </div>
+      </div>
+      <!-- Teléfono empresa -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['telefonoEmpresa'].hasError('required')">*</span>
+          Teléfono empresa
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="telefonoEmpresa"
+            (keyup)="validateOnlyNumberInput($event, 'telefonoEmpresa')" [ngClass]="{ 'is-valid': (f['telefonoEmpresa'].dirty || submitted) && !f['telefonoEmpresa'].errors,
+                'is-invalid': (f['telefonoEmpresa'].dirty || submitted) && f['telefonoEmpresa'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['telefonoEmpresa'].dirty || submitted) && f['telefonoEmpresa'].errors">
+            <span class="text-danger" *ngIf="f['telefonoEmpresa'].hasError('required')">
+              * Teléfono empresa requerido
+            </span>
+            <span class="text-danger" *ngIf="f['telefonoEmpresa'].hasError('minlength')">
+              * Ingrese mínimo {{ countMinDigit }} dígitos
+            </span>
+            <span class="text-danger" *ngIf="f['telefonoEmpresa'].hasError('maxlength')">
+              * Ingrese máximo 10 dígitos
+            </span>
+            <span class="text-danger" *ngIf="f['telefonoEmpresa'].hasError('firstDigit')">
+              * El primer dígito debe ser 6 o 3
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Fecha de ingreso -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['fechaIngreso'].hasError('required')">*</span>
+          Fecha de ingreso
+        </label>
+        <div class="form-group">
+          <div class="input-group date">
+            <input class="form-control" placeholder="dd/mm/yyyy" formControlName="fechaIngreso"
+              [(ngModel)]="fechaIngreso" ngbDatepicker #dIngreso="ngbDatepicker" (click)="dIngreso.toggle()"
+              [minDate]="minDate" [maxDate]="maxDate" [ngClass]="{ 'is-valid': (f['fechaIngreso'].dirty || submitted) && !f['fechaIngreso'].errors,
+                  'is-invalid': (f['fechaIngreso'].dirty || submitted) && f['fechaIngreso'].errors }">
+            <div class="input-group-append" role="button" (click)="dIngreso.toggle()">
+              <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="(f['fechaIngreso'].dirty || submitted) && f['fechaIngreso'].errors">
+            * Fecha de ingreso requerida
+          </div>
+        </div>
+      </div>
+      <!-- Trabaja aquí actualmente -->
+      <div class="col-md-6 mb-2">
+        <div class="form-check form-switch">
+          <label>
+            <input class="form-check-input" type="checkbox" value="1" (change)="onCheckboxChange($event)"
+              [checked]="f['trabajoActual'].value" />
+            Trabaja actualmente aquí
+          </label>
+        </div>
+      </div>
+      <!-- Fecha de retiro -->
+      <div class="col-md-6 mb-2" *ngIf="showFieldFechaRetiro">
+        <label>
+          <span class="text-danger" *ngIf="f['fechaRetiro'].hasError('required')">*</span>
+          Fecha de retiro
+        </label>
+        <div class="form-group">
+          <div class="input-group date">
+            <input class="form-control" placeholder="dd/mm/yyyy" formControlName="fechaRetiro" [(ngModel)]="fechaRetiro"
+              ngbDatepicker #fretiro="ngbDatepicker" (click)="fretiro.toggle()" [minDate]="minDateRetiro"
+              [maxDate]="maxDate" [ngClass]="{ 'is-valid': (f['fechaRetiro'].dirty || submitted) && !f['fechaRetiro'].errors,
+                  'is-invalid': (f['fechaRetiro'].dirty || submitted) && f['fechaRetiro'].errors }">
+            <div class="input-group-append" role="button" (click)="fretiro.toggle()">
+              <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="(f['fechaRetiro'].dirty || submitted) && f['fechaRetiro'].errors">
+            * Fecha de retiro requerida
+          </div>
+        </div>
+      </div>
+      <!-- Cargo -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['cargo'].hasError('required')">*</span>
+          Cargo
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="cargo" [ngClass]="{ 'is-valid': (f['cargo'].dirty || submitted) && !f['cargo'].errors,
+                'is-invalid': (f['cargo'].dirty || submitted) && f['cargo'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['cargo'].dirty || submitted) && f['cargo'].errors">
+            * Cargo requerido
+          </div>
+        </div>
+      </div>
+      <!-- Ocupación equivalente -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['ocupacionEquivalenteId'].hasError('required')">*</span>
+          Ocupación equivalente
+        </label>
+        <div class="form-group-no-border">
+          <ejs-dropdownlist *ngIf="(cvService.$denominaciones | async) as denominaciones; else loadingDenominaciones"
+            id='ocupaciones' class="form-select sinflecha_ejs" [placeholder]='"Seleccionar una ocupación"'
+            formControlName="ocupacionEquivalenteId" [dataSource]='denominaciones'
+            [fields]=" { text: 'nombre', value: 'id' }" (select)="cambiaOcupacion($event)" [allowFiltering]="true"
+            [ngClass]="{ 'is-valid': (f['ocupacionEquivalenteId'].dirty || submitted) && !f['ocupacionEquivalenteId'].errors,
+          'is-invalid': (f['ocupacionEquivalenteId'].dirty || submitted) && f['ocupacionEquivalenteId'].errors }"></ejs-dropdownlist>
+          <ng-template #loadingDenominaciones>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback"
+            *ngIf="(f['ocupacionEquivalenteId'].dirty || submitted) && f['ocupacionEquivalenteId'].errors">
+            * Ocupación equivalente requerido
+          </div>
+        </div>
+      </div>
+      <!-- Conocimientos -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['conocimientoCompetenciaInformacionLaboral'].hasError('required')">*</span>
+          Conocimientos
+        </label>
+        <div class="form-group">
+          <ejs-multiselect class="form-select sinflecha_ejs" name="conocimientos" id="conocimientos"
+            [ngClass]="{ 'is-valid': (f['conocimientoCompetenciaInformacionLaboral'].dirty || submitted) && !f['conocimientoCompetenciaInformacionLaboral'].errors,
+          'is-invalid': (f['conocimientoCompetenciaInformacionLaboral'].dirty || submitted) && f['conocimientoCompetenciaInformacionLaboral'].errors }" [dataSource]='listConocimientos'
+            [placeholder]='"Seleccionar uno o varios"' [fields]="{ text: 'nombre', value: 'id' }"
+            (select)="seleccionarMultiCampo($event, 'conocimientoCompetenciaInformacionLaboral')"
+            (removing)="quitarMulticampo($event, 'conocimientoCompetenciaInformacionLaboral')" mode="Box"
+            [formControl]="conocimientosControl"></ejs-multiselect>
+          <div class="invalid-feedback"
+            *ngIf="(f['conocimientoCompetenciaInformacionLaboral'].dirty || submitted) && f['conocimientoCompetenciaInformacionLaboral'].errors">
+            * Conocimientos requerido
+          </div>
+        </div>
+      </div>
+      <!-- Habilidades -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['habilidadDestrezaInformacionLaboral'].hasError('required')">*</span>
+          Habilidades
+        </label>
+        <div class="form-group">
+          <ejs-multiselect class="form-select sinflecha_ejs" name="cargos" id="cargos"
+            [ngClass]="{ 'is-valid': (f['habilidadDestrezaInformacionLaboral'].dirty || submitted) && !f['habilidadDestrezaInformacionLaboral'].errors,
+          'is-invalid': (f['habilidadDestrezaInformacionLaboral'].dirty || submitted) && f['habilidadDestrezaInformacionLaboral'].errors }" [dataSource]='listHabilidades'
+            [placeholder]='"Seleccionar una o varias"' [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="seleccionarMultiCampo($event, 'habilidadDestrezaInformacionLaboral')"
+            (removing)="quitarMulticampo($event, 'habilidadDestrezaInformacionLaboral')" mode="Box"
+            [formControl]="habilidadesControl"></ejs-multiselect>
+          <div class="invalid-feedback"
+            *ngIf="(f['habilidadDestrezaInformacionLaboral'].dirty || submitted) && f['habilidadDestrezaInformacionLaboral'].errors">
+            * Habilidades requerido
+          </div>
+        </div>
+      </div>
+
+
+
+  <!-- Habilidades -->
+  <div class="col-md-12 mb-12">
+    <label>
+      <span class="text-danger" *ngIf="f['funciones'].hasError('required')">*</span>
+      Funciones
+    </label>
+    <div class="form-group">
+        <textarea class="form-control" placeholder="" formControlName="funciones" rows="3" [ngClass]="{ 'is-valid': (f['funciones'].dirty || submitted) && !f['funciones'].errors,
+        'is-invalid': (f['funciones'].dirty || submitted) && f['funciones'].errors }">
+        </textarea>
+        <small class="form-text text-muted">Caracteres restantes:
+          <span>{{ caracteresFaltantes('funciones', 3000) }}</span>
+        </small>
+        <div class="invalid-feedback" *ngIf="(f['funciones'].dirty || submitted) && f['funciones'].errors">
+          <span class="text-danger" *ngIf="f['funciones'].hasError('required')">
+            * Perfil laboral requerido
+          </span>
+          <span class="text-danger" *ngIf="f['funciones'].hasError('minlength')">
+            * Debe ingresar mínimo 20 caracteres
+          </span>
+        </div>
+      </div>
+  </div>
+
+
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

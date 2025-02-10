@@ -1,0 +1,149 @@
+.container-login {
+  background: url('src/assets/img/textura-background.svg');
+  background-size: cover;
+  padding: 64px 16px;
+  background-position-x: center;
+  background-position-y: -70px;
+  background-repeat: no-repeat;
+}
+
+.container-login .content-login {
+  background: #fff;
+  max-width: 460px;
+  margin: auto;
+  padding: 40px 24px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 460px;
+  flex-shrink: 0;
+  border: thin solid #e0e0e0;
+  border-radius: 12px;
+}
+.container-login .content-login h1{
+  margin-bottom: 32px;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Futura Std Medium";
+}
+
+
+.container-login .content-login a {
+  color: #F90013;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+.container-login .content-login a:hover {
+  color: #444;
+  cursor: pointer;
+}
+
+.container-login .content-login .rembemberpass {
+  margin: 12px 0 40px 0;
+  text-align: right;
+}
+.container-login .content-login .rembemberpass .btn-link {
+  color: #888;
+  font-size: 14px;
+}
+.container-login .content-login .btn-login{
+  text-align: center;
+}
+.container-login .content-login .btn{
+  padding: 10px 16px;
+  font-size: 1rem;
+  background: #F90013;
+  border: thin solid #F90013;
+  color: #fff;
+  display: block;
+  min-width: 112px;
+  margin: auto;
+}
+.container-login .content-login .btn:hover{
+  border: thin solid #F90013;
+  color: #F90013;
+  transition: 0.8s;
+  background: #fff;
+}
+.container-login .content-login .register{
+  text-align: center;
+  color: #717171;
+  font-size: 16px;
+  width: 90%;
+  margin: 40px auto 0;
+}
+
+
+.form-group {
+  margin-bottom: 12px;
+} 
+.login label {
+    font-size: 14px;
+    position: relative;
+    top: 14px;
+    left: 38px;
+    line-height: initial;
+    margin-bottom: initial;
+    z-index: 20;
+    padding: 4px 4px;
+    background: #fff;
+}
+.input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  padding: 11px 12px;
+  color: #444;
+  font-family: "Futura Std Medium";
+}
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
+  border-radius: 0 4px 4px 0;
+  border-left: initial;
+}
+.input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
+  border: thin solid #e0e0e0;
+  border-left: initial;
+}
+.form-control.is-valid, .was-validated .form-control:valid{
+  border: thin solid #e0e0e0;
+  border-left: initial;
+
+}
+.form-control:focus{
+  color: #212529;
+  background-color: #fff;
+  border-color: initial;
+  outline: 0;
+  box-shadow: initial;
+}
+.form-control.is-valid:focus, .was-validated .form-control:valid:focus {
+  border-color: initial;
+  box-shadow: initial;
+}
+.form-control.is-invalid:focus, .was-validated .form-control:invalid:focus {
+  border-color: initial;
+  box-shadow: initial;
+}
+.form-select:focus {
+  border-color: initial;
+  outline: 0;
+  box-shadow: initial;
+}
+.form-select.is-valid:focus, .was-validated .form-select:valid:focus {
+  border-color: #198754;
+  box-shadow: initial;
+}
+.text-light{
+  color: initial !important;
+  color: #F90013 !important;
+}
+.input-group-text{
+  height: 100%;
+  background: #fff;
+  border-radius: 4px 0 0 4px;
+  border: thin solid #e0e0e0;
+  border-right: initial;
+}
+
+.input-group-text i{
+  color: #F90013;
+}

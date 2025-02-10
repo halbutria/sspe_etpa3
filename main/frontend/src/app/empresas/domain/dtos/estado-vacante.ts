@@ -1,0 +1,4 @@
+export enum ESTADO_VACANTE{
+  EN_PROCESO=1,
+  REGISTRADA=2
+}

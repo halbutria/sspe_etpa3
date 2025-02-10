@@ -1,0 +1,51 @@
+<div class="container-nav-cv">
+  <div class="nav-option-cv">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Información personal</a>
+        <ng-template ngbNavContent>
+          <app-personal-information></app-personal-information>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <!-- <a ngbNavLink>Educación formal</a> -->
+        <a ngbNavLink>Información académica</a>
+        <ng-template ngbNavContent>
+          <app-formal-education></app-formal-education>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Información laboral</a>
+        <ng-template ngbNavContent>
+          <app-working-information></app-working-information>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="4">
+        <!-- <a ngbNavLink>Educación no formal</a> -->
+        <a ngbNavLink>Educación informal</a>
+        <ng-template ngbNavContent>
+          <app-no-formal-education></app-no-formal-education>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="5">
+        <a ngbNavLink>Idiomas</a>
+        <ng-template ngbNavContent>
+          <app-languages></app-languages>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="6">
+        <a ngbNavLink>Conocimientos y destrezas</a>
+        <ng-template ngbNavContent>
+          <app-knowledge-skills></app-knowledge-skills>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="7">
+        <a ngbNavLink>Experiencias Previas</a>
+        <ng-template ngbNavContent>
+          <app-previous-experience></app-previous-experience>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

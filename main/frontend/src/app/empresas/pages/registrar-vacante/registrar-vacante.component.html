@@ -1,0 +1,55 @@
+<div class="container">
+  <!-- Nav tabs -->
+  <hr>
+  <div class="btn-group w-100" role="group" aria-label="Navegacion Registro">
+    <button [disabled]="tab_activo==1" (click)="navegarAnteriorTab()" type="button" class="btn btn-danger"> <fa-icon
+        icon="arrow-left"></fa-icon> Volver </button>
+    <button type="button" (click)="enProceso()" class="btn btn-danger"> <fa-icon icon="copy"></fa-icon> Guardar como
+      vacante en proceso</button>
+    <button *ngIf="tab_activo!=3" (click)="navegarSiguienteTab()" type="button" class="btn btn-danger"> Continuar
+      <fa-icon icon="arrow-right"></fa-icon></button>
+    <button *ngIf="tab_activo==3" (click)="registrar()" type="button" class="btn btn-danger"> <fa-icon
+        icon="save"></fa-icon> Registrar Vacante </button>
+  </div>
+  <hr>
+  <ul ngbNav #nav="ngbNav" [(activeId)]="tab_activo" (navChange)="onTabChange($event)" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <a ngbNavLink >Información General &nbsp; <ng-container *ngIf="erroresPorNAvLength('informacionGeneral'); let errores"><span *ngIf="errores > 0" class="badge rounded-pill bg-light text-dark">{{errores}}</span></ng-container> </a>
+      <ng-template ngbNavContent>
+        <registrar-vacante-informacion-general> </registrar-vacante-informacion-general>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <a ngbNavLink>Descripción Vacante &nbsp;<ng-container *ngIf="erroresPorNAvLength('descripcionVacante'); let errores"><span *ngIf="errores > 0" class="badge rounded-pill bg-light text-dark">{{errores}}</span></ng-container></a>
+      <ng-template ngbNavContent>
+        <registrar-vacante-descripcion> </registrar-vacante-descripcion>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3">
+      <a ngbNavLink>Detalle Contratación &nbsp;<ng-container *ngIf="erroresPorNAvLength('detalleContratacion'); let errores"><span *ngIf="errores > 0" class="badge rounded-pill bg-light text-dark">{{errores}}</span></ng-container></a>
+      <ng-template ngbNavContent>
+        <registrar-vacacante-detalle-contratacion></registrar-vacacante-detalle-contratacion>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+  <hr>
+
+  <div class="btn-group w-100" role="group" aria-label="Navegacion Registro">
+    <button [disabled]="tab_activo==1" (click)="navegarAnteriorTab()" type="button" class="btn btn-danger"> <fa-icon
+        icon="arrow-left"></fa-icon> Volver </button>
+    <button type="button" (click)="enProceso()" class="btn btn-danger"> <fa-icon icon="copy"></fa-icon> Guardar como
+      vacante en proceso</button>
+    <button *ngIf="tab_activo!=3" (click)="navegarSiguienteTab()" type="button" class="btn btn-danger"> Continuar
+      <fa-icon icon="arrow-right"></fa-icon></button>
+    <button *ngIf="tab_activo==3" (click)="registrar()" type="button" class="btn btn-danger"> <fa-icon
+        icon="save"></fa-icon> Registrar Vacante </button>
+  </div>
+</div>
+
+
+<!--   <pre class="container" (auxclick)="opacity = 0" (dblclick)="posLeft=!posLeft" (mouseenter)="opacity = 1" (mouseleave)="opacity=0.5" [style.left]="posLeft?'0px':''" [style.right]="!posLeft?'0px':''" [style.opacity]="opacity" style="height: 300px; overflow:scroll; position: fixed; top:18px;right:0px;width: 450px; font-size: 12px; background-color: rgb(255, 255, 255);">
+    {{srv.registrarForm.value | json}}
+  </pre> -->

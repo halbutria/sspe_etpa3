@@ -1,0 +1,60 @@
+.cargando {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+
+.input-group-text{
+  height: 100%;
+  background: #fff;
+  border-radius: 4px 0 0 4px;
+  border: thin solid #e0e0e0;
+  border-right: initial;
+}
+
+.content-button {
+  max-width: 840px;
+  margin: 0 auto;
+  text-align: right;
+}
+.input-group-text{
+  background: #fff;
+  border-radius: 0 4px 4px 0;
+  border: thin solid #e0e0e0;
+  border-left: initial;
+}
+.input-group-text i{
+  color: #F90013;
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+  border-radius: 4px;
+}
+.form-control {
+  border-radius: .375rem;
+}
+.col-2 .btn-secondary {
+  font-size: 14px;
+  padding: 2px;
+}
+.content-steps-info .row {
+  margin-top: -24px;
+}
+.content-steps-info .label-title {
+  position: relative;
+  top: -42px;
+  margin: 0;
+  padding: 0 8px;
+  background: #fff;
+  left: -4px;
+  font-size: 15px;
+}
+
+.content-steps-info {
+  margin-bottom: 48px;
+}

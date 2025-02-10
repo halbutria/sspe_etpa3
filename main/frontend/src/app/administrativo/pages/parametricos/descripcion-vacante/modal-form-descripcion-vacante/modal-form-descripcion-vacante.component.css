@@ -1,0 +1,23 @@
+.content-variables {
+  height: 100%;
+}
+
+.content-form {
+}
+
+.content-variables {
+  flex: 1; /* Hacer que el div de la derecha ocupe todo el espacio disponible */
+  display: flex; /* Usar flexbox para los elementos dentro del div de la derecha */
+  flex-direction: column; /* Alinear los elementos en columna dentro del div de la derecha */
+  color: #777;
+  font-family: "Futura Std Light";
+  font-size: 14px;
+  border: 2px dashed #ccc;
+  padding: 10px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+.badge:hover {
+  background-color: #0056b3;
+}

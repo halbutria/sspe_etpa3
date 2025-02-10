@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>SPE</title>
+  <base href="/">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png"> -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--     Fonts and icons     -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Scripc api js Re Captcha -->
+  <script type="text/javascript">
+    function onClick(e) {
+      e.preventDefault();
+      grecaptcha.ready(function () {
+        grecaptcha.execute('6LfZY1gjAAAAAHHIdN3-28jbibhHbWuHp7ICV0Lt', { action: 'submit' }).then(function (token) {
+          // Add your logic to submit to your backend server here.
+          console.log('refreshed token:', token);
+          document.getElementById("token").value = token;
+        });
+      });
+    }
+  </script>
+  <script type="text/javascript"
+    src="https://www.google.com/recaptcha/api.js?render=6LfZY1gjAAAAAHHIdN3-28jbibhHbWuHp7ICV0Lt"></script>
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>

@@ -1,0 +1,233 @@
+<div class="contrainer">
+  <form [formGroup]="srv.registrarForm">
+    <!--
+    --------------------------------------------------
+    TIPO CONTRATO | JORNADA LABORAL
+    --------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="tipoContrato" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','tipoContratoId')">*</span>
+            Tipo de contrato</label>
+          <select formControlName="tipoContratoId" class="form-select form-select-sm" name="tipoContrato" id="tipoContrato">
+            <option selected [value]="''">Seleccione un tipo de contrato</option>
+            <option *ngFor="let tipoContrato of srv.$tiposContrato |async" [value]="tipoContrato.id">{{tipoContrato.nombre}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('tipoContratoId')">
+            <div *ngIf="!srv.isValid('required','tipoContratoId')">* El tipo de contrato es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="joranadaLaboral" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','jornadaLaboralId')">*</span>
+            Jornada laboral</label>
+          <select formControlName="jornadaLaboralId" class="form-select form-select-sm" name="joranadaLaboral" id="joranadaLaboral">
+            <option [value]="''" selected>Seleccione una jornada laboral</option>
+            <option *ngFor="let jornada of srv.$jornadasLaborales|async" [value]="jornada.id">{{jornada.nombre}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('jornadaLaboralId')">
+            <div *ngIf="!srv.isValid('required','jornadaLaboralId')">* La jornada laboral es requerida</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+    -----------------------------------------------------------------
+    SALARIO | PERIODICIDAD SALARIAL | A CONVENIR | DEFINIDO | RANGO
+    -----------------------------------------------------------------
+    -->
+    <hr>
+    <div class="row">
+      <h3>Información salarial</h3>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><span class="text-danger" *ngIf="!srv.isValid('required','tipoSalarioId')">*</span>Seleccione la opción salarial que más se ajuste a la vacante</p>
+        <div class="btn-group" role="group" aria-label="salario">
+          <input formControlName="tipoSalarioId" [value]="TIPO_SALARIO.A_CONVENIR" type="radio" class="btn-check" name="tipoSalarioId" id="salarioAConvenir" autocomplete="off">
+          <label class="btn btn-outline-danger" for="salarioAConvenir">A Convenir</label>
+
+          <input formControlName="tipoSalarioId" [value]="TIPO_SALARIO.DEFINIDO" type="radio" class="btn-check" name="tipoSalarioId" id="salarioDefinido" autocomplete="off">
+          <label class="btn btn-outline-danger" for="salarioDefinido">Definido</label>
+
+          <input formControlName="tipoSalarioId" [value]="TIPO_SALARIO.RANGO" type="radio" class="btn-check" name="tipoSalarioId" id="salarioRango" autocomplete="off">
+          <label class="btn btn-outline-danger" for="salarioRango">Rango</label>
+        </div>
+        <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('tipoSalarioId')">
+          <div *ngIf="!srv.isValid('required','tipoSalarioId')">* Por favor seleccione un tipo de salario</div>
+        </div>
+      </div>
+      <div class="col" *ngIf="tipoSalarioSeleccionado != TIPO_SALARIO.A_CONVENIR">
+        <div class="row">
+          <div class="form-group mb-3">
+            <label for="periodicidadSalarial" class="form-label">
+              <span class="text-danger" *ngIf="!srv.isValid('required','periodicidadSalarialId')">*</span>
+              Periodicidad Salarial</label>
+            <select formControlName="periodicidadSalarialId" class="form-select form-select-sm" name="periodicidadSalarial" id="periodicidadSalarial" [ngClass]="srv.formControlValidStyle('periodicidadSalarialId')" >
+              <option selected [value]="''">Seleccione la periodicidad de los pagos salariales</option>
+              <option *ngFor="let periodicidad of srv.$periodicidadesSalariales|async" [value]="periodicidad.id">{{periodicidad.nombre}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('periodicidadSalarialId')">
+              <div *ngIf="!srv.isValid('required','periodicidadSalarialId')">*  Periodicidad salarial requerido</div>
+
+            </div>
+          </div>
+        </div>
+            <div class="row" *ngIf="tipoSalarioSeleccionado == TIPO_SALARIO.DEFINIDO">
+              <div class="form-group mb-3">
+              <label for="salarioDefinidoValor" class="form-label">
+                <span class="text-danger" *ngIf="!srv.isValid('required','rangoSalarialInicial')">*</span>
+                Salario definido</label>
+              <input formControlName="rangoSalarialInicial" type="text" min="1" [ngClass]="srv.formControlValidStyle('rangoSalarialInicial')"
+              class="form-control" name="salarioDefinidoValor" id="salarioDefinidoValor" aria-describedby="helpIdSalarioDefinidoValor" placeholder="Ingrese el monto a pagar"
+              mask="separator">
+              <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('rangoSalarialInicial')">
+                <div *ngIf="!srv.isValid('required','rangoSalarialInicial')">*  Salario definido requerido</div>
+                <div *ngIf="!srv.isValid('min','rangoSalarialInicial')">* Salario inicial debe ser un número mayor o igual que {{ formatSinimoSalario }}</div>
+              </div>
+              </div>
+            </div>
+          <div class="row" *ngIf="tipoSalarioSeleccionado == TIPO_SALARIO.RANGO">
+            <div class="row">
+              Rango salarial
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group mb-3">
+                  <label for="salarioDefinidoValor" class="form-label">
+                    <span class="text-danger" *ngIf="!srv.isValid('required','rangoSalarialInicial')">*</span>
+                    Salario inicial</label>
+                  <input formControlName="rangoSalarialInicial" type="text" min="1" [ngClass]="srv.formControlValidStyle('rangoSalarialInicial')"
+                    class="form-control" name="salarioRangoInicialValor" id="salarioRangoInicialValor" aria-describedby="helpIdsalarioRangoInicialValor" placeholder="Ingrese el monto mínimo a pagar"
+                    mask="separator">
+                  <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('rangoSalarialInicial')">
+                    <div *ngIf="!srv.isValid('required','rangoSalarialInicial')">* Salario inicial requerido</div>
+                    <div *ngIf="!srv.isValid('min','rangoSalarialInicial')">* Salario inicial debe ser un número mayor o igual que {{ formatSinimoSalario }}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group mb-3">
+                  <label for="salarioDefinidoValor" class="form-label">
+                    <span class="text-danger" *ngIf="!srv.isValid('required','rangoSalarialFinal')">*</span>
+                    Salario final </label>
+                  <input formControlName="rangoSalarialFinal" type="text" min="1" [ngClass]="srv.formControlValidStyle('rangoSalarialFinal') || srv.formControlValidStyle('rangoSalarialInicial')"
+                    class="form-control" name="salarioRangoFinalValor" id="salarioRangoFinalValor" aria-describedby="helpIdsalarioRangoFinalValor" placeholder="Ingrese el monto máximo a pagar"
+                    mask="separator">
+                  <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('rangoSalarialFinal')">
+                    <div *ngIf="!srv.isValid('required','rangoSalarialFinal')">* Salario final requerido</div>
+                    <div *ngIf="!srv.isValid('min','rangoSalarialFinal')">* El salario final debe tener un valor mayor que el salario inicial y debe ser mayor que 1</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!--
+    -----------------------------------------------------------------
+    COMPENSACIÓN ADICIONAL
+    -----------------------------------------------------------------
+    -->
+    <hr>
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <input formControlName="compensacionAdicional"  class="form-check-input" type="checkbox" id="compensacionAdicional">
+          <label class="form-check-label" for="compensacionAdicional">
+            <span class="text-danger" *ngIf="!srv.isValid('required','compensacionAdicional')">*</span>
+
+            Compensación adicional</label>
+          </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="descripcionCompensacionAdicional" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','descripcionCompensacionAdicional')">*</span>
+            Descripción compensación adicional </label>
+          <textarea formControlName="descripcionCompensacionAdicional" type="text" [minlength]="5" [maxlength]="500" [ngClass]="srv.formControlValidStyle('descripcionCompensacionAdicional')"
+            class="form-control" name="descripcionCompensacionAdicional" id="descripcionCompensacionAdicional" aria-describedby="helpIdDescripcionCompensacionAdicional" placeholder="Compensación adicional"></textarea>
+            <small class="form-text text-muted">Caracteres restantes: <span>{{srv.caracteresFaltantes('descripcionCompensacionAdicional',500)}}</span>
+              <span *ngIf="!srv.isValid('minlength','descripcionCompensacionAdicional')"> (Mínimo 5 caracteres)</span>
+            </small>
+            <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('descripcionCompensacionAdicional')">
+              <div *ngIf="!srv.isValid('required','descripcionCompensacionAdicional')">* La descripcion es requerida</div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+    <!--
+    -----------------------------------------------------------------
+    VISIBLE PARA BUSCADORES
+    -----------------------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <input formControlName="visibilidadSalario" class="form-check-input" type="checkbox" id="visibleParaBuscadores" checked>
+          <label class="form-check-label" for="visibleParaBuscadores">
+            <span class="text-danger" *ngIf="!srv.isValid('required','visibilidadSalario')">*</span>
+            Salario visible para los buscadores</label>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+    <!--
+    -----------------------------------------------------------------
+    VIDEO
+    -----------------------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <input formControlName="tieneVideoAdjunto" class="form-check-input" type="checkbox" id="adjuntarVideo" checked>
+          <label class="form-check-label" for="adjuntarVideo">
+            <span class="invalid-feedback" *ngIf="!srv.isValid('required','tieneVideoAdjunto')">*</span>
+            Adjuntar video para invitar a los buscadores a aplicar</label>
+        </div>
+        <div class="card" *ngIf="srv.getFormControl('tieneVideoAdjunto').value == true">
+          <div class="card-body">
+            <h4 class="card-title">Insertar o editar hipervínculo</h4>
+            <div class="card-text">
+            <div class="row">
+              <div class="col">
+                <div class="form-group mb-3">
+                  <label for="urlVideo" class="form-label">
+                    <span class="text-danger" *ngIf="!srv.isValid('required','videoUrl')">*</span>
+                    Url del video</label>
+                  <input formControlName="videoUrl" type="url" class="form-control" name="urlVideo" id="urlVideo" aria-describedby="helpIdUrlVideo" placeholder="https://www.youtube.com/embed/{videoId}" [ngClass]="srv.formControlValidStyle('videoUrl')" >
+                  <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('videoUrl')">
+                    <div *ngIf="!srv.isValid('required','videoUrl')">* La url es requerida</div>
+                    <div *ngIf="!srv.isValid('pattern','videoUrl')">* Por favor ingrese una url valida</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group mb-3">
+                <label for="descripcionVideo" class="form-label">
+                  <span class="text-danger" *ngIf="!srv.isValid('required','videoDescripcion')">*</span>
+                  Descripción del video</label>
+                <textarea formControlName="videoDescripcion" [maxlength]="500" [minlength]="10" [ngClass]="srv.formControlValidStyle('videoDescripcion')"
+                  class="form-control" name="descripcionVideo" id="descripcionVideo" aria-describedby="helpIdDescripcionVideo" placeholder="Detalle describiendo el video a publicar"></textarea>
+                  <small class="form-text text-muted">Caracteres restantes: <span>{{srv.caracteresFaltantes('videoDescripcion',500)}}</span>
+                    <span *ngIf="!srv.isValid('minlength','videoDescripcion')"> (Mínimo 10 caracteres)</span>
+                  </small>
+                  <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('videoDescripcion')">
+                    <div *ngIf="!srv.isValid('required','videoDescripcion')">* la descripción es requerida</div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </form>
+</div>
+<hr>

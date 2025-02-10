@@ -1,0 +1,65 @@
+.counter {
+    width: 100%;
+    display: block;
+    margin: 40px 0;
+}
+
+.counter ul {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 650px;
+    margin: 0 auto;
+    
+}
+.counter ul::before {
+    content: '';
+    display: block;
+    width: 100%;
+    max-width: 650px;
+    height: 1px;
+    background: #999;
+    position: relative;
+    top: 26px;
+    z-index: -1;
+}
+.counter ul li {
+    display: flex;
+    align-items: center;
+    background: #fff;
+}
+.counter ul li a {
+    display: initial;
+    display: flex;
+    align-items: center;
+    color: #858585;
+    font-size: 14px;
+}
+.counter ul li a span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F90013;
+    color: #fff !important;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.counter ul li .disabled span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #999 !important;
+    color: #fff !important;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+.container-steps-info{
+    padding: 0 16px;
+}
+  

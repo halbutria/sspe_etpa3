@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{NAME}#
+
+  namespace: #{NS}#
+spec:
+  replicas: #{REPL}#
+  selector:
+    matchLabels:
+      app: #{NAME}#
+  template:
+    metadata:
+      labels:
+        app: #{NAME}#
+    spec:
+      containers:
+      - name: #{NAME}#
+        image: #{CIMAGE}#
+        imagePullPolicy: Always
+        ports:
+        - containerPort: #{CPORT}#
+        livenessProbe:
+          httpGet:
+            path: health
+            port: 80
+        readinessProbe:
+          httpGet:
+            path: health
+            port: 80
+        resources:
+          limits:
+            cpu: 140m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi
+        env:
+          - name: CbcIntermedicacion
+            value: #{DB_STRING_INTERMEDIACION}#

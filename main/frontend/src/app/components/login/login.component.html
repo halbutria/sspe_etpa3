@@ -1,0 +1,90 @@
+<app-header></app-header>
+
+<div class="container-login">
+  <div class="content-login">
+    <h1>Inicio de sesión</h1>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginAction()">
+
+
+      <div class="col login">
+        <label>Tipo de documento</label>
+        <div class="input-group form-group form-group-no-border">
+          <div class="input-group-prepend">
+            <span class="input-group-text login2">
+              <i class="nc-icon nc-paper"></i>
+            </span>
+          </div>
+          <select class="form-select login3" placeholder="" formControlName="tipoDocumento"
+            (change)="validaNumeroDocumento($event)" [ngClass]="{ 'is-valid': (f['tipoDocumento'].dirty || submitted) && !f['tipoDocumento'].errors,
+            'is-invalid': (f['tipoDocumento'].dirty || submitted) && f['tipoDocumento'].errors }">
+            <option [value]="tipo.id" *ngFor="let tipo of listTipoDocumento">{{ tipo.nombre }}</option>
+          </select>
+          <div class="invalid-feedback text-light"
+            *ngIf="(f['tipoDocumento'].dirty || submitted) && f['tipoDocumento'].errors">
+            * Tipo de documento requerido
+          </div>
+        </div>
+      </div>
+
+      <div class="col login">
+        <label>Número de documento</label>
+        <div class="input-group form-group form-group-no-border">
+          <div class="input-group-prepend">
+            <span class="input-group-text login2">
+              <i class="nc-icon nc-circle-10"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control login3" placeholder="" formControlName="numeroDocumento"
+            (keyup)="validateOnlyNumberInput($event)" [ngClass]="{ 'is-valid': (f['numeroDocumento'].dirty || submitted) && !f['numeroDocumento'].errors,
+            'is-invalid': (f['numeroDocumento'].dirty || submitted) && f['numeroDocumento'].errors }">
+            <div class="invalid-feedback" *ngIf="(f['numeroDocumento'].dirty || submitted) && f['numeroDocumento'].errors">
+              <span class="text-danger" *ngIf="requiredNumDoc">
+                * Número de documento requerido
+              </span>
+              <span class="text-danger" *ngIf="maxLengthValidNumDoc">
+                * Excede la longitud máxima
+              </span>
+              <span class="text-danger" *ngIf="minLengthValidNumDoc">
+                * Mínimo debe ser de 6 dígitos
+              </span>
+            </div>
+        </div>
+      </div>
+
+      <div class="col login">
+        <label>Contraseña</label>
+        <div class="input-group form-group form-group-no-border">
+          <div class="input-group-prepend">
+            <span class="input-group-text login2">
+              <i class="nc-icon nc-key-25"></i>
+            </span>
+          </div>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control login3" formControlName="password">
+        </div>
+        <div class="rembemberpass">
+          <a (click)="alertEnConstruccion()" class="btn-link">¿Olvidó su contraseña?</a>
+        </div>
+      </div>  
+      <ngx-invisible-recaptcha #captchaElem [siteKey]="siteKey">
+      </ngx-invisible-recaptcha>
+      <div class="btn-login">
+          <button class="btn btn-inicio" type="submit">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+            *ngIf="submitted"></span>
+              Iniciar Sesión
+          </button>
+      </div>
+      <div class="register">
+        ¿No tienes una cuenta aún? Sé parte de nuestra comunidad.
+        <a routerLink="/register" class="btn-register">
+          Regístrate
+        </a> 
+      </div>
+
+      
+    </form>
+  </div>
+</div>
+
+<app-footer></app-footer>
+

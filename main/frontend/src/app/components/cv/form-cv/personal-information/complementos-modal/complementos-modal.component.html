@@ -1,0 +1,32 @@
+<form [formGroup]="complementForm" (ngSubmit)="saveAddComplement()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title text-center">Agregar Complemento</h5>
+  </div>
+  <div class="modal-body">
+    <p>Seleccione un tipo y digite el complemento para agregarlo a la dirección:</p>
+    <div class="row pt-4 pe-4 pb-4 ps-4">
+      <!-- Complemento -->
+      <div class="col-md-4 mb-2">
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="complementoId">
+            <option [value]="cpto.id" *ngFor="let cpto of listComplementos">
+              {{cpto.texto}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!-- Complemento texto -->
+      <div class="col-md-8 mb-2">
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="complemento">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-danger" (click)="activeModal.close(null)">Cerrar</button>
+    <button type="button" class="btn btn-success" (click)="saveAddComplement()" [disabled]="!complementForm.valid">
+      Agregar
+    </button>
+  </div>
+</form>

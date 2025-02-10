@@ -1,0 +1,39 @@
+{
+  "profiles": {
+    "SispeServicios.Api.Parametrico": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:8082",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CbcParametrico": "Server=tcp:sispe.database.windows.net,1433;Initial Catalog=Parametrico;Persist Security Info=False;User ID=ConNCbcQmTgXo;Password=Zh1aQA2bNc2wR0ks6XR*;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+        "CbcCiudadano": "Server=tcp:sispe.database.windows.net,1433;Initial Catalog=Ciudadano;Persist Security Info=False;User ID=ConNCbcQmTgXo;Password=Zh1aQA2bNc2wR0ks6XR*;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+      },
+      "dotnetRunMessages": true
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "publishAllPorts": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:9722",
+      "sslPort": 0
+    }
+  }
+}

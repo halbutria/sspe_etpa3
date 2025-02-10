@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: #{NAME}#-svc
+  namespace: #{NS}#
+spec:
+  ports:
+  - port: 8080
+    targetPort: #{CPORT}#
+    protocol: TCP
+    name: https
+  selector:
+    app: #{NAME}#

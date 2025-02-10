@@ -1,0 +1,87 @@
+footer {
+  background: #3266CC;
+  padding: 48px 32px 72px 32px;
+  margin-top: 72px;
+}
+footer .content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+footer .content .logos {
+  display: flex;
+  align-items: start;
+  padding-top: 8px;
+  margin-right: 40px;
+}
+footer .content .logos img {
+  max-height: 48px;
+}
+footer .content .contact-info {
+  max-width: 360px;
+  margin-right: 80px;
+}
+footer .content .contact-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+}
+
+footer .content .contact-info li {
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+footer .content .contact-info li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+footer .content .general-info {
+  display: flex;
+  text-align: right;
+  align-items: center;
+}
+footer .content .general-info .unidad {
+  margin-right: 32px;
+  max-width: 250px;
+  font-size: 14px;
+  color: #fff;
+}
+footer .content .general-info .unidad span {
+  display: block;
+  font-size: 16px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+footer .content .general-info .unidad a {
+  color: #FABD0B;
+}
+
+footer .content .general-info .redes {
+  display: flex;
+}
+footer .content .general-info .redes a {
+  margin: 0 2px;
+}
+
+@media only screen and (max-width: 950px) {
+  footer .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: initial;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+  footer .content .contact-info {
+    margin: 40px 0;
+  }
+  footer .content .general-info {
+    text-align: left;
+  }
+}

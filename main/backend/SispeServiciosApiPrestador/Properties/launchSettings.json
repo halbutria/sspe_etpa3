@@ -1,0 +1,39 @@
+{
+  "profiles": {
+    "SispeServicios.Api.Prestador": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://0.0.0.0:5118",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CbcPrestador": "Server=tcp:sispe.database.windows.net,1433;Initial Catalog=Prestador;Persist Security Info=False;User ID=ConNCbcQmTgXo;Password=Zh1aQA2bNc2wR0ks6XR*;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://0.0.0.0:5118"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "publishAllPorts": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:26411",
+      "sslPort": 0
+    }
+  }
+}

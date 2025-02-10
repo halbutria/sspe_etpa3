@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h5 class="modal-title text-center">Notificación</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="activeModal.close(false)"></button>
+</div>
+<div class="modal-body">
+  <h3>AVISO DE AUTORIZACIÓN PARA TRATAMIENTO DE DATOS PERSONALES</h3>
+  <p>
+    Debido a que la prestación de los servicios de gestión y colocación requieren del
+    suministro de información, de conformidad con lo dispuesto por la Ley 1636 de 2013
+    y el Decreto 2852 de 2013, de manera voluntaria, previa, explícita, informada e
+    inequívoca, otorgo consentimiento en los términos establecidos por la Ley
+    Estatutaria 1581 de 2012 y reglamentada por el Decreto 1377 de 2013 para que se
+    efectúe el tratamiento de la información suministrada para el fin exclusivo de realizar
+    las labores de intermediación laboral, análisis ocupacional en mi favor y demás
+    servicios a los que pueda tener acceso, de conformidad con los criterios definidos
+    por el Servicio Público de Empleo y lo definido y autorizado por el Ministerio del
+    Trabajo. El manejo de mi información igualmente lo autorizo para que se realice
+    según los términos y exigencias de la Ley 1636 y el Decreto 2852 de 2013.
+    De esta forma, reconozco que la información por mi suministrada estará a
+    disposición, para los mismos fines y con las mismas restricciones, teniendo derecho
+    entre otros a conocer, actualizar, rectificar o revocar la autorización de la
+    información o datos proporcionados para esta actividad conforme a la Ley
+    Estatutaria antes señalada</p>
+</div>
+<div class="modal-footer justify-content-between" *ngIf="!ocultarfooter">
+  <button type="button" class="btn btn-danger"  (click)="activeModal.close(false)" >No Aceptar</button>
+  <button type="button" class="btn btn-success" (click)="activeModal.close(true)">Aceptar</button>
+</div>

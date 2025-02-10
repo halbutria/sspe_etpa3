@@ -1,0 +1,117 @@
+<!--  -->
+<div class="listado-vacantes table-responsive box">
+  <!-- <div class="container"> -->
+  <table class="table table-striped table-sm table-hover align-middle Color-Gris-Standard"
+    [ngClass]="{'loading': cargando}">
+    <thead class="table-light text-light">
+      <!-- caption>
+          Gestionar y administrar vacantes
+        </caption -->
+      <tr class="table-header">
+        <th>Nombre</th>
+        <th>Fecha vencimiento</th>
+        <th>Fecha límite de envío HV</th>
+        <th>Departamento</th>
+        <th>Municipio</th>
+        <th>No Puestos</th>
+        <th>Estado</th>
+        <th>Empresa</th>
+        <th>Correo responsable</th>
+        <th>Es hidrocarburos</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider tbody-rows">
+      <tr>
+        <td colspan="10" *ngIf="error">
+          <div class="d-flex justify-content-center">
+            <div>Error al consultar la información</div>
+          </div>
+        </td>
+      </tr>
+
+      <tr class="table-light" *ngFor="let row of vacantes">
+        <td>{{ row.nombre }}</td>
+        <td>{{ row.fechaVencimientoVacante | date: 'dd-MM-yyyy'}}</td>
+        <td>{{ row.fechaLimiteEnvioHv | date: 'dd-MM-yyyy'}}</td>
+        <!-- <td>{{ this.parametricosSrv.getByIds(row.Departamentos,PARAMETRICOS.DEPARTAMENTOS) | async  }}</td> -->
+        <!-- {{this.parametricosSrv.getById(ubicacion.departamentoID,PARAMETRICOS.DEPARTAMENTOS) | async}} -->
+        <td>{{ row.Departamentos }}</td>
+        <td>{{ row.Municipios }}</td>
+        <!-- <td>{{ this.parametricosSrv.getByIds(row.Municipios,PARAMETRICOS.MUNICIPIO, PARAMETRICOS_FILTROS.MUNICIPIO__DEPARTAMENTO_ID,"0" ) | async  }}</td> -->
+        <td>{{ row.puestosRequeridos }}</td>
+        <td>{{ row.estado }}</td>
+        <td>{{ row.Empresa }}</td>
+        <td>{{ row.correo }} </td>
+        <td>{{ row.EsHidrocarburos }} </td>
+        <td>
+
+          <!--button type="button" class="btn btn-light btn-sm" (click)="open(row)">
+              <fa-icon  style="color: #F17B46;" icon="eye"></fa-icon>
+            </button -->
+          <a (click)="open(row)" style="margin-left:10px;" role="button" data-bs-toggle="tooltip"
+            data-bs-placement="left" title="Ver vacante"><fa-icon style="color: #707070;" icon="eye"></fa-icon></a>
+
+          <!--button style="margin-left:10px;" *ngIf="this.accion=='EN_PROCESO'"
+            [routerLink]="['/empresas/registrar-vacante/EN_PROCESO/'+row.id]"
+            type="button" class="btn btn-light btn-sm" >
+              <fa-icon style="color: #F17B46;" icon="edit"></fa-icon>
+            </button -->
+          <a *ngIf="this.accion=='EN_PROCESO'" [routerLink]="['/empresas/registrar-vacante/EN_PROCESO/'+row.id]"
+            style="margin-left:10px;" role="button" data-bs-toggle="tooltip" data-bs-placement="left"
+            title="Editar vacante"><fa-icon style="color: #F17B46;" icon="edit"></fa-icon></a>
+
+          <!--button *ngIf="this.accion=='COPIA'"
+            [routerLink]="['/empresas/registrar-vacante/COPIA/'+row.id]" [queryParams]="{id:row.id}"
+            type="button" class="btn btn-light btn-sm" >
+              <fa-icon style="color: #F17B46;" icon="copy"></fa-icon>
+            </button -->
+
+          <a *ngIf="this.accion=='COPIA'" [routerLink]="['/empresas/registrar-vacante/COPIA/'+row.id]"
+            style="margin-left:10px;" role="button" data-bs-toggle="tooltip" data-bs-placement="left"
+            title="Copiar vacante"><fa-icon style="color: #F17B46;" icon="copy"></fa-icon></a>
+
+        </td>
+      </tr>
+
+    </tbody>
+
+    <tfoot>
+
+      <tr>
+        <td colspan="10">
+
+          <ngb-pagination [collectionSize]="service.paginacion.TotalRegistros"
+            [(page)]="service.paginacion.PaginaActual" [maxSize]="service.paginacion.CandidadPagina"
+            [boundaryLinks]="true" [directionLinks]="true" [ellipses]="true"
+            (pageChange)="IrPagina($event)"></ngb-pagination>
+
+        </td>
+      </tr>
+
+
+    </tfoot>
+  </table>
+
+
+</div>
+
+<!-- </div> -->
+<!-- <style>
+  .container {
+    height: 850px;
+    position: relative;
+  }
+  .box {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .overlay {
+    z-index: 9;
+    background: #fff;
+    opacity: 0.9;
+  }
+</style> -->

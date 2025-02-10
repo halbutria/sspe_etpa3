@@ -1,0 +1,7 @@
+/* Establecer una altura máxima para el elemento */
+.content-menu {
+  max-height: calc(100vh - 224px);
+  /* Ajusta la altura máxima según tus necesidades */
+  overflow-y: auto;
+  /* Habilitar la barra de desplazamiento vertical cuando sea necesario */
+}

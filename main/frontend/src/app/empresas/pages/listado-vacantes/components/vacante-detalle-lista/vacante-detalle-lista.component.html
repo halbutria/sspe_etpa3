@@ -1,0 +1,238 @@
+<div class="modal-header">
+  <h5 class="modal-title">Detalle vacante</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          {{ NombreVacante}}
+        </div>
+        <div class="card-body">
+        
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <i class="css-icon">
+                  <span>{{
+                    VacanteSeleccionada.Empresa?.substring(0, 1)?.toUpperCase()
+                    }}</span>
+                </i>
+              </td>
+              <td>
+                {{
+                this.VacanteSeleccionada.Empresa == null
+                ? SinInformacion
+                : VacanteSeleccionada.Empresa
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="td-icon-css">
+                <i class="fa fa-registered" aria-hidden="true"></i>
+              </td>
+              <td>
+                {{
+                this.VacanteSeleccionada.Empresa == null
+                ? SinInformacion
+                : "Vacante " + VacanteSeleccionada.estado
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="td-icon-css">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+              </td>
+              <td>
+                {{
+                this.VacanteDetalle.jornadaLaboralId == null
+                ? SinInformacion
+                : (this.parametricosSrv.getById(
+                this.VacanteDetalle.jornadaLaboralId,
+                PARAMETRICOS.JORNADA_LABORAL
+                ) | async)
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="td-icon-css">
+                <i class="fa fa-money" aria-hidden="true"></i>
+              </td>
+              <td>
+                {{
+                this.VacanteDetalle.rangoSalarialInicial == null
+                ? SinInformacion
+                : this.VacanteDetalle.rangoSalarialInicial
+                }}
+                {{
+                this.VacanteDetalle.rangoSalarialFinal == null
+                ? ""
+                : " - " + this.VacanteDetalle.rangoSalarialFinal
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="td-icon-css">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+              </td>
+              <td>
+                {{
+                this.VacanteDetalle.tipoContratoId == null
+                ? SinInformacion
+                : (this.parametricosSrv.getById(
+                this.VacanteDetalle.tipoContratoId,
+                PARAMETRICOS.TIPO_CONTRATO
+                ) | async)
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="td-icon-css">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+              </td>
+              <td>
+                {{
+                VacanteSeleccionada.Municipios == ""
+                ? SinInformacion
+                : VacanteSeleccionada.Municipios
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="td-icon-css">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+              </td>
+              <td>
+                {{
+                this.VacanteDetalle.puestosRequeridos == null
+                ? SinInformacion
+                : this.VacanteDetalle.puestosRequeridos +
+                " Puestos de trabajos"
+                }}
+              </td>
+            </tr>
+            <!-- <tr>
+              <td colspan="2">La vacante fue publicada {{"2023-02-20 08:36:00" |dateAsAgo}} por</td>
+            </tr> -->
+            <!-- <tr>
+              <td>
+                <i class="css-icon">
+                  <span>J</span>
+                </i>
+              </td>
+              <td>Juan david mora</td>
+            </tr>-->
+            <tr>
+              <td rowspan="3">Cierra en</td>
+              <td *ngIf="this.VacanteDetalle.fechaLimiteEnvioHv == null">
+                {{ SinInformacion }}
+              </td>
+              <td *ngIf="this.VacanteDetalle.fechaLimiteEnvioHv != null">
+                <ctimer-countdown-timer
+                  [finishDateString]="this.VacanteDetalle.fechaLimiteEnvioHv"></ctimer-countdown-timer>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          Requerimientos de la vacante
+        </div>
+        <div class="card-body" id="cardRequerimiento">
+          <div>
+            <p>Conocimientos o competencias requeridas</p>
+
+            <p *ngIf="this.VacanteDetalle.conocimientosCompetencias.length == 0">
+              <span class="sinInformacion">{{ SinInformacion }}</span>
+            </p>
+
+           
+            <div *ngFor="let item of this.VacanteDetalle.conocimientosCompetencias" class="col-4 requerimientoVacante">
+              <p>
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <span>{{
+                  this.parametricosSrv.getById(
+                  item.toString(),
+                  PARAMETRICOS.CONOCIMIENTOS
+                  ) | async
+                  }}</span>
+              </p>
+            </div>
+
+          </div>
+          <div>
+            <p>Habilidades o destrezas requeridas</p>
+            <p *ngIf="this.VacanteDetalle.habilidadesDestrezas.length == 0">
+              <span class="sinInformacion">{{ SinInformacion }}</span>
+            </p>
+            <div *ngFor="let item of this.VacanteDetalle.habilidadesDestrezas" class="col-4 requerimientoVacante">
+              <p>
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <span>{{
+                  this.parametricosSrv.getById(
+                  item.toString(),
+                  PARAMETRICOS.DESTREZAS
+                  ) | async
+                  }}</span>
+              </p>
+              <!-- <td>{{ this.parametricosSrv.getByIds(row.Municipios,PARAMETRICOS.MUNICIPIO, PARAMETRICOS_FILTROS.MUNICIPIO__DEPARTAMENTO_ID,"0" ) | async  }}</td> -->
+            </div>
+          </div>
+          <div>
+            <p>Idiomas requeridos</p>
+            <p *ngIf="this.VacanteDetalle.idiomas.length == 0">
+              <span class="sinInformacion">{{ SinInformacion }}</span>
+            </p>
+            <div *ngFor="let item of this.VacanteDetalle.idiomas" class="col-4 requerimientoVacante">
+              <p>
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <span>{{
+                  this.parametricosSrv.getById(
+                  item.idiomaId.toString(),
+                  PARAMETRICOS.IDIOMA
+                  ) | async
+                  }}</span>
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p>Discapacidades</p>
+            <div>
+              <p *ngIf="this.VacanteDetalle.discapacidades.length == 0">
+                <span class="sinInformacion">{{ SinInformacion }}</span>
+              </p>
+              <div *ngFor="let item of this.VacanteDetalle.discapacidades" class="col-4 requerimientoVacante">
+                <p>
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <span style="padding-left: 5px">{{
+                    this.parametricosSrv.getById(
+                    item.toString(),
+                    PARAMETRICOS.DISCAPACIDAD
+                    ) | async
+                    }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p>Detalle de la vacante</p>
+            <p *ngIf="this.VacanteDetalle.descripcion === null">
+              <span class="sinInformacion">{{ SinInformacion }}</span>
+            </p>
+            <div class="form-floating" *ngIf=" this.VacanteDetalle.descripcion !== null">
+              <textarea class="form-control" rows="7" class="col-md-12" placeholder="Detalle de la vacante" id="floatingTextarea"
+                readonly>{{ this.VacanteDetalle.descripcion }}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

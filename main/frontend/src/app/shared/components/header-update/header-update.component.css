@@ -1,0 +1,41 @@
+.cabozote-gris {
+    background: transparent linear-gradient(180deg, #b6b8bc 0%, #a3a5a8 100%) 0%
+      0% no-repeat padding-box;
+    opacity: 1;
+    height: 50px;
+    max-height: 83px;
+    width: 100%;
+    padding: 0px 25px;
+    display: none !important;
+  }
+  .cabozote-gris p {
+    font-size: 21px;
+    text-align: left;
+    font: normal normal medium 21px/29px Futura Std;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+  }
+  .cabozote-gris button {
+    font-size: 30px;
+  }
+
+  .button-notification {
+    margin: 0 0 0 auto;
+    border-left: 1px solid white;
+    border-radius: 0;
+  }
+  .button-notification:hover i {
+    color: #dd2d2b !important;
+  }
+  
+  .button-exit {
+    border-left: 1px solid white;
+    border-radius: 0;
+  }
+  .button-exit:hover i {
+    color: #dd2d2b !important;
+  }
+  p{
+    margin-bottom: 0px;
+  }

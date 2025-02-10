@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h5 class="modal-title text-center">Confirmación</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        (click)="activeModal.close(null)"></button>
+</div>
+<div class="modal-body">
+    <!-- <p>{{ body }}</p> -->
+    <div [innerHTML]="body"></div>
+</div>
+<div class="modal-footer justify-content-between">    
+    <button type="button" class="btn btn-success" (click)="activeModal.close(false)">Aceptar prestador único</button>
+    <button type="button" class="btn btn-success" (click)="activeModal.close(true)">Aceptar todos los prestadores </button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close(null)">Volver</button>
+</div>

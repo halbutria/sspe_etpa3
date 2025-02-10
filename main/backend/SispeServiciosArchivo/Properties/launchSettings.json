@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "SispeServicios.Archivo": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:52067;http://localhost:52068"
+    }
+  }
+}

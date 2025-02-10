@@ -1,0 +1,759 @@
+{
+	"Routes": [
+		{
+			"DownstreamPathTemplate": "/Ciudadano",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			//"AuthenticationOptions": {
+			//	"AuthenticationProviderKey": "Bearer",
+			//	"AllowedScopes": []
+			//},
+			//"FileCacheOptions": {
+			//	"TtlSeconds": 15,
+			//	"Region": "somename"
+			//},
+			"UpstreamPathTemplate": "/api/Ciudadano",
+			"UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+			//"DelegatingHandlers": [
+			//	"CiudadanoHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/Ciudadano/existe",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Ciudadano/existe",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/Ciudadano/CambioTieneExperienciaPrevia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Ciudadano/CambioTieneExperienciaPrevia",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/InformacionLaboral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/InformacionLaboral",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/InformacionLaboral/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/InformacionLaboral/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/InformacionLaboral/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/InformacionLaboral/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionNoFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionNoFormal",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionNoFormal/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionNoFormal/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			//"DelegatingHandlers": [
+			//	"InformacionLaboralHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionNoFormal/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionNoFormal/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionFormal",
+			"UpstreamHttpMethod": [ "POST", "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionFormal/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionFormal/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/EducacionFormal/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/EducacionFormal/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/TipoNotificacion/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/TipoNotificacion/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			//"DelegatingHandlers": [
+			//	"TipoNotificacionHandler"
+			//],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/TipoNotificacion",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/TipoNotificacion",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CargoInteres/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			//"DelegatingHandlers": [
+			//	"CargoInteresHandler"
+			//],
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CargoInteres/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/ConocimientoCompetencia/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/ConocimientoCompetencia/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/ConocimientoCompetencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/ConocimientoCompetencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/ConocimientoCompetencia/",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/ConocimientoCompetencia/",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Experiencia/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Experiencia/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CambioEstado",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioEstado",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/CambioTieneEducacionFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioTieneEducacionFormal",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CambioTieneEducacionNoFormal",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioTieneEducacionNoFormal",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/CambioTieneInformacionLaboral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/CambioTieneInformacionLaboral",
+			"UpstreamHttpMethod": [ "PUT" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Experiencia/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Experiencia/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Experiencia",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Experiencia",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+
+
+		{
+			"DownstreamPathTemplate": "/HabilidadDestreza/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/HabilidadDestreza/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/HabilidadDestreza/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/HabilidadDestreza/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/HabilidadDestreza",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/HabilidadDestreza",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Idioma/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Idioma/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/Idioma/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Idioma/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Idioma",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/Idioma",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/RedesSociales/lista/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/RedesSociales/lista/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+		{
+			"DownstreamPathTemplate": "/RedesSociales/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/RedesSociales/{Id}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/RedesSociales",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/RedesSociales",
+			"UpstreamHttpMethod": [ "PUT", "POST" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/PorcentajesAvance/{CiudadanoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8083
+				}
+			],
+			"UpstreamPathTemplate": "/api/PorcentajesAvance/{CiudadanoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Ciudadanos"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Parametrico/{tipo}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 8082
+				}
+			],
+			"FileCacheOptions": {
+				"TtlSeconds": 15,
+				"Region": "somename"
+			},
+			"UpstreamPathTemplate": "/api/parametrico/{tipo}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "parametrico"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Prestador/lista/{DepartamentoId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/Prestador/lista/{DepartamentoId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Prestador/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/Prestador/{Id}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+
+		{
+			"DownstreamPathTemplate": "/PuntoAtencion/lista/{PrestadorId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/PuntoAtencion/lista/{PrestadorId}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+
+		{
+			"DownstreamPathTemplate": "/PuntoAtencion/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5118
+				}
+			],
+			"UpstreamPathTemplate": "/api/PuntoAtencion/{Id}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "prestador"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Vacante",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"DelegatingHandlers": [
+				"VacanteHandler"
+			],
+			"UpstreamPathTemplate": "/api/Vacante",
+			"UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Vacante/{VacanteId}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Vacante/{VacanteId}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Vacante/Archivo/{Tipo}/{ArchivoId}/{Archivo}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Vacante/Archivo/{Tipo}/{ArchivoId}/{Archivo}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/Empresa",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Empresa/lista",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa/lista",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Empresa/responsable",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa/responsable",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+		{
+			"DownstreamPathTemplate": "/Empresa/responsable/lista",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/Empresa/responsable/lista",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/EmpresaSede/{Id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5054
+				}
+			],
+			"UpstreamPathTemplate": "/api/EmpresaSede/{Id}",
+			"UpstreamHttpMethod": [ "GET" ],
+			"SwaggerKey": "Intermediacion"
+		},
+
+
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 9000
+				}
+			],
+			"UpstreamPathTemplate": "/{everything}",
+			"UpstreamHttpMethod": [ "GET", "POST", "UPDATE", "DELETE" ],
+			"DangerousAcceptAnyServerCertificateValidator": true
+		}
+	],
+	"SwaggerEndPoints": [
+		{
+			"Key": "Ciudadanos",
+			"Config": [
+				{
+					"Name": "Ciudadano API",
+					"Version": "v1",
+					"Url": "http://localhost:8083/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "parametrico",
+			"Config": [
+				{
+					"Name": "Parametrico API",
+					"Version": "v1",
+					"Url": "http://localhost:8082/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "prestador",
+			"Config": [
+				{
+					"Name": "Prestador API",
+					"Version": "v1",
+					"Url": "http://localhost:5118/swagger/v1/swagger.json"
+				}
+			]
+		},
+
+		{
+			"Key": "Intermediacion",
+			"Config": [
+				{
+					"Name": "Intermediacion API",
+					"Version": "v1",
+					"Url": "http://localhost:5054/swagger/v1/swagger.json"
+				}
+			]
+		}
+	]
+}

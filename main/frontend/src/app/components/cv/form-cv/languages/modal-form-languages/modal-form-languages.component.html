@@ -1,0 +1,162 @@
+<form [formGroup]="idiomaForm" (ngSubmit)="addIdioma()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ typeStr }} - Idioma</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Mensaje de errores del API -->
+    <div class="alert alert-danger" role="alert" *ngIf="msgError !== ''">
+      {{ msgError }}
+    </div>
+    <div class="row pe-4 pb-4 ps-4">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label>
+            <span class="text-danger" *ngIf="f['idiomaId'].hasError('required')">*</span>
+            Idioma
+          </label>
+          <div class="form-group-no-border">
+            <select class="form-select" placeholder="" formControlName="idiomaId" [ngClass]="{ 'is-valid': (f['idiomaId'].dirty || submitted) && !f['idiomaId'].errors,
+                'is-invalid': (f['idiomaId'].dirty || submitted) && f['idiomaId'].errors }">
+              <option [value]="idioma.id" *ngFor="let idioma of cvService.$idiomas | async">
+                {{idioma.nombre}}
+              </option>
+            </select>
+            <div class="invalid-feedback" *ngIf="(f['idiomaId'].dirty || submitted) && f['idiomaId'].errors">
+              * Idioma requerido
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="row w-100">
+          <div class="col">
+            <div class="form-group mb-3 d-flex flex-column justify-content-center w-100 ms-2">
+              <label class="form-label">Indique el nivel de dominio conversacional del idioma</label>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelHablado" value="bajo" class="btn-check" name="nivelHablado"
+                  id="conversacional_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="conversacional_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelHablado" value="medio" class="btn-check" name="nivelHablado"
+                  id="conversacional_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="conversacional_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelHablado" value="alto" class="btn-check" name="nivelHablado"
+                  id="conversacional_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="conversacional_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+              <div class="text-danger" style="font-size: 0.6em !important; margin-top: 0.25rem;" *ngIf="(f['nivelHablado'].dirty || submitted) && f['nivelHablado'].errors">
+                * Nivel conversacional requerido
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row w-100">
+          <div class="col">
+            <div class="form-group mb-3 d-flex flex-column justify-content-center">
+              <label class="form-label">Indique el nivel de dominio en lectura del idioma</label>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelLectura" value="bajo" class="btn-check" name="nivelLectura"
+                  id="lectura_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="lectura_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelLectura" value="medio" class="btn-check" name="nivelLectura"
+                  id="lectura_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="lectura_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelLectura" value="alto" class="btn-check" name="nivelLectura"
+                  id="lectura_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="lectura_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+              <div class="text-danger" style="font-size: 0.6em !important; margin-top: 0.25rem;" *ngIf="(f['nivelLectura'].dirty || submitted) && f['nivelLectura'].errors">
+                * Nivel de lectura requerido
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row w-100">
+          <div class="col">
+            <div class="form-group mb-3 d-flex flex-column justify-content-center">
+              <label class="form-label">Indique el nivel de dominio en escritura del idioma</label>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelEscrito" value="bajo" class="btn-check" name="nivelEscrito"
+                  id="escritura_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="escritura_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelEscrito" value="medio" class="btn-check" name="nivelEscrito"
+                  id="escritura_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escritura_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelEscrito" value="alto" class="btn-check" name="nivelEscrito"
+                  id="escritura_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escritura_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+              <div class="text-danger" style="font-size: 0.6em !important; margin-top: 0.25rem;" *ngIf="(f['nivelEscrito'].dirty || submitted) && f['nivelEscrito'].errors">
+                * Nivel de escritura requerido
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row w-100">
+          <div class="col">
+            <div class="form-group mb-3 d-flex flex-column justify-content-center">
+              <label class="form-label">Indique el nivel de dominio en escucha del idioma</label>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelEscucha" value="bajo" class="btn-check" name="nivelEscucha"
+                  id="escucha_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="escucha_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelEscucha" value="medio" class="btn-check" name="nivelEscucha"
+                  id="escucha_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escucha_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelEscucha" value="alto" class="btn-check" name="nivelEscucha"
+                  id="escucha_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escucha_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+              <div class="text-danger" style="font-size: 0.6em !important; margin-top: 0.25rem;" *ngIf="(f['nivelEscucha'].dirty || submitted) && f['nivelEscucha'].errors">
+                * Nivel de escucha requerido
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

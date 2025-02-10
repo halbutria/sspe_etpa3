@@ -1,0 +1,58 @@
+<app-header-update></app-header-update>
+<app-header></app-header>
+
+<div class="row d-flex mt-3 ms-2">
+  <div class="col-md-2">
+    <section class="info-empresa">
+      <p class="text-bienvenido">Bienvenido(a)</p>
+      <p class="text-empresa  Futura_Std_Medium">Usuario / Mi empresa</p>
+      <img class="foto-perfil img-fluid rounded-circle img-thumbnail" src="/assets/img/empresas/empresas-logo.png"
+        alt="Imagen de perfil empresa">
+    </section>
+    <br>
+    <form class="d-flex">
+      <!--button class="btn btn-outline-danger me-2" type="button">
+          Cerrar Sesión
+        </button -->
+      <button class="btn btn-sm btn-outline-danger" type="button" onclick="alert('En construcción!!');">
+        Carpeta Potencial Empleador
+      </button>
+    </form>
+  </div>
+  <!-- Contenido información y acciones Empresas -->
+  <div class="col-md-10">
+    <nav class="navbar navbar-light bg-light">
+      <ul class="nav nav-pills">
+        <li class="nav-link bg-danger active" role="button"  onclick="alert('En construcción!!')">Inicio</li>
+        <li class="nav-link text-danger" role="button" onclick="alert('En construcción!!')">Cuenta Empresarial</li>
+        <li class="nav-item dropdown" role="button">
+          <a class="nav-link text-danger dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+            aria-expanded="false">Gestión de Vacantes</a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item text-danger" routerLink="registrar-vacante-tipo"
+              href="javascript:void(0)">Registrar
+              Vacantes</a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item text-danger" routerLink="listado-vacantes" href="javascript:void(0)">Consultar y
+                Administrar Vacantes</a>
+              
+            </li>
+          </ul>
+        </li>
+        <li class="nav-link text-danger" role="button" onclick="alert('En construcción!!')">Gestión de Procesos</li>
+        <li class="nav-link text-danger" role="button" onclick="alert('En construcción!!')">Notificaciones</li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid border-start border-danger">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

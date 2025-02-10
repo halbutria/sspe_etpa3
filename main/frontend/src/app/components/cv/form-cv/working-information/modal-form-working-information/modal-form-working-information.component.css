@@ -1,0 +1,8 @@
+.div-informacion-laboral small {
+    border-bottom: 1px solid #707070;
+    border-left: 1px solid #707070;
+    border-right: 1px solid #707070;
+    float: right;
+    margin: 0px;
+    padding: 3px;
+  }

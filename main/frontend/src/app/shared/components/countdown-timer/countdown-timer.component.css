@@ -1,0 +1,31 @@
+
+ #timer {
+    padding: 0px;
+    margin: 0px;
+    /* background-color: blue; */
+}
+
+#timer p {
+    padding: 0px 2px 0px 0px;
+    margin: 0px;
+	display: inline-block;
+    font-size: 15px;
+    text-align: center;
+}  
+
+#timer p span {
+	/* color: #ffffff; */
+    padding: 0px;
+    margin: 0px;
+	display: block;
+    font-size: 10px;
+}
+
+#timer i {
+	/* color: #ffffff; */
+    padding: 0px;
+    margin: 0px;
+	display: inline-block;
+    font-size: 30px;
+    margin-right: 5px;
+}

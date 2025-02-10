@@ -1,0 +1,872 @@
+<form [formGroup]="basicDataForm" (ngSubmit)="saveAction()" novalidate autocomplete="off">
+  <div class="container-load clearfix cargando" *ngIf="showLoading">
+    <div class="spinner-border float-end" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div class="content-steps-info">
+    <span class="label-title">Datos personales</span>
+    <div class="row">
+        <!-- Tipo de Documento -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['tipoDocumentoId'].hasError('required')">*</span>
+        Tipo de documento
+      </label>
+      <div class="form-group-no-border">
+        <select class="form-select" placeholder="" formControlName="tipoDocumentoId" [ngClass]="{ 'is-valid': (f['tipoDocumentoId'].dirty || submitted) && !f['tipoDocumentoId'].errors,
+          'is-invalid': (f['tipoDocumentoId'].dirty || submitted) && f['tipoDocumentoId'].errors }">
+          <option [value]="tipo.id" *ngFor="let tipo of listTipoDocumento">{{ tipo.nombre }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="(f['tipoDocumentoId'].dirty || submitted) && f['tipoDocumentoId'].errors">
+          * Tipo de documento requerido
+        </div>
+      </div>
+    </div>
+    <!-- Número de documento -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['numeroDocumento'].hasError('required')">*</span>
+        Número de documento
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="" formControlName="numeroDocumento" [ngClass]="{ 'is-valid': (f['numeroDocumento'].dirty || submitted) && !f['numeroDocumento'].errors,
+        'is-invalid': (f['numeroDocumento'].dirty || submitted) && f['numeroDocumento'].errors }">
+        <div class="invalid-feedback" *ngIf="(f['numeroDocumento'].dirty || submitted) && f['numeroDocumento'].errors">
+          * Número de documento requerido
+        </div>
+      </div>
+    </div>
+    <!-- Correo Electrónico -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['correoElectronico'].hasError('required')">*</span>
+        Correo electrónico
+      </label>
+      <div class="form-group-no-border">
+        <input type="email" class="form-control" placeholder="" formControlName="correoElectronico" [ngClass]="{ 'is-valid': (f['correoElectronico'].dirty || submitted) && !f['correoElectronico'].errors,
+        'is-invalid': (f['correoElectronico'].dirty || submitted) && f['correoElectronico'].errors }">
+        <div class="invalid-feedback"
+          *ngIf="(f['correoElectronico'].dirty || submitted) && f['correoElectronico'].errors">
+          * Digite un correo electrónico válido
+        </div>
+      </div>
+    </div>
+    <!-- Fecha de expedición del documento -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['fechaExpedicionDocumento'].hasError('required')">*</span>
+        Fecha de expedición del documento
+      </label>
+      <div class="form-group">
+        <div class="input-group date">
+          <input class="form-control date-btn" placeholder="dd/mm/yyyy" formControlName="fechaExpedicionDocumento" [(ngModel)]="modelExpDoc" [maxDate]="maxDateHoy"
+            [minDate]="minDate" ngbDatepicker #dExpDoc="ngbDatepicker" (click)="dExpDoc.toggle()" [ngClass]="{ 'is-valid': (f['fechaExpedicionDocumento'].dirty || submitted) && !f['fechaExpedicionDocumento'].errors,
+          'is-invalid': (f['fechaExpedicionDocumento'].dirty || submitted) && f['fechaExpedicionDocumento'].errors }">
+          <div class="input-group-append" role="button" (click)="dExpDoc.toggle()">
+            <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+        <div class="invalid-feedback" *ngIf="(f['fechaExpedicionDocumento'].dirty || submitted) && f['fechaExpedicionDocumento'].errors">
+          * Fecha de expedición del documento</div>
+      </div>
+    </div>
+    <hr class="border-dark mt-2" style="border-style: dotted;">
+
+    <!-- Contraseña -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['password'].hasError('required')">*</span>
+        Contraseña
+      </label>
+      <div class="form-group-no-border">
+        <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" placeholder=""
+            (focusout)="lostFocusValidateConfirmPassword($event)" formControlName="password" [ngClass]="{ 'is-valid': (f['password'].dirty || submitted) && !f['password'].errors,
+          'is-invalid': (f['password'].dirty || submitted) && f['password'].errors }">
+          <!-- <div class="input-group-append">
+            <span role="button" class="glyphicon glyphicon-info input-group-text" style="height: 100%;"
+              (click)="toggleShowPassword('password')">
+              <i [class]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'" aria-hidden="true"></i>
+            </span>
+          </div> -->
+          <div class="invalid-feedback" *ngIf="(f['password'].dirty || submitted) && f['password'].errors">
+            <!-- required -->
+            <span class="text-danger" *ngIf="(f['password'].dirty || submitted) && !requiredValid">* La contraseña es
+              requerida</span>
+
+            <!-- password validation rules -->
+            <div class="mt-3" *ngIf="requiredValid">
+              <!-- minlength -->
+              <div [ngClass]="{ 'text-success': minLengthValid, 'text-danger': !minLengthValid }">
+                <i [attr.class]="minLengthValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                Debe tener al menos 8 carácteres de longitud
+              </div>
+
+              <!-- maxlength -->
+              <div [ngClass]="{ 'text-success': maxLengthValid, 'text-danger': !maxLengthValid }">
+                <i [attr.class]="maxLengthValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                Debe tener máximo 17 carácteres de longitud
+              </div>
+
+              <!-- requires number -->
+              <div [ngClass]="{ 'text-success': requiresDigitValid, 'text-danger': !requiresDigitValid }">
+                <i [attr.class]="requiresDigitValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                Debe contener al menos 1 número
+              </div>
+
+              <!-- requires uppercase -->
+              <div [ngClass]="{ 'text-success': requiresUppercaseValid, 'text-danger': !requiresUppercaseValid }">
+                <i [attr.class]="requiresUppercaseValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                Debe contener al menos 1 carácter en mayúscula
+              </div>
+
+              <!-- requires lowercase -->
+              <div [ngClass]="{ 'text-success': requiresLowercaseValid, 'text-danger': !requiresLowercaseValid }">
+                <i [attr.class]="requiresLowercaseValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                Debe contener al menos 1 carácter en minúscula
+              </div>
+
+              <!-- requires special characters -->
+              <div [ngClass]="{ 'text-success': requiresSpecialCharsValid, 'text-danger': !requiresSpecialCharsValid }">
+                <i [attr.class]="requiresSpecialCharsValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                Debe contener al menos 1 carácter especial
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Confirmar contraseña -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['confirmPassword'].hasError('required')">*</span>
+        Confirmar contraseña
+      </label>
+      <div class="form-group-no-border">
+        <div class="input-group">
+          <input [type]="showPasswordConfirm ? 'text' : 'password'" class="form-control" placeholder=""
+            (paste)="onPasteConfirmPassword($event)" formControlName="confirmPassword" [ngClass]="{ 'is-valid': (f['confirmPassword'].dirty || submitted) && !f['confirmPassword'].errors,
+          'is-invalid': (f['confirmPassword'].dirty || submitted) && f['confirmPassword'].errors }">
+          <!-- <div class="input-group-append">
+            <span role="button" class="glyphicon glyphicon-info input-group-text" style="height: 100%;"
+              (click)="toggleShowPassword('confirmPassword')">
+              <i [class]="showPasswordConfirm ? 'fa fa-eye-slash' : 'fa fa-eye'" aria-hidden="true"></i>
+            </span>
+          </div> -->
+          <div class="invalid-feedback"
+            *ngIf="(f['confirmPassword'].dirty || submitted) && f['confirmPassword'].errors">
+            <div *ngIf="f['confirmPassword'].errors?.['required']">Confirmar la contraseña</div>
+            <div *ngIf="f['confirmPassword'].errors?.['minLength']">La contraseña debe tener al menos 8 caracteres</div>
+            <div *ngIf="f['confirmPassword'].errors?.['mismatch']">Las contraseñas no coinciden</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Primer Nombre -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['primerNombre'].hasError('required')">*</span>
+        Primer nombre
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control text-uppercase" placeholder="" formControlName="primerNombre"
+          (keyup)="validateOnlyLetters($event, 'primerNombre')" [ngClass]="{ 'is-valid': (f['primerNombre'].dirty || submitted) && !f['primerNombre'].errors,
+        'is-invalid': (f['primerNombre'].dirty || submitted) && f['primerNombre'].errors }">
+        <div class="invalid-feedback" *ngIf="(f['primerNombre'].dirty || submitted) && f['primerNombre'].errors">
+          * Primer nombre requerido
+        </div>
+      </div>
+    </div>
+    <!-- Segundo Nombre -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['segundoNombre'].hasError('required')">*</span>
+        Segundo nombre
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control text-uppercase" placeholder="" formControlName="segundoNombre"
+          (keyup)="validateOnlyLetters($event, 'segundoNombre')" [ngClass]="{ 'is-valid': (f['segundoNombre'].dirty || submitted) && !f['segundoNombre'].errors,
+        'is-invalid': (f['segundoNombre'].dirty || submitted) && f['segundoNombre'].errors }">
+        <div class="invalid-feedback" *ngIf="(f['segundoNombre'].dirty || submitted) && f['segundoNombre'].errors">
+          * Texto inválido
+        </div>
+      </div>
+    </div>
+    <!-- Primer Apellido -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['primerApellido'].hasError('required')">*</span>
+        Primer apellido
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control text-uppercase" placeholder="" formControlName="primerApellido"
+          (keyup)="validateOnlyLetters($event, 'primerApellido')" [ngClass]="{ 'is-valid': (f['primerApellido'].dirty || submitted) && !f['primerApellido'].errors,
+        'is-invalid': (f['primerApellido'].dirty || submitted) && f['primerApellido'].errors }">
+        <div class="invalid-feedback" *ngIf="(f['primerApellido'].dirty || submitted) && f['primerApellido'].errors">
+          * Primer apellido requerido
+        </div>
+      </div>
+    </div>
+    <!-- Segundo Apellido -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['segundoApellido'].hasError('required')">*</span>
+        Segundo apellido
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control text-uppercase" placeholder="" formControlName="segundoApellido"
+          (keyup)="validateOnlyLetters($event, 'segundoApellido')" [ngClass]="{ 'is-valid': (f['segundoApellido'].dirty || submitted) && !f['segundoApellido'].errors,
+        'is-invalid': (f['segundoApellido'].dirty || submitted) && f['segundoApellido'].errors }">
+        <div class="invalid-feedback" *ngIf="(f['segundoApellido'].dirty || submitted) && f['segundoApellido'].errors">
+          * Texto inválido
+        </div>
+      </div>
+    </div>
+    <!-- Fecha de Nacimiento -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['fechaNacimiento'].hasError('required')">*</span>
+        Fecha de nacimiento
+      </label>
+      <div class="form-group">
+        <div class="input-group date">
+          <input class="form-control date-btn" placeholder="dd/mm/yyyy" formControlName="fechaNacimiento" [(ngModel)]="model"
+            [minDate]="minDate" [maxDate]="maxDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [ngClass]="{ 'is-valid': (f['fechaNacimiento'].dirty || submitted) && !f['fechaNacimiento'].errors,
+          'is-invalid': (f['fechaNacimiento'].dirty || submitted) && f['fechaNacimiento'].errors }">
+          <div class="input-group-append" role="button" (click)="d.toggle()">
+            <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+        <div class="invalid-feedback" *ngIf="(f['fechaNacimiento'].dirty || submitted) && f['fechaNacimiento'].errors">
+          * Fecha de nacimiento requerida
+        </div>
+      </div>
+    </div>
+    <!-- Género -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['sexoId'].hasError('required')">*</span>
+        Sexo
+      </label>
+      <div class="form-group">
+        <select class="form-select" placeholder="" formControlName="sexoId" [ngClass]="{ 'is-valid': (f['sexoId'].dirty || submitted) && !f['sexoId'].errors,
+          'is-invalid': (f['sexoId'].dirty || submitted) && f['sexoId'].errors }">
+          <option [value]="genero.id" *ngFor="let genero of listGeneros">{{ genero.nombre }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="(f['sexoId'].dirty || submitted) && f['sexoId'].errors">
+          * Sexo requerido
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="content-steps-info">
+    <span class="label-title">Datos de ubicación</span>
+    <div class="row">
+      <!-- País de Residencia -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['paisResidenciaId'].hasError('required')">*</span>
+        País de residencia
+      </label>
+      <div class="form-group">
+        <select class="form-select" placeholder="" formControlName="paisResidenciaId" (change)="changePais($event)"
+          [ngClass]="{ 'is-valid': (f['paisResidenciaId'].dirty || submitted) && !f['paisResidenciaId'].errors,
+          'is-invalid': (f['paisResidenciaId'].dirty || submitted) && f['paisResidenciaId'].errors }">
+          <option [value]="pais.id" *ngFor="let pais of listPaises">{{ pais.nombre }}</option>
+        </select>
+        <div class="invalid-feedback"
+          *ngIf="(f['paisResidenciaId'].dirty || submitted) && f['paisResidenciaId'].errors">
+          * País de residencia requerido
+        </div>
+      </div>
+    </div>
+    <!-- Departamento -->
+    <div class="col-md-6 mb-2" *ngIf="showDepartamento">
+      <label>
+        <span class="text-danger" *ngIf="f['departamentoResidenciaId'].hasError('required')">*</span>
+        Departamento
+      </label>
+      <div class="form-group">
+        <select class="form-select" placeholder="" formControlName="departamentoResidenciaId"
+          (change)="changeDepartamento($event)" [ngClass]="{ 'is-valid': (f['departamentoResidenciaId'].dirty || submitted) && !f['departamentoResidenciaId'].errors,
+          'is-invalid': (f['departamentoResidenciaId'].dirty || submitted) && f['departamentoResidenciaId'].errors }">
+          <option [value]="depto.id" *ngFor="let depto of listDepartamentos">{{ depto.nombre }}</option>
+        </select>
+        <div class="invalid-feedback"
+          *ngIf="(f['departamentoResidenciaId'].dirty || submitted) && f['departamentoResidenciaId'].errors">
+          * Departamento requerido
+        </div>
+      </div>
+    </div>
+    <!-- Estado -->
+    <div class="col-md-6 mb-2" *ngIf="!showDepartamento">
+      <label>
+        <span class="text-danger" *ngIf="f['estado'].hasError('required')">*</span>
+        Estado
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="" formControlName="estado"
+          [ngClass]="{ 'is-valid': (f['estado'].dirty || submitted) && !f['estado'].errors,
+        'is-invalid': (f['estado'].dirty || submitted) && f['estado'].errors }">
+        <div class="invalid-feedback"
+          *ngIf="(f['estado'].dirty || submitted) && f['estado'].errors">
+          * Estado requerido
+        </div>
+      </div>
+    </div>
+    <!-- Municipio -->
+    <div class="col-md-6 mb-2" *ngIf="showMunicipio">
+      <label>
+        <span class="text-danger" *ngIf="f['municipioResidenciaId'].hasError('required')">*</span>
+        Municipio
+      </label>
+      <div class="form-group">
+        <select class="form-select" placeholder="" formControlName="municipioResidenciaId"
+          (change)="changeMunicipios($event)" [ngClass]="{ 'is-valid': (f['municipioResidenciaId'].dirty || submitted) && !f['municipioResidenciaId'].errors,
+          'is-invalid': (f['municipioResidenciaId'].dirty || submitted) && f['municipioResidenciaId'].errors }">
+          <option [value]="mun.id" *ngFor="let mun of listMunicipios">{{ mun.nombre }}</option>
+        </select>
+        <div class="invalid-feedback"
+          *ngIf="(f['municipioResidenciaId'].dirty || submitted) && f['municipioResidenciaId'].errors">
+          * Municipio requerido
+        </div>
+      </div>
+    </div>
+    <!-- Ciudad -->
+    <div class="col-md-6 mb-2" *ngIf="!showMunicipio">
+      <label>
+        <span class="text-danger" *ngIf="f['ciudad'].hasError('required')">*</span>
+        Ciudad
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="" formControlName="ciudad"
+          [ngClass]="{ 'is-valid': (f['ciudad'].dirty || submitted) && !f['ciudad'].errors,
+        'is-invalid': (f['ciudad'].dirty || submitted) && f['ciudad'].errors }">
+        <div class="invalid-feedback"
+          *ngIf="(f['ciudad'].dirty || submitted) && f['ciudad'].errors">
+          * Ciudad requerida
+        </div>
+      </div>
+    </div>
+    <!-- Pertenece a -->
+    <div class="col-md-6 mb-2" *ngIf="showMunicipio">
+      <label>
+        <span class="text-danger" *ngIf="f['perteneceARural'].hasError('required')">*</span>
+        ¿En qué zona se ubica su residencia?
+      </label>
+      <div class="form-group">
+        <select class="form-select" placeholder="" formControlName="perteneceARural" [ngClass]="{ 'is-valid': (f['perteneceARural'].dirty || submitted) && !f['perteneceARural'].errors,
+      'is-invalid': (f['perteneceARural'].dirty || submitted) && f['perteneceARural'].errors }">
+          <option value="0">URBANO</option>
+          <option value="1">RURAL</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="(f['perteneceARural'].dirty || submitted) && f['perteneceARural'].errors">
+          * ¿En qué zona se ubica su residencia? requerido
+        </div>
+      </div>
+    </div>
+        
+     <!-- Localidad/Comuna -->
+     <div class="col-md-6 mb-2" *ngIf="f['perteneceARural'].value === '0' && localidadesComuna!.length>0">
+      <label>
+        <span class="text-danger" *ngIf="f['localidadComunaId'].hasError('required')">*</span>
+        Localidad/Comuna
+      </label>
+      <div class="form-group">
+        <select class="form-select" placeholder="" formControlName="localidadComunaId"
+            [ngClass]="{ 'is-valid': (f['localidadComunaId'].dirty || submitted) && !f['localidadComunaId'].errors,
+          'is-invalid': (f['localidadComunaId'].dirty || submitted) && f['localidadComunaId'].errors }">
+          <option [value]="mun.id" *ngFor="let mun of localidadesComuna">{{ mun.nombre }}</option>
+        </select>
+        <div class="invalid-feedback"
+          *ngIf="(f['localidadComunaId'].dirty || submitted) && f['localidadComunaId'].errors">
+          * Localidad/Comuna requerido
+        </div>
+      </div>
+    </div>
+
+   
+
+    <!-- En caso de ser País Colombia entonces pinta la dirección acá -->
+    <div *ngIf="f['paisResidenciaId'].value == 48">
+      <ng-container *ngTemplateOutlet="ContentDireccion"></ng-container>
+    </div>
+
+    <!-- Barrio de residencia -->
+    <div class="col-md-6 mb-2" *ngIf="f['perteneceARural'].value === '0'">
+      <label>
+        <span class="text-danger" *ngIf="f['barrioResidencia'].hasError('required')">*</span>
+        Barrio de residencia
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="" formControlName="barrioResidencia"
+          (keyup)="validateOnlyLetters($event, 'barrioResidencia')" [ngClass]="{ 'is-valid': (f['barrioResidencia'].dirty || submitted) && !f['barrioResidencia'].errors,
+        'is-invalid': (f['barrioResidencia'].dirty || submitted) && f['barrioResidencia'].errors }">
+        <div class="invalid-feedback"
+          *ngIf="(f['barrioResidencia'].dirty || submitted) && f['barrioResidencia'].errors">
+          * Barrio de residencia requerido
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Teléfono celular -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['telefono'].hasError('required')">*</span>
+        Teléfono celular
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="" formControlName="telefono"
+          (focusOut)="validateOnlyNumberInput($event, 'telefono')" (keyup)="validateOnlyNumberInput($event, 'telefono')"
+          [ngClass]="{ 'is-valid': (f['telefono'].dirty || submitted) && !f['telefono'].errors,
+        'is-invalid': (f['telefono'].dirty || submitted) && f['telefono'].errors }">
+        <div class="invalid-feedback" *ngIf="(f['telefono'].dirty || submitted) && f['telefono'].errors">
+          <span class="text-danger" *ngIf="telefonoRequired">
+            * Teléfono celular requerido
+          </span>
+          <span class="text-danger" *ngIf="telefonoMinLength">
+            * Ingrese mínimo {{ countMinDigit }} dígitos
+          </span>
+          <span class="text-danger" *ngIf="telefonoMaxLength">
+            * Ingrese máximo 10 dígitos
+          </span>
+          <span class="text-danger" *ngIf="firstDigitValid">
+            * El primer dígito debe ser 3
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Teléfono fijo -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['otroTelefono'].hasError('required')">*</span>
+        Teléfono fijo
+      </label>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="" formControlName="otroTelefono"
+          (focusOut)="validateOnlyNumberInput($event, 'otroTelefono')"
+          (keyup)="validateOnlyNumberInput($event, 'otroTelefono')" [ngClass]="{ 'is-valid': (f['otroTelefono'].dirty || submitted) && !f['otroTelefono'].errors,
+        'is-invalid': (f['otroTelefono'].dirty || submitted) && f['otroTelefono'].errors }">
+        <div class="invalid-feedback" *ngIf="(f['otroTelefono'].dirty || submitted) && f['otroTelefono'].errors">
+          <span class="text-danger" *ngIf="otroTelefonoRequired">
+            * Teléfono fijo requerido
+          </span>
+          <span class="text-danger" *ngIf="otroTelefonoMinLength">
+            * Ingrese mínimo {{ countMinDigit }} dígitos
+          </span>
+          <span class="text-danger" *ngIf="otroTelefonoMaxLength">
+            * Ingrese máximo 10 dígitos
+          </span>
+          <span class="text-danger" *ngIf="otroTelefonoFirstDigitValid">
+            * El primer dígito debe ser 6
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- En caso de no ser País Colombia entonces pinta la dirección acá -->
+    <div *ngIf="f['paisResidenciaId'].value != 48">
+      <ng-container *ngTemplateOutlet="ContentDireccion"></ng-container>
+    </div>
+
+    <!-- Prestador de preferencia -->
+    <ng-template #popContentInfoPrestador>Según la sentencia 473 del 2019 si no ha cotizado al menos un año en caja de
+      compensación familiar dentro de los últimos 3 años, sus servicios con la caja de compensación podrían estar
+      limitados
+      <div class="d-grid gap-2" *ngIf="f['prestadorPreferenciaId'].value !== null && f['prestadorPreferenciaId'].value !== ''">
+        <a class="btn btn-danger mt-1" role="button"
+          href="../../../../assets/docs/BORRADOR SERVICIOS.pdf" target="_blank">
+          Ver servicios
+        </a>
+      </div>
+    </ng-template>
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['prestadorPreferenciaId'].hasError('required')">*</span>
+        Prestador de preferencia
+      </label>
+      <div class="form-group">
+        <div class="input-group">
+          <select class="form-select" placeholder="" formControlName="prestadorPreferenciaId"
+            (change)="changePrestador($event)" [ngClass]="{ 'is-valid': (f['prestadorPreferenciaId'].dirty || submitted) && !f['prestadorPreferenciaId'].errors,
+            'is-invalid': (f['prestadorPreferenciaId'].dirty || submitted) && f['prestadorPreferenciaId'].errors }">
+            <option [value]="prestador.id" *ngFor="let prestador of listPrestadoresPreferencia">{{ prestador.nombre }}
+            </option>
+          </select>
+          <div class="input-group-append">
+            <span role="button" class="glyphicon glyphicon-info input-group-text" style="height: 100%;"
+              placement="right" [ngbPopover]="popContentInfoPrestador" popoverTitle="Información">
+              <i class="fa fa-info text-danger" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+        <div class="invalid-feedback"
+          *ngIf="(f['prestadorPreferenciaId'].dirty || submitted) && f['prestadorPreferenciaId'].errors">
+          * Prestador de preferencia requerido
+        </div>
+      </div>
+    </div>
+    <!-- Punto de Atención -->
+    <div class="col-md-6 mb-2">
+      <label>
+        <span class="text-danger" *ngIf="f['puntoAtencionId'].hasError('required')">*</span>
+        Punto de atención
+      </label>
+      <div class="form-group">
+        <select class="form-select" placeholder="" formControlName="puntoAtencionId" [ngClass]="{ 'is-valid': (f['puntoAtencionId'].dirty || submitted) && !f['puntoAtencionId'].errors,
+          'is-invalid': (f['puntoAtencionId'].dirty || submitted) && f['puntoAtencionId'].errors }">
+          <option [value]="punto.id" *ngFor="let punto of listPuntosAtencion">{{ punto.nombre }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="(f['puntoAtencionId'].dirty || submitted) && f['puntoAtencionId'].errors">
+          * Punto de atención requerido
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="content-steps-info">
+    <span class="label-title">Datos de seguridad</span>
+    <div class="row">
+      <nav class="navbar navbar-expand-lg head-navigation mb-2">
+        <div class="container">
+          <span class="navbar-brand">En caso de olvidar usuario o contraseña</span>
+        </div>
+      </nav>
+  
+      <!-- Pregunta de Seguridad -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['preguntaSeguridadId'].hasError('required')">*</span>
+          Pregunta de seguridad
+        </label>
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="preguntaSeguridadId"
+            (change)="changePregunta($event)" [ngClass]="{ 'is-valid': (f['preguntaSeguridadId'].dirty || submitted) && !f['preguntaSeguridadId'].errors,
+            'is-invalid': (f['preguntaSeguridadId'].dirty || submitted) && f['preguntaSeguridadId'].errors }">
+            <option [value]="pregunta.id" *ngFor="let pregunta of listPreguntasSeguridad">{{ pregunta.nombre }}</option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['preguntaSeguridadId'].dirty || submitted) && f['preguntaSeguridadId'].errors">
+            * Pregunta de seguridad requerida
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-2" *ngIf="f['preguntaSeguridadId'].value === '1'" >
+        <label>
+          <span class="text-danger" *ngIf="f['preguntaLibre'].hasError('required')">*</span>
+          Pregunta Libre
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="preguntaLibre"
+            [ngClass]="{ 'is-valid': (f['preguntaLibre'].dirty || submitted) && !f['preguntaLibre'].errors,
+          'is-invalid': (f['preguntaLibre'].dirty || submitted) && f['preguntaLibre'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['preguntaLibre'].dirty || submitted) && f['preguntaLibre'].errors">
+            * Pregunta Libre requerida
+          </div>
+        </div>
+      </div>
+      <!-- Respuesta -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['preguntaSeguridadRespuesta'].hasError('required')">*</span>
+          Respuesta
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="preguntaSeguridadRespuesta"
+            [ngClass]="{ 'is-valid': (f['preguntaSeguridadRespuesta'].dirty || submitted) && !f['preguntaSeguridadRespuesta'].errors,
+          'is-invalid': (f['preguntaSeguridadRespuesta'].dirty || submitted) && f['preguntaSeguridadRespuesta'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['preguntaSeguridadRespuesta'].dirty || submitted) && f['preguntaSeguridadRespuesta'].errors">
+            * Respuesta requerida
+          </div>
+        </div>
+      </div>
+  
+  
+    </div>
+  </div>
+
+  <!-- Template de la dirección -->
+  <ng-template #ContentDireccion>
+
+    <label *ngIf="f['paisResidenciaId'].value == 48">Dirección</label>
+
+    <div class="row" *ngIf="showFieldsDireccion">
+      <!-- Vía -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['viaPrincipalId'].hasError('required')">*</span>
+            Vía
+          </label> -->
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="viaPrincipalId"
+            [ngClass]="{ 'is-invalid': (f['viaPrincipalId'].dirty || submitted) && f['viaPrincipalId'].errors }"
+            (change)="concatDireccionResidencia($event)">
+            <option [value]="via.id" *ngFor="let via of listViaPrincipal">{{ via.texto }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="(f['viaPrincipalId'].dirty || submitted) && f['viaPrincipalId'].errors">
+            * Requerido
+          </div>
+        </div>
+      </div>
+      <!-- Número -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['viaPrincipal'].hasError('required')">*</span>
+            Número
+          </label> -->
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="viaPrincipal"
+            [ngClass]="{ 'is-invalid': (f['viaPrincipal'].dirty || submitted) && f['viaPrincipal'].errors }"
+            (focusout)="concatDireccionResidencia($event)" (keyup)="validateViaPrincipal($event)">
+          <div class="invalid-feedback" *ngIf="(f['viaPrincipal'].dirty || submitted) && f['viaPrincipal'].errors">
+            <span *ngIf="f['viaPrincipal'].hasError('required')">* Requerido</span>
+            <span *ngIf="f['viaPrincipal'].hasError('maxlength')">* Máximo 20 dígitos</span>
+          </div>
+        </div>
+      </div>
+      <!-- Letra -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['letraVia'].hasError('required')">*</span>
+            Letra
+          </label> -->
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="viaPrincipalLetraId"
+            (change)="concatDireccionResidencia($event)">
+            <option value=""></option>
+            <option [value]="letra.toUpperCase()" *ngFor="let letra of alphabet.split('')">{{ letra.toUpperCase() }}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['viaPrincipalLetraId'].dirty || submitted) && f['viaPrincipalLetraId'].errors">
+            * Letra requerida
+          </div>
+        </div>
+      </div>
+      <!-- BIS -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['bisVia'].hasError('required')">*</span>
+            BIS
+          </label> -->
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="viaPrincipalBisId"
+            (change)="concatDireccionResidencia($event)">
+            <option value="BIS">BIS</option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['viaPrincipalBisId'].dirty || submitted) && f['viaPrincipalBisId'].errors">
+            * BIS requerido
+          </div>
+        </div>
+      </div>
+      <!-- Letra -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['letraVia'].hasError('required')">*</span>
+            Letra
+          </label> -->
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="viaPrincipalSegundaLetraId"
+            (change)="concatDireccionResidencia($event)">
+            <option value=""></option>
+            <option [value]="letra.toUpperCase()" *ngFor="let letra of alphabet.split('')">{{ letra.toUpperCase() }}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['viaPrincipalSegundaLetraId'].dirty || submitted) && f['viaPrincipalSegundaLetraId'].errors">
+            * Letra requerida
+          </div>
+        </div>
+      </div>
+      <!-- Cardinalidad -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['cardinalidadVia'].hasError('required')">*</span>
+            Cardinalidad
+          </label> -->
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="viaPrincipalCuadranteId"
+            (change)="concatDireccionResidencia($event)">
+            <option value="NORTE">NORTE</option>
+            <option value="SUR">SUR</option>
+            <option value="ESTE">ESTE</option>
+            <option value="OESTE">OESTE</option>
+            <option value="CENTRO">CENTRO</option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['viaPrincipalCuadranteId'].dirty || submitted) && f['viaPrincipalCuadranteId'].errors">
+            * Cardinalidad requerida
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="showFieldsDireccion">
+      <!-- Signo número -->
+      <div class="col-md-2 mb-2">
+        <div class="form-group">
+          <input type="text" class="form-control text-center" placeholder="" formControlName="signoNumero">
+        </div>
+      </div>
+      <!-- Número 2 -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['numeroVia2'].hasError('required')">*</span>
+            Número
+          </label> -->
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="viaGeneradora"
+            (keyup)="validateOnlyNumberInput($event, 'viaGeneradora')"
+            [ngClass]="{ 'is-invalid': (f['viaGeneradora'].dirty || submitted) && f['viaGeneradora'].errors }"
+            (focusout)="concatDireccionResidencia($event)">
+          <div class="invalid-feedback" *ngIf="(f['viaGeneradora'].dirty || submitted) && f['viaGeneradora'].errors">
+            * Requerido
+          </div>
+        </div>
+      </div>
+      <!-- Letra -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['letraVia2'].hasError('required')">*</span>
+            Letra
+          </label> -->
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="viaGeneradoraLetraId"
+            (change)="concatDireccionResidencia($event)">
+            <option value=""></option>
+            <option [value]="letra.toUpperCase()" *ngFor="let letra of alphabet.split('')">{{ letra.toUpperCase() }}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['viaGeneradoraLetraId'].dirty || submitted) && f['viaGeneradoraLetraId'].errors">
+            * Letra requerida
+          </div>
+        </div>
+      </div>
+      <!-- Complemento -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['complementoVia2'].hasError('required')">*</span>
+            Complemento
+          </label> -->
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="viaGeneradoraPlaca"
+            (keyup)="validateOnlyNumberInput($event, 'viaGeneradoraPlaca')"
+            [ngClass]="{ 'is-invalid': (f['viaGeneradoraPlaca'].dirty || submitted) && f['viaGeneradoraPlaca'].errors }"
+            (focusout)="concatDireccionResidencia($event)">
+          <div class="invalid-feedback"
+            *ngIf="(f['viaGeneradoraPlaca'].dirty || submitted) && f['viaGeneradoraPlaca'].errors">
+            * Requerido
+          </div>
+        </div>
+      </div>
+      <!-- Cardinalidad -->
+      <div class="col-md-2 mb-2">
+        <!-- <label>
+            <span class="text-danger" *ngIf="f['cardinalidadVia2'].hasError('required')">*</span>
+            Cardinalidad
+          </label> -->
+        <div class="form-group">
+          <select class="form-select" placeholder="" formControlName="viaGeneradoraCuadranteId"
+            (change)="concatDireccionResidencia($event)">
+            <option value="NORTE">NORTE</option>
+            <option value="SUR">SUR</option>
+            <option value="ESTE">ESTE</option>
+            <option value="OESTE">OESTE</option>
+            <option value="CENTRO">CENTRO</option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['viaGeneradoraCuadranteId'].dirty || submitted) && f['viaGeneradoraCuadranteId'].errors">
+            * Cardinalidad requerida
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-secondary" type="button" (click)="addComplement()">
+          Agregar complemento
+        </button>
+      </div>
+    </div>
+    <!-- TABLA COMPLEMENTOS -->
+    <div class="col-12" *ngIf="arrComplementos.length > 0">
+      <hr>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let cpto of arrComplementos">
+              <td>{{ cpto.complementoNombre }}</td>
+              <td>{{ cpto.complemento }}</td>
+              <td class="d-flex justify-content-end">
+                <button type="button" class="btn btn-danger" (click)="deleteComplement(cpto)">
+                  <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Dirección de residencia -->
+      <div class="col-md-8 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['direccionResidencia'].hasError('required')">*</span>
+          Dirección de residencia
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="direccionResidencia" [ngClass]="{ 'is-valid': (f['direccionResidencia'].dirty || submitted) && !f['direccionResidencia'].errors,
+        'is-invalid': (f['direccionResidencia'].dirty || submitted) && f['direccionResidencia'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['direccionResidencia'].dirty || submitted) && f['direccionResidencia'].errors">
+            * Dirección de residencia requerida
+          </div>
+        </div>
+      </div>
+      <!-- Código postal -->
+      <ng-template #popContentCodigoPostal>Consulte el enlace para conocer su código postal
+        <a target="_blank"
+          href="https://visor.codigopostal.gov.co/472/visor/">https://visor.codigopostal.gov.co/472/visor/</a>
+      </ng-template>
+      <div class="col-md-4 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['codigoPostal'].hasError('required')">*</span>
+          Código postal
+        </label>
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="" formControlName="codigoPostal"
+              (keyup)="validateOnlyNumberInput($event, 'codigoPostal')" [ngClass]="{ 'is-valid': (f['codigoPostal'].dirty || submitted) && !f['codigoPostal'].errors,
+        'is-invalid': (f['codigoPostal'].dirty || submitted) && f['codigoPostal'].errors }">
+            <div class="input-group-append">
+              <span role="button" class="glyphicon glyphicon-info input-group-text" style="height: 100%;" placement="top"
+                [ngbPopover]="popContentCodigoPostal" popoverTitle="Información">
+                <i class="fa fa-info text-danger" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="invalid-feedback"
+              *ngIf="(f['codigoPostal'].dirty || submitted) && (f['codigoPostal'].hasError('minlength') || f['codigoPostal'].hasError('maxlength'))">
+              * Código postal de 6 dígitos
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  
+  <div class="content-button">
+      <button type="submit" class="btn btn-primary-form">CONTINUAR</button>
+  </div>
+</form>

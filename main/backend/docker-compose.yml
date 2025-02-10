@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  sispe-apigateway-scv:
+    image: ${DOCKER_REGISTRY-}sispeserviciosapigateway
+    build:
+      context: .
+      dockerfile: SispeServiciosApiGateway/Dockerfile
+
+  sispe-apiciudadano-svc:
+    image: ${DOCKER_REGISTRY-}sispeserviciosapiciudadano
+    build:
+      context: .
+      dockerfile: SispeServiciosApiCiudadano/Dockerfile
+
+  sispe-intermediacion-svc:
+    image: ${DOCKER_REGISTRY-}sispeserviciosapiintermediacion
+    build:
+      context: .
+      dockerfile: SispeServiciosApiIntermediacion/Dockerfile
+
+
+  sispe-apiparametrico-svc:
+    image: ${DOCKER_REGISTRY-}sispeserviciosapiparametrico
+    build:
+      context: .
+      dockerfile: SispeServiciosApiParametrico/Dockerfile
+
+
+  sispe-apiprestador-svc:
+    image: ${DOCKER_REGISTRY-}sispeserviciosapiprestador
+    build:
+      context: .
+      dockerfile: SispeServiciosApiPrestador/Dockerfile
+
+
+  sispe-apiusuario-svc:
+    image: ${DOCKER_REGISTRY-}sispeserviciosapiusuario
+    build:
+      context: .
+      dockerfile: SispeServiciosApiUsuario/Dockerfile
+#docker network create "microservicenet"
+networks:
+  default:
+    external:
+      name: microservicenet 
+

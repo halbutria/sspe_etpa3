@@ -1,0 +1,48 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace SispeServicios.Api.Intermediacion.Migrations
+{
+    public partial class _117 : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "VacantePoblacionVulnerable",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PoblacionVulnerableId = table.Column<int>(type: "int", nullable: false),
+                    VacanteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UsuarioCreacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaCreacion = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UsuarioModificacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FechaModificacion = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    Eliminado = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VacantePoblacionVulnerable", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VacantePoblacionVulnerable_Vacante_VacanteId",
+                        column: x => x.VacanteId,
+                        principalTable: "Vacante",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VacantePoblacionVulnerable_VacanteId",
+                table: "VacantePoblacionVulnerable",
+                column: "VacanteId");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "VacantePoblacionVulnerable");
+        }
+    }
+}

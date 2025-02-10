@@ -1,0 +1,531 @@
+<div class="container">
+  <form [formGroup]="srv.registrarForm" #form="ngForm" (keydown.enter)="$event.preventDefault()">
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    OCUPACIONES
+    --------------------------------------------------------------------------------------------------
+    -->
+    <div class="row">
+      <!-- *ngIf="(user$ | async) as user; else loading" -->
+      <div class="col">
+        <div class="mb-3">
+          <label for="Ocupaciones" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','denominacionesRelacionadas')">*</span>
+            Seleccionar hasta 4 ocupaciones relacionadas</label>
+          <div class="form-group">
+            <ejs-multiselect *ngIf="(srv.$denominaciones | async) as denominaciones; else loadingDenominaciones"
+              class="form-select form-select-sm sinflecha_ejs" name="motivo" id="motivo" mode='Box'
+              [formControl]="denominacionesRelacionadasControl" [maximumSelectionLength]="4"
+              [dataSource]='denominaciones' [placeholder]='"Seleccionar una o varias ocupaciones"'
+              [fields]=" { text: 'nombre', value: 'id' }"
+              (select)="srv.seleccionarMultiCampo('denominacionesRelacionadas',$event)"
+              (removing)="srv.quitarMulticampo('denominacionesRelacionadas',$event)" (change)="
+                          OnChangeDenominaciones($event,multiselectconocimientos,srv.$conocimientos);
+                          OnChangeDenominaciones($event,multiselectdestreza,srv.$destrezas)
+                        "></ejs-multiselect>
+            <ng-template #loadingDenominaciones>
+              <div class="spinner-border spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </ng-template>
+
+            <!-- (change)="ocupacionChange()" -->
+            <div class="invalid-feedback">
+              <div
+                *ngIf="!srv.isValid('required','denominacionesRelacionadas') && srv.isDirtyOrTouched('denominacionesRelacionadas')">
+                * Debe agregar al menos una ocupación.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col"></div>
+
+    </div>
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    conocimientos o competencias | habilidades o destrezas
+    --------------------------------------------------------------------------------------------------
+    -->
+    <!-- *ngIf="(srv.$denominaciones | async) as denominaciones; else loadingdenominaciones" -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="competencias" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','conocimientosCompetencias')">*</span>
+            Seleccionar hasta 4 conocimientos o competencias de las ocupaciones</label>
+          <ejs-multiselect *ngIf="(srv.$conocimientos | async) as conocimientos; else loadingdConocimientos"
+            #multiselectconocimientos mode='Box' class="form-select form-select-sm sinflecha_ejs" name="motivo" id="motivo"
+            [formControl]="conocimientosCompetenciasControl" [maximumSelectionLength]="4" [dataSource]='conocimientos'
+            [placeholder]='"Seleccionar uno o varios conocimientos o competencias"'
+            [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('conocimientosCompetencias',$event)"
+            (removing)="srv.quitarMulticampo('conocimientosCompetencias',$event)"></ejs-multiselect>
+          <ng-template #loadingdConocimientos>
+            <br>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <!-- //srv.getFormControl('denominacionesRelacionadas').value.length> 0 -->
+        </div>
+        <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('conocimientosCompetencias')">
+          <div *ngIf="!srv.isValid('required','conocimientosCompetencias')">
+            * Debe agregar al menos un conocimiento o competencia
+          </div>
+        </div>
+      </div>
+
+      <!-- *ngIf="(user$ | async) as user; else loading" -->
+
+
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="habilidades" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','habilidadesDestrezas')">*</span>
+            Seleccionar hasta 4 habilidades o destrezas de las ocupaciones</label>
+          <ejs-multiselect class="form-select form-select-sm sinflecha_ejs" mode='Box'
+            *ngIf="(srv.$destrezas | async) as destrezas; else loadingDestrezas" #multiselectdestreza name="motivo"
+            id="motivo" [formControl]="habilidadesDestrezasControl" [maximumSelectionLength]="4"
+            [dataSource]='destrezas' [placeholder]='"Seleccionar uno o varios habilidades o destrezas"'
+            [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('habilidadesDestrezas',$event)"
+            (removing)="srv.quitarMulticampo('habilidadesDestrezas',$event)"></ejs-multiselect>
+          <ng-template #loadingDestrezas>
+            <br>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+
+        </div>
+        <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('habilidadesDestrezas')">
+          <div *ngIf="!srv.isValid('required','habilidadesDestrezas')">
+            * Debe agregar al menos una habilidad o destreza
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+     experiencia general | Tiempo de experiencia
+    --------------------------------------------------------------------------------------------------
+    -->
+
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <label class="form-check-label" for="requiereExperienciaGeneral">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereExperienciaGeneral')">*</span>
+            ¿Requiere experiencia general?</label>
+          <input formControlName="requiereExperienciaGeneral" class="form-check-input" type="checkbox"
+            id="requiereExperienciaGeneral" [ngClass]="srv.formControlValidStyle('requiereExperienciaGeneral')">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="cantidadMesesExperiencia" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','tiempoExperiencia')">*</span>
+            Tiempo de experiencia (En meses)</label>
+          <input formControlName="tiempoExperiencia" type="number" min="1" max="999"
+            [ngClass]="srv.formControlValidStyle('tiempoExperiencia')" class="form-control"
+            name="cantidadMesesExperiencia" id="cantidadMesesExperiencia"
+            aria-describedby="helpIdCantidadMesesExperiencia" placeholder="Ingrese tiempo de experiencia en meses">
+        </div>
+        <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('tiempoExperiencia')">
+          <span *ngIf="!srv.isValid('required','tiempoExperiencia')">
+            * Tiempo de experiencia es obligatorio.
+          </span>
+          <span *ngIf="!srv.isValid('max','tiempoExperiencia')">
+            * Solo se admiten números hasta maximo 999
+          </span>
+          <span *ngIf="!srv.isValid('min','tiempoExperiencia')">
+            * Solo se admiten números mayores o iguales a 1
+          </span>
+          <span *ngIf="!srv.isValid('pattern','tiempoExperiencia')">
+            * Solo se permitern valores Númericos.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    EXPERIENCIA ESPECIFICA
+    --------------------------------------------------------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <label class="form-check-label" for="requiereExpecienciaEspecifica">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereExperienciaEspecifica')">*</span>
+            ¿Requiere experiencia específica?</label>
+          <input formControlName="requiereExperienciaEspecifica" class="form-check-input" type="checkbox"
+            id="requiereExpecienciaEspecifica" [ngClass]="srv.formControlValidStyle('requiereExperienciaEspecifica')">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="descripcionExperienciaEspecifica" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','descripcionExperienciaEspecifica')">*</span>
+            Descripción de la experiencia específica</label>
+          <textarea formControlName="descripcionExperienciaEspecifica" type="text" maxlength="500"
+            [ngClass]="srv.formControlValidStyle('descripcionExperienciaEspecifica')" class="form-control"
+            name="descripcionExperienciaEspecifica" id="descripcionExperienciaEspecifica"
+            aria-describedby="helpIdDescripcionExperienciaEspecifica"
+            placeholder="Ingrese experiencia específica sobre algún tema"></textarea>
+          <small class="form-text text-muted">Caracteres restantes:
+            <span>{{srv.caracteresFaltantes('descripcionExperienciaEspecifica',500)}}</span>
+            <span *ngIf="!srv.isValid('minlength','descripcionExperienciaEspecifica')"> (Mínimo 5 caracteres)</span>
+            <span
+              *ngIf="!srv.isValid('required','descripcionExperienciaEspecifica') && srv.isDirtyOrTouched('descripcionExperienciaEspecifica')">
+              (Es requerido)</span>
+          </small>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    CAPACITACIÓN ESPECIFICA
+    --------------------------------------------------------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <label class="form-check-label" for="requiereCapacitacionEspecifica">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereCapacitacionEspecifica')">*</span>
+            ¿Requiere capacitación específica?</label>
+          <input formControlName="requiereCapacitacionEspecifica" class="form-check-input" type="checkbox"
+            id="requiereCapacitacionEspecifica" [ngClass]="srv.formControlValidStyle('requiereCapacitacionEspecifica')">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="descripcionCapacitacionEspecifica" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','descripcionCapacitacionEspecifica')">*</span>
+            Descripción de la capacitación específica</label>
+          <textarea formControlName="descripcionCapacitacionEspecifica" maxlength="500"
+            [ngClass]="srv.formControlValidStyle('descripcionCapacitacionEspecifica')" class="form-control"
+            name="descripcionCapacitacionEspecifica" id="descripcionCapacitacionEspecifica"
+            aria-describedby="helpIdDescripcionCapacitacionEspecifica"
+            placeholder="Ingrese capacitación especifica sobre algún tema"></textarea>
+          <small class="form-text text-muted">Caracteres restantes:
+            <span>{{srv.caracteresFaltantes('descripcionCapacitacionEspecifica',500)}}</span>
+            <span *ngIf="!srv.isValid('minlength','descripcionCapacitacionEspecifica')"> (Mínimo 5 caracteres)</span>
+            <span
+              *ngIf="!srv.isValid('required','descripcionCapacitacionEspecifica') && srv.isDirtyOrTouched('descripcionCapacitacionEspecifica')">
+              (Es requerido)</span>
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    CERTIFICACION ESPECIFICA
+    --------------------------------------------------------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <label class="form-check-label" for="requiereCertificacionEspecifica">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereCertificacionEspecifica')">*</span>
+            ¿Requiere certificación específica?</label>
+          <input formControlName="requiereCertificacionEspecifica" class="form-check-input"
+            name="requiereCertificacionEspecifica" type="checkbox" id="requiereCertificacionEspecifica"
+            [ngClass]="srv.formControlValidStyle('requiereCertificacionEspecifica')">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="descripcionCertificacionEspecifica" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','descripcionCertificacionEspecifica')">*</span>
+            Descripción de la certificación específica</label>
+          <textarea formControlName="descripcionCertificacionEspecifica" maxlength="500"
+            [ngClass]="srv.formControlValidStyle('descripcionCertificacionEspecifica')" class="form-control"
+            name="descripcionCertificacionEspecifica" id="descripcionCertificacionEspecifica"
+            aria-describedby="helpIdCertificacionapacitacionEspecifica"
+            placeholder="Ingrese certificación específica sobre algún tema"></textarea>
+          <small class="form-text text-muted">Caracteres restantes:
+            <span>{{srv.caracteresFaltantes('descripcionCertificacionEspecifica',500)}}</span>
+            <span *ngIf="!srv.isValid('minlength','descripcionCertificacionEspecifica')"> (Mínimo 5 caracteres)</span>
+            <span
+              *ngIf="!srv.isValid('required','descripcionCertificacionEspecifica') && srv.isDirtyOrTouched('descripcionCertificacionEspecifica')">
+              (Es requerido)</span>
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    INFORMACIÓN ADICIONAL VACANTE
+    --------------------------------------------------------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <fa-icon></fa-icon>
+          <label for="informacionAdicionalVacante" class="form-label">
+            Información adicional de la vacante</label>
+          <textarea formControlName="informacionAdicional" maxlength="3000" class="form-control"
+            [ngClass]="srv.formControlValidStyle('informacionAdicional')" name="informacionAdicionalVacante"
+            id="informacionAdicionalVacante" rows="5"></textarea>
+          <small class="form-text text-muted">Caracteres restantes:
+            <span>{{srv.caracteresFaltantes('informacionAdicional',3000)}}</span>
+            <span *ngIf="!srv.isValid('minlength','informacionAdicional')"> (Mínimo 5 caracteres)</span></small>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    IDIOMA REQUERIDO
+    --------------------------------------------------------------------------------------------------
+    -->
+    <hr>
+
+    <div class="table-responsive-sm">
+      <div class="row">
+        <div class="col">Idiomas requeridos</div>
+        <div class="col d-flex justify-content-end"><button class="btn btn-outline-danger"
+            (click)="open(modal_ubicacion)">Agregar idioma</button></div>
+      </div>
+      <table *ngIf="srv.getArrayControl('idiomas').value.length > 0" class="table
+                table-hover
+                table-borderless
+                align-middle">
+        <thead class="table-light">
+          <caption>
+
+          </caption>
+          <tr class="Color-Gris-Standard">
+            <th>Idioma</th>
+            <th>Conversacional</th>
+            <th>Lectura</th>
+            <th>Escritura</th>
+            <th>Escucha</th>
+            <th></th>
+
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr class="Color-Gris-Standard" *ngFor="let idioma of srv.getArrayControl('idiomas').value">
+            <td scope="row">{{this.srv.parametricosSrv.getById(idioma.idiomaId,PARAMETRICOS.IDIOMA) | async}}</td>
+            <td>{{traducirNivel(idioma.nivelConversacionalId)}}</td>
+            <td>{{traducirNivel(idioma.nivelLecturaId)}}</td>
+            <td>{{traducirNivel(idioma.nivelEscrituraId)}}</td>
+            <td>{{traducirNivel(idioma.nivelEscuchaId)}}</td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="eliminarIdioma(idioma.idiomaId)">
+                <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+      </table>
+    </div>
+    <hr>
+
+
+    <!--
+    --------------------------------------------------------------------------------------------------
+    DESCRIPCION DE LA VACANTE
+    --------------------------------------------------------------------------------------------------
+    -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group form-group mb-3">
+          <label for="descripcionVacante" class="form-label"> <span class="text-danger"
+              *ngIf="!srv.isValid('required','descripcion')">*</span> Descripción de la vacante</label>
+          <textarea formControlName="descripcion" maxlength="3000" class="form-control" name="descripcionVacante"
+            id="descripcionVacante" [ngClass]="srv.formControlValidStyle('descripcion')" rows="8">Buen dia, en [Nombre Empresa] [Tipo Documento Empleador] [Numero Documento Empleador] Estamos en la busqueda de [Puestos de trabajo] [Nombre de Vacante]que cuenta con un nivel de estudios [Nivel de estudios] y tiempo de experiencia de [Tiempo de experiencia] en [Ocupacion], adicional experiencia en [Capacitaciones] - Experiencia en [Certificaciones], experiencia en [Informacion adicional], deseable [Idioma] en [Fluidez].
+            Tipo de contrato:[Tipo de Contrato]
+            Lugar de Trabajo:[Ubicacion de Vacante][Modalidad de trabajo]
+            Salario: [Salario]
+            Compensación adicional: [Cual compensacion adicional]
+            Fecha de vencimiento de la vacante:[Fecha de vencimiento de la vacante]
+            Fecha de Publicación de la vacante: [Fecha de publicación de vacante]
+          </textarea>
+          <small class="form-text text-muted">Caracteres restantes:
+            <span>{{srv.caracteresFaltantes('descripcion',3000)}}</span>
+            <span *ngIf="!srv.isValid('minlength','descripcion')"> (Mínimo 50 caracteres)</span>
+            <span *ngIf="!srv.isValid('required','descripcion') && srv.isDirtyOrTouched('descripcion')"> (Es
+              requerido)</span></small>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!--
+------------------------------------------------------------
+| MODAL IDIOMAS          |
+------------------------------------------------------------
+-->
+<ng-template #modal_ubicacion let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar idioma</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <!--     <pre>{{idiomaForm.value | json}}</pre> -->
+    <form [formGroup]="idiomaForm">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group mb-3">
+              <span class="text-danger" *ngIf="idiomaForm.get('idiomaId')?.invalid">*</span>
+              <label for="ciudades" class="form-label">Seleccione Idiomas</label>
+              <ejs-dropdownlist formControlName="idiomaId" [dataSource]='srv.$idiomas | async' id='ddlelement'
+                [allowFiltering]='true' [fields]=" { text: 'nombre', value: 'id' }" floatLabelType='Auto'
+                [enablePersistence]="true">
+                <ng-template #noRecordsTemplate>
+                  <span class='norecord'> Idiomas no disponibles </span>
+                </ng-template>
+              </ejs-dropdownlist>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group mb-3">
+              <span class="text-danger" *ngIf="idiomaForm.get('nivelConversacionalId')?.invalid">*</span>
+              <label class="form-label">Indique el nivel de dominio conversacional del idioma</label><br>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelConversacionalId" [value]="1" class="btn-check"
+                  name="nivelConversacionalId" id="conversacional_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="conversacional_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelConversacionalId" [value]="2" class="btn-check"
+                  name="nivelConversacionalId" id="conversacional_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="conversacional_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelConversacionalId" [value]="3" class="btn-check"
+                  name="nivelConversacionalId" id="conversacional_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="conversacional_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group mb-3">
+              <span class="text-danger" *ngIf="idiomaForm.get('nivelLecturaId')?.invalid">*</span>
+              <label class="form-label">Indique el nivel de dominio en lectura del idioma</label><br>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelLecturaId" [value]="1" class="btn-check" name="nivelLecturaId"
+                  id="lectura_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="lectura_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelLecturaId" [value]="2" class="btn-check" name="nivelLecturaId"
+                  id="lectura_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="lectura_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelLecturaId" [value]="3" class="btn-check" name="nivelLecturaId"
+                  id="lectura_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="lectura_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group mb-3">
+              <span class="text-danger" *ngIf="idiomaForm.get('nivelEscrituraId')?.invalid">*</span>
+              <label class="form-label">Indique el nivel de dominio en escritura del idioma</label><br>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelEscrituraId" [value]="1" class="btn-check"
+                  name="nivelEscrituraId" id="escritura_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="escritura_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelEscrituraId" [value]="2" class="btn-check"
+                  name="nivelEscrituraId" id="escritura_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escritura_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelEscrituraId" [value]="3" class="btn-check"
+                  name="nivelEscrituraId" id="escritura_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escritura_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group mb-3">
+              <span class="text-danger" *ngIf="idiomaForm.get('nivelEscuchaId')?.invalid">*</span>
+              <label class="form-label">Indique el nivel de dominio en escucha del idioma</label><br>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" formControlName="nivelEscuchaId" [value]="1" class="btn-check" name="nivelEscuchaId"
+                  id="escucha_bajo" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="escucha_bajo">
+                  <fa-icon icon="sad-cry"></fa-icon>
+                  Bajo
+                </label>
+                <input type="radio" formControlName="nivelEscuchaId" [value]="2" class="btn-check" name="nivelEscuchaId"
+                  id="escucha_medio" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escucha_medio">
+                  <fa-icon icon="frown-open"></fa-icon>
+                  Medio
+                </label>
+                <input type="radio" formControlName="nivelEscuchaId" [value]="3" class="btn-check" name="nivelEscuchaId"
+                  id="escucha_alto" autocomplete="off">
+                <label class="btn btn-outline-warning" for="escucha_alto">
+                  <fa-icon icon="smile"></fa-icon>
+                  Alto
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12"*ngIf="validarIdiomaDuplicada()">
+          <div class="invalid-feedback">
+            <div>* Registro de idioma duplicado.</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" [disabled]="formularioModalIdiomaInvalido()"
+      (click)="modal.close('idiomas')">Agregar</button>
+  </div>
+</ng-template>

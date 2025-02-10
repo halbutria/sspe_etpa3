@@ -1,0 +1,91 @@
+<form [formGroup]="filterForm">
+  <div class="row">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="col-4 me-1">
+          <select class="form-select" (change)="changeNivel($event)">
+            <option value="">Seleccione nivel educativo</option>
+            <option *ngFor="let nivel of listNiveles" [value]="nivel.id">
+              {{ nivel.nombre }}
+            </option>
+          </select>
+        </div>
+        <div class="col-4 me-1">
+          <input class="form-control ml-2 w-100" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+            (input)="search()" placeholder="Buscar..." />
+        </div>
+        <div class="col-4 text-end">
+          <button class="btn btn-outline-danger mb-0 me-1" role="button" (click)="openModalForm('add')">
+            Crear
+          </button>
+          <button class="btn btn-outline-warning mb-0" role="button" (click)="openModalForm('associate')" [disabled]="associateDisabled">
+            Asociar
+          </button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</form>
+
+<div class="container-fluid m-2">
+  <div class="clearfix d-flex justify-content-center" *ngIf="showLoading">
+    <div class="spinner-border float-end" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-1" *ngIf="msg !== ''">
+  <div class="alert alert-warning" role="alert">
+    {{ msg }}
+  </div>
+</div>
+
+<section *ngIf="listInstituciones.length > 0">
+  <div class="row mt-2">
+    <div class="table-responsive p-0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Institución</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let institucion of listInstituciones">
+            <td>{{ institucion.nombre }}</td>
+            <td class="align-middle w-25">
+              <!-- <button (click)="openModalForm('edit', institucion)"
+                class="btn btn-outline-secondary btn-sm font-weight-bold text-xs ps-3 pe-3 me-1"
+                data-bs-toggle="tooltip" title="Editar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                  class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                  </path>
+                  <path fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                  </path>
+                </svg>
+              </button> -->
+              <button (click)="deleteAsociacion(institucion)"
+                class="btn btn-outline-danger btn-sm font-weight-bold text-xs ps-3 pe-3" data-bs-toggle="tooltip"
+                title="Eliminar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                  <path
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"
+    [pageSize]="pageSize" class="d-flex justify-content-center"></ngb-pagination>
+</section>

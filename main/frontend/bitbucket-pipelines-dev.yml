@@ -1,0 +1,74 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+image: atlassian/default-image:3
+
+options:
+  docker: true
+  size: 2x
+pipelines:
+  default:
+      - step:
+          name: Build and push sispe-front
+          oidc: true
+          services:
+            - docker
+          size: 2x
+          script:
+            # change directory to application folder
+            - docker  build -f dockerfile --tag sispe-front-ecr .
+            - export AWS_REGION=$REGION
+            - export AWS_ROLE_ARN=arn:aws:iam::125264681808:role/AWS_BITBUCKET_ROLE
+            - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
+            - echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
+            - pipe: atlassian/aws-ecr-push-image:1.6.2
+              variables:
+                AWS_DEFAULT_REGION: $REGION
+                AWS_OIDC_ROLE_ARN: 'arn:aws:iam::125264681808:role/AWS_BITBUCKET_ROLE'
+                IMAGE_NAME: sispe-front-ecr
+                TAGS: $BITBUCKET_BUILD_NUMBER
+
+
+    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+      - step:
+          oidc: true
+          name: 'Deploy sispe-front'
+          script:
+            - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            - unzip awscliv2.zip
+            - aws/install
+            - export NS=test
+            - export API=sispe-front
+            - export REPL=1
+            - export PORT=8080
+            - export AWS_REGION=$REGION
+            - export CIMAGEN=$API-ecr:$BITBUCKET_BUILD_NUMBER
+            - export CPORT=8080
+            - export AWS_ROLE_ARN=arn:aws:iam::125264681808:role/AWS_BITBUCKET_ROLE
+            - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
+            - echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
+            - curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+            - chmod +x kubectl
+            - mv kubectl /usr/local/bin
+            - aws eks update-kubeconfig --name staging-sispe-eks
+            - ls
+            - if ! kubectl get ns test ;then kubectl create ns test ; fi
+            - pwd
+            - cat
+            - cd /opt/atlassian/pipelines/agent/build/Manifests
+            - find ./ -name "*.yml" -print | xargs sed -i "s/#{NAME}#/$API/g"
+            - find ./ -name "*.yml" -print | xargs sed -i "s/#{NS}#/$NS/g"
+            - find ./ -name "*.yml" -print | xargs sed -i "s/#{REPL}#/$REPL/g"
+            - find ./ -name "*.yml" -print | xargs sed -i "s/#{CPORT}#/$PORT/g"
+            - find ./ -name "*.yml" -print | xargs sed -i "s/#{CIMAGE}#/$CIMAGEN/g"
+            - cat deployment.yml
+            - cat services.yml
+            - kubectl apply -f deployment.yml
+            - kubectl apply -f hpa.yml
+            - kubectl apply -f services.yml
+definitions:
+  services:
+    docker:
+      memory: 4096

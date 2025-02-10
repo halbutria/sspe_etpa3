@@ -1,0 +1,102 @@
+<div class="container-box">
+  <div class="content">
+      <div class="info-persona">
+        <div class="image">
+          <img class="foto-perfil img-fluid rounded-circle img-thumbnail" src="./assets/img/fabio-mangione.jpg"
+          alt="Imagen de perfil buscador de empleo">
+        </div>
+        <div class="text">
+          <span class="text-bienvenido">Bienvenido(a)</span>
+          <span class="text-persona">{{ showName }}</span>
+        </div>
+      </div>
+      <div class="cv-complete">
+        <div class="porcentaje">Tu hoja de vida está al: <span class="number">{{ ciudadano.porcentajeHv }}%</span></div>
+        <div class="progress">
+          <div ng class="progress-bar bg-danger" role="progressbar" [style.width.%]="ciudadano.porcentajeHv"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <span class="label-porcentaje">Porcentaje de Avance </span>
+      </div>
+    </div>
+</div>
+
+<div class="container-box">
+  <div class="title">
+    <span>Actividades pendientes</span>
+    <a><i class="fa fa-info"></i></a>
+  </div>
+  <div class="content-activities">
+    <ul>
+      <li>
+        <span>Registro buscador</span>
+        <span class="number">{{ ciudadano.porcentajeRegistro > 0 ? 100 : 0 }}%</span>
+      </li>
+      <li>
+        <a class="btn-data" (click)="changeTabCv($event, 1)">
+          <fa-icon icon="edit"></fa-icon>
+        </a>
+        <span>Información personal</span>
+        <span class="number">{{ ciudadano.porcentajeInfoPersonal > 0 ? 100 : 0 }}%</span>
+      </li>
+      <li>
+        <a class="btn-data" (click)="changeTabCv($event, 2)">
+          <fa-icon icon="edit"></fa-icon>
+        </a>
+        <span>Informacion académica</span>
+        <span class="number">{{ ciudadano.porcentajeEduFormal > 0 ? 100 : 0 }}%</span>
+      </li>
+      <li>
+        <a class="btn-data" (click)="changeTabCv($event, 3)">
+          <fa-icon icon="edit"></fa-icon>
+        </a>
+        <span>Información laboral</span>
+        <span class="number">{{ ciudadano.porcentajeInfoLaboral > 0 ? 100 : 0 }}%</span>
+      </li>
+      <li>
+        <a class="btn-data" (click)="changeTabCv($event, 4)">
+          <fa-icon icon="edit"></fa-icon>
+        </a>
+       <span>Educación informal</span> 
+        <span class="number">{{ ciudadano.porcentajeEduNoFormal > 0 ? 100 : 0 }}%</span>
+      </li>
+    </ul>
+  </div>
+  
+</div>
+
+<div class="container-box">
+  <div class="title">
+    <span>Redes sociales</span>
+    <a><i class="fa fa-info"></i></a>
+  </div>
+  <div class="content-social">
+    <ul>
+      <li *ngFor="let red of listRedesSociales">
+        <div class="name-rrss">{{ getNombreRedSocial(red) }}</div>
+        <div class="options-rrss">
+          <a (click)="openModalForm('edit', red)">
+            <fa-icon class="edit" [icon]="['fas', 'edit']"></fa-icon>
+          </a>
+          <a (click)="deleteSocialMedia(red)">
+            <fa-icon class="delete" [icon]="['fas', 'trash-alt']"></fa-icon>
+          </a>
+        </div>
+      </li>
+      <li>
+        <a class="btn btn-outline-warning btn-sm" type="button" (click)="openModalForm('new')">
+          <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  
+</div>
+
+
+<!-- Ng template para el rating de estrellas con respecto al porcentaje de la hoja de vida -->
+<ng-template #t let-fill="fill">
+  <i class="bi-star-fill">
+    <i *ngIf="fill > 0" class="bi-star-fill filled" [style.width.%]="fill"></i>
+  </i>
+</ng-template>

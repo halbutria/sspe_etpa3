@@ -1,0 +1,70 @@
+<form [formGroup]="socialMediaForm" (ngSubmit)="addSocialMedia()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ typeStr }} - Red Social</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Mensaje de errores del API -->
+    <div class="alert alert-danger" role="alert" *ngIf="msgError !== ''">
+      {{ msgError }}
+    </div>
+    <div class="row pe-4 pb-4 ps-4">
+      <!-- Red social -->
+      <div class="col-md-12 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['redSocialId'].hasError('required')">*</span>
+          Red social
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="redSocialId" [ngClass]="{ 'is-valid': (f['redSocialId'].dirty || submitted) && !f['redSocialId'].errors,
+                  'is-invalid': (f['redSocialId'].dirty || submitted) && f['redSocialId'].errors }">
+            <option [value]="red.id" *ngFor="let red of cvService.$redSocial | async">
+              {{red.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="(f['redSocialId'].dirty || submitted) && f['redSocialId'].errors">
+            * Red social requerida
+          </div>
+        </div>
+      </div>
+      <!-- Nombre usuario red social -->
+      <div class="col-md-12 mb-2" *ngIf="f['redSocialId'].value == 5">
+        <label>
+          <span class="text-danger" *ngIf="f['nombreRedSocial'].hasError('required')">*</span>
+          Otra Red social
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="nombreRedSocial" [ngClass]="{ 'is-valid': (f['nombreRedSocial'].dirty || submitted) && !f['nombreRedSocial'].errors,
+                'is-invalid': (f['nombreRedSocial'].dirty || submitted) && f['nombreRedSocial'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['nombreRedSocial'].dirty || submitted) && f['nombreRedSocial'].errors">
+            * Otra red social requerida
+          </div>
+        </div>
+      </div>
+      <!-- Nombre usuario red social -->
+      <div class="col-md-12 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['nombreUsuarioRedSocial'].hasError('required')">*</span>
+          Nombre usuario red social
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="nombreUsuarioRedSocial"
+            [ngClass]="{ 'is-valid': (f['nombreUsuarioRedSocial'].dirty || submitted) && !f['nombreUsuarioRedSocial'].errors,
+                'is-invalid': (f['nombreUsuarioRedSocial'].dirty || submitted) && f['nombreUsuarioRedSocial'].errors }">
+          <div class="invalid-feedback"
+            *ngIf="(f['nombreUsuarioRedSocial'].dirty || submitted) && f['nombreUsuarioRedSocial'].errors">
+            * Nombre usuario red social requerido
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

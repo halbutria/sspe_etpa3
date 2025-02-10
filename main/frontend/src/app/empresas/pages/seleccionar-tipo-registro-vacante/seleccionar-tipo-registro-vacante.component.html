@@ -1,0 +1,53 @@
+<div class="card " style="width: 500px;">
+  <div class="card-body">
+    <h4 class="card-title Futura_Std_Heavy">Registrar Vacante</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Selecciona una opción para continuar con el registro:</h6>
+    <br /> <!-- {{accionVacanteControl.value}} -->
+    <!-- p class="card-text">Selecciona una opción para continuar con el registro.</p -->
+    <div class="text-center">
+      <div class="btn-group btn-group-lg" role="group" aria-label="Basic radio toggle button group">
+        <input [formControl]="accionVacanteControl" [value]="ACCION_VACANTE.NUEVA" type="radio" class="btn-check"
+          name="accionVacanteControl" id="accionVacanteControl_NUEVA" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="accionVacanteControl_NUEVA">
+          <fa-icon class="icon-menu" icon="plus"></fa-icon>
+          <br>
+          Nueva
+        </label>
+
+        <input [formControl]="accionVacanteControl" [value]="ACCION_VACANTE.EN_PROCESO" type="radio" class="btn-check"
+          name="accionVacanteControl" id="accionVacanteControl_EN_PROCESO" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="accionVacanteControl_EN_PROCESO">
+          <fa-icon class="icon-menu" icon="tasks"></fa-icon>
+          <br>
+          En Proceso
+        </label>
+
+        <input [formControl]="accionVacanteControl" [value]="ACCION_VACANTE.COPIA" type="radio" class="btn-check"
+          name="accionVacanteControl" id="accionVacanteControl_COPIA" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="accionVacanteControl_COPIA">
+          <fa-icon class="icon-menu" icon="copy"></fa-icon>
+          <br>
+          Copiar
+        </label>
+      </div>
+    </div>
+    <hr>
+    <div style="text-align: center;">
+      <!-- a href="javascript:void(0)" class="btn btn-secondary" routerLink="/empresas">Volver</a -->&NonBreakingSpace;
+      <!-- a href="javascript:void(0)" class="btn btn-warning" routerLink="/empresas/registrar-vacante">Aceptar</a -->
+    </div>
+
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <a href="javascript:void(0)" class="btn btn-light" routerLink="/empresas">Volver</a>&NonBreakingSpace;
+
+        <button class="btn btn-primary-form" (click)="navegar()">
+          <span role="status" aria-hidden="true"></span>
+          Aceptar
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+</div>

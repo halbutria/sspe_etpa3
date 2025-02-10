@@ -1,0 +1,59 @@
+<form [formGroup]="descVacanteForm" (ngSubmit)="saveForm()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ title }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row pt-4 pe-4 pb-4 ps-4 d-flex">
+      <section class="col-8 content-form">
+        <!-- Id -->
+        <input type="hidden" class="form-control" placeholder="" formControlName="id" [ngClass]="{ 'is-valid': (f['id'].dirty || submitted) && !f['id'].errors,
+          'is-invalid': (f['id'].dirty || submitted) && f['id'].errors }">
+
+        <div class="col-md-12 mb-2">
+          <label>
+            <span class="text-danger" *ngIf="f['descripcion'].hasError('required')">*</span>
+            Descripción
+          </label>
+          <div class="form-group-no-border">
+            <input type="text" class="form-control" placeholder="" formControlName="descripcion" [ngClass]="{ 'is-valid': (f['descripcion'].dirty || submitted) && !f['descripcion'].errors,
+              'is-invalid': (f['descripcion'].dirty || submitted) && f['descripcion'].errors }">
+            <div class="invalid-feedback" *ngIf="(f['descripcion'].dirty || submitted) && f['descripcion'].errors">
+              * El atributo es requerido
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mb-2">
+          <label>
+            <span class="text-danger" *ngIf="f['texto'].hasError('required')">*</span>
+            Texto
+          </label>
+          <div class="form-group-no-border">
+            <textarea class="form-control" placeholder="" formControlName="texto" [ngClass]="{ 'is-valid': (f['texto'].dirty || submitted) && !f['texto'].errors,
+              'is-invalid': (f['texto'].dirty || submitted) && f['texto'].errors }" rows="8">
+            </textarea>
+            <div class="invalid-feedback" *ngIf="(f['texto'].dirty || submitted) && f['texto'].errors">
+              * El texto es requerido
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="col-4 content-variables">
+        <p>Haga click sobre alguna variable para copiarla:</p>
+        <span class="badge bg-danger m-1" *ngFor="let variable of listVariables"
+          (click)="onBadgeClick(variable.codigo)" role="button">
+          [{{ variable.codigo }}] {{ variable.variable }}
+        </span>
+      </section>
+
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

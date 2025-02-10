@@ -1,0 +1,53 @@
+<form [formGroup]="parametricoForm" (ngSubmit)="saveParametricoForm()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ title }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row pt-4 pe-4 pb-4 ps-4">
+      <!-- Id -->
+      <input type="hidden" class="form-control" placeholder="" formControlName="id" [ngClass]="{ 'is-valid': (f['id'].dirty || submitted) && !f['id'].errors,
+        'is-invalid': (f['id'].dirty || submitted) && f['id'].errors }">
+
+      <div *ngFor="let field of parametrico?.fields">
+        <div *ngIf="!getHideField(field)" class="col-md-{{ field.col == undefined ? '12' : field.col }} mb-2">
+          <label>
+            <span class="text-danger" *ngIf="f[field.name].hasError('required')">*</span>
+            {{ field.label }}
+          </label>
+          <div class="form-group-no-border" [ngSwitch]="field.type">
+            <ng-container *ngSwitchCase="'select'">
+              <select class="form-select" formControlName="{{ field.name }}" [ngClass]="{ 'is-valid': (f[field.name].dirty || submitted) && !f[field.name].errors,
+                'is-invalid': (f[field.name].dirty || submitted) && f[field.name].errors }">
+                <option *ngIf="isLoadingSelect" value="" disabled> Cargando... </option>
+                <option *ngFor="let option of selectLists[field.name]" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+              <div class="invalid-feedback" *ngIf="(f[field.name].dirty || submitted) && f[field.name].errors">
+                {{ field.msgValidation }}
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <!-- Si el tipo no coincide con 'text' o 'number', puedes manejar otros tipos aquí -->
+              <input type="{{ field.type }}" class="form-control" placeholder="" formControlName="{{ field.name }}"
+                [ngClass]="{ 'is-valid': (f[field.name].dirty || submitted) && !f[field.name].errors,
+                'is-invalid': (f[field.name].dirty || submitted) && f[field.name].errors }">
+              <div class="invalid-feedback" *ngIf="(f[field.name].dirty || submitted) && f[field.name].errors">
+                {{ field.msgValidation }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

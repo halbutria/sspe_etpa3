@@ -1,0 +1,58 @@
+
+<header>
+  <div class="header">
+    <div class="head-gov">
+      <div>
+          <img src="./assets/img/logo-gov.svg" alt="">
+          <a href="https://www.gov.co/" target="_blank">Ir a Gov.co</a>
+      </div>
+    </div>
+    <div class="head-servicio-empleo">
+      <a href="/">
+          <img src="./assets/img/Logo-min-trabajo.png" alt="">
+          <img src="./assets/img/logo-spe-web.svg" alt="">
+      </a>
+    </div>
+    <div class="red-stripe" >
+
+      <div class="title" >
+
+
+        <ng-container [ngSwitch]="title">
+          <ng-container *ngSwitchCase="'Mi hoja de vida'">
+            <div  class="titulo-cabezote">
+              <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-list"></i>
+                {{ title }}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="../../../../assets/docs/TÉRMINOS Y CONDICIONES 201601_V_1.0-POTENCIAL_EMPLEADOR.pdf" target="_blank">Términos y condiciones</a></li>
+                <li><a class="dropdown-item" href="#" (click)="toggleCheckbox($event, 'tratamientoDatosPersonales')">Tratamiento de datos</a></li>
+                <li><a class="dropdown-item" href="#"(click)="noDisponible($event)">Actulización de datos</a></li>
+                <li><a class="dropdown-item" href="#"(click)="enConstruccion($event)">Cambiar contraseña</a></li>
+                <li><a class="dropdown-item" href="#"(click)="enConstruccion($event)">Cambiar correo electrónico</a></li>
+                <li><a class="dropdown-item" href="#"(click)="enConstruccion($event)">Cerrar sesión</a></li>
+              </ul>
+          </div>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <h1 class="titulo-cabezote">{{ title }}</h1>
+          </ng-container>
+         
+      </ng-container>
+
+
+        <!-- <h1 class="titulo-cabezote">{{ title }}</h1> -->
+      
+      
+
+      </div>
+      
+      
+
+    </div>
+  </div>
+  
+</header>
+
+

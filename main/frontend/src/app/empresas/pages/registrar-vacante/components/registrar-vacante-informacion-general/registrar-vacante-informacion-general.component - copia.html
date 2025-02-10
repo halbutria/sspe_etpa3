@@ -1,0 +1,1117 @@
+<div class="container-fluid" style="max-width: 1000px;">
+  <form [formGroup]="srv.registrarForm">
+
+    <div class="row" *ngIf="srv.isVacanteHidrocarburos()">
+      <div class="d-flex flex-row-reverse bd-highlight">
+        <div class="p-2 bd-highlight">Es hidrocarburos</div>
+      </div>
+    </div>
+
+
+    <!--
+        ------------------------------------------------
+          NOMBRE E IDENTIFICADOR VACANTE
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="nombre-vacante" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','nombre')">*</span>
+          
+            </label>
+
+            <ejs-multiselect id='sample-list1'  [dataSource]='zonaGeografica' [mode]='box' [fields]='fields' [placeholder]='waterMark'></ejs-multiselect>
+
+          <input type="text" formControlName="nombre" class="form-control" name="nombre-vacante" id="nombre-vacante"
+            aria-describedby="helpNombreVacante" placeholder="{{srv.formControlInfo('nombre').name}}"
+            [ngClass]="srv.formControlValidStyle('nombre')">
+
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('nombre')">
+            <div *ngIf="!srv.isValid('required','nombre')">* {{srv.formControlInfo('nombre').name}} requerido</div>
+            <div *ngIf="!srv.isValid('minlength','nombre')">* Debe tener mínimo {{srv.getRequiredMinlength('nombre')}}
+              caracteres</div>
+            <div *ngIf="!srv.isValid('maxlength','nombre')">* Debe tener máximo {{srv.getRequiredMaxlength('nombre')}}
+              caracteres</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="identificador-vacante" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','identificador')">*</span> Identificador de la
+            vacante</label>
+          <input type="text" formControlName="identificador" [disabled]="true" [readOnly]="true" class="form-control"
+            name="identificador-vacante" id="identificador-vacante" aria-describedby="helpIdentificadorVacante"
+            placeholder="sede-vacante-puestos">
+          <small id="helpIdentificadorVacante" class="form-text text-muted">No sera visible para el Buscador</small>
+        </div>
+      </div>
+    </div>
+
+    <!--
+        ------------------------------------------------
+          PUESTOS REQUERIDOS
+          MODALIDAD DE TRABAJO
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="numeroPuestosRequeridos" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','puestosRequeridos')">*</span>
+            {{srv.formControlInfo('puestosRequeridos').name}}</label>
+
+          <input formControlName="puestosRequeridos" type="number"
+            [ngClass]="srv.formControlValidStyle('puestosRequeridos')" class="form-control"
+            name="numeroPuestosRequeridos" id="numeroPuestosRequeridos" aria-describedby="helpNumeroPuestosRequeridos"
+            placeholder="{{srv.formControlInfo('puestosRequeridos').name}}">
+
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('puestosRequeridos')">
+            <div *ngIf="!srv.isValid('required','puestosRequeridos')">* {{srv.formControlInfo('puestosRequeridos').name}}</div>
+            <div *ngIf="!srv.isValid('pattern','puestosRequeridos')">* Solo se permiten valores numéricos</div>
+            <div *ngIf="!srv.isValid('min','puestosRequeridos')">* Debe ser mayor que {{srv.getRequiredMin('puestosRequeridos')-1}}</div>
+            <div *ngIf="!srv.isValid('max','puestosRequeridos')">* No debe ser mayor a  {{srv.getRequiredMax('puestosRequeridos')}}</div>
+            <div *ngIf="this.srv.registrarForm.getError('validarUbiacionPuesto')">*La sumatoria de puestos de las ubicaciones debe ser igual al número de puestos definidos en la vacante.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <label for="modalidad-de-trabajo" class="form-label">
+          <span class="text-danger" *ngIf="!srv.isValid('required','modalidadTrabajoId')">*</span>{{srv.formControlInfo('puestosRequeridos').name}}</label>
+        <div class="form-group mb-3">
+          <div class="input-group">
+            <select formControlName="modalidadTrabajoId" class="form-select form-select-sm" name="modalidad-de-trabajo"
+              id="modalidad-de-trabajo" [ngClass]="srv.formControlValidStyle('modalidadTrabajoId')">
+              <option [value]="''" selected>Selecciona una modalidad de trabajo</option>
+              <option *ngFor="let modalidad of srv.$modalidadesDeTrabajo | async" [value]="modalidad.id">
+                {{modalidad.nombre}}</option>
+            </select>
+            <div class="input-group-append">
+              <span role="button" class="glyphicon glyphicon-info input-group-text" style="height: 100%;"
+                placement="left" ngbPopover="{{$descripcionModalidadSeleccionada | async}}" popoverTitle="Información">
+                <i class="fa fa-info text-danger" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('modalidadTrabajoId')">
+            <div *ngIf="!srv.isValid('required','modalidadTrabajoId')">* {{srv.formControlInfo('puestosRequeridos').name}} requerido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <!--
+        ------------------------------------------------
+          SECTOR / SUB SECTOR ECONOMICO
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="sector-economico" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','sectorEconomicoId')">*</span>{{srv.formControlInfo('puestosRequeridos').name}} </label>
+          <select formControlName="sectorEconomicoId" class="form-select form-select-sm" name="sector-economico"
+            id="sector-economico" aria-describedby="helpSectorEconomico"
+            [ngClass]="srv.formControlValidStyle('sectorEconomicoId')">
+            <option value="" selected>Seleccionar</option>
+            <option *ngFor="let sector of srv.$sectoresEconomicos | async" [value]="sector.id">{{sector.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('sectorEconomicoId')">
+            <div *ngIf="!srv.isValid('required','sectorEconomicoId')">* {{srv.formControlInfo('puestosRequeridos').name}} requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="sub-sector-economico" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','subsectorEconomicoId')">*</span>{{srv.formControlInfo('subsectorEconomicoId').name}}</label>
+          <select formControlName="subsectorEconomicoId" class="form-select form-select-sm" name="sub-sector-economico"
+            id="sub-sector-economico" aria-describedby="helpSubSectorEconomico"
+            [ngClass]="srv.formControlValidStyle('subsectorEconomicoId')">
+            <option selected>Seleccionar</option>
+            <option *ngFor="let subSector of srv.$subSectoresEconomicos |async" [value]="subSector.id">
+              {{subSector.nombre}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('subsectorEconomicoId')">
+            <div *ngIf="!srv.isValid('required','subsectorEconomicoId')">* {{srv.formControlInfo('subsectorEconomicoId').name}} requerido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!----------------------------------------------
+        HIDROCARBUROS
+        ////////////////////////////////////////////////
+        TIPO PROYECTO ID | CODIGO INTERNO VACANTE
+        ////////////////////////////////////////////////
+        ----------------------------------------------->
+    <div class="row" *ngIf="srv.isVacanteHidrocarburos()">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="tipoProyectoId" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','tipoProyectoId')">*</span> Tipo de
+            proyecto</label>
+          <select formControlName="tipoProyectoId" class="form-select form-select-sm" name="tipoProyectoId"
+            id="tipoProyectoId" aria-describedby="helptipoProyectoId"
+            [ngClass]="srv.formControlValidStyle('tipoProyectoId')">
+            <option value="" selected>Seleccionar</option>
+            <option *ngFor="let tipoProyecto of srv.$tiposProyectos | async" [value]="tipoProyecto.id">
+              {{tipoProyecto.nombre}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('tipoProyectoId')">
+            <div *ngIf="!srv.isValid('required','tipoProyectoId')">* Tipo de proyecto requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="codigoInternoVacante" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','codigoInternoVacante')">*</span> Código interno de
+            la vacante</label>
+          <input type="text" class="form-control" formControlName="codigoInternoVacante" name="codigoInternoVacante"
+            id="codigoInternoVacante" aria-describedby="helpcodigoInternoVacante">
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('codigoInternoVacante')">
+            <div *ngIf="!srv.isValid('required','codigoInternoVacante')">* Código interno de la vacante requerido</div>
+            <div *ngIf="!srv.isValid('maxlength','codigoInternoVacante')">* Código interno de la vacante puede tener
+              máximo 10 caracteres.</div>
+            <div *ngIf="!srv.isValid('minlength','codigoInternoVacante')">* Código interno de la vacante debe tener
+              mínimo 5 caracteres. </div>
+            <div *ngIf="!srv.isValid('pattern','codigoInternoVacante')">* Código interno de la vacante Solo admite
+              números y letras.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--
+        ------------------------------------------------
+        DEPARTAMENTO º CIUDAD º LOCALIDAD/COMUNAS | NUMERO DE PUESTOS
+        ------------------------------------------------
+        -->
+    <hr>
+
+    <div class="table-responsive-sm">
+      <div class="row">
+        <div class="col">Ubicación de la vacante</div>
+        <div class="col d-flex justify-content-end"><button class="btn btn-outline-danger"
+            (click)="open(modal_ubicacion)">Agregar ubicación</button></div>
+      </div>
+      <table *ngIf="srv.getArrayControl('ubicaciones').value.length > 0" class="table
+            table-hover
+            table-borderless
+            align-middle">
+        <thead class="table-light">
+          <caption>
+
+          </caption>
+          <tr class="Color-Gris-Standard">
+            <th>Departamento</th>
+            <th>Ciudad</th>
+            <th *ngIf="!srv.isVacanteHidrocarburos()">Localidad / Comuna</th>
+            <th>Número de puestos</th>
+            <th></th>
+
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr class="Color-Gris-Standard" *ngFor="let ubicacion of srv.getArrayControl('ubicaciones').value">
+            <td scope="row">{{this.srv.parametricosSrv.getById(ubicacion.departamentoID,PARAMETRICOS.DEPARTAMENTOS) |
+              async}}</td>
+            <td scope="row">
+              {{this.srv.parametricosSrv.getById(ubicacion.municipioID,PARAMETRICOS.MUNICIPIO,PARAMETRICOS_FILTROS.MUNICIPIO__DEPARTAMENTO_ID,
+              ubicacion.departamentoID ) | async}}</td>
+            <td scope="row" *ngIf="!srv.isVacanteHidrocarburos()">
+              {{this.srv.parametricosSrv.getById(ubicacion.localidadComunaId,PARAMETRICOS.LOCALIDAD,PARAMETRICOS_FILTROS.LOCALIDAD__MUNICIPIO_ID,ubicacion.municipioID)
+              | async}}</td>
+            <td>{{ubicacion.numeroPuestos}}</td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="eliminarUbicacion(ubicacion)">
+                <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+      </table>
+    </div>
+    <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('ubicaciones')">
+      <div *ngIf="!srv.isValid('required','ubicaciones')">*Ubicación de la vacante requerida</div>
+      <div *ngIf="this.srv.registrarForm.getError('validarUbiacionPuesto')">*La sumatoria de puestos de las ubicaciones debe ser igual al número de puestos definidos en la vacante.</div>
+      </div>
+    <hr>
+
+    <!----------------------------------------------
+        HIDROCARBUROS
+        ////////////////////////////////////////////////
+               PRIORIZAR POBLACION VULNERABLE
+              ZONA GEOGARFICA
+        ////////////////////////////////////////////////
+        ----------------------------------------------->
+
+
+
+    <div class="row" *ngIf="srv.isVacanteHidrocarburos()">
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label for="priorizarZonaRural" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','priorizarZonaRural')">*</span> Priorizar
+            zona rural </label>
+          <select class="form-select form-select-sm" formControlName="priorizarZonaRural" name="priorizarZonaRural"
+            id="priorizarZonaRural" aria-describedby="helppriorizarZonaRural"
+            [ngClass]="srv.formControlValidStyle('priorizarZonaRural')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="true">SI</option>
+            <option [value]="false">NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('priorizarZonaRural')">
+            <div *ngIf="!srv.isValid('required','priorizarZonaRural')">* Priorizar zona rural es
+              requerido</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row" *ngIf="isVacanteHidrocarburosTipoZonaRural()">
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label for="tipo-poblacion" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','zonasGeograficas')">*</span> xxxxxx Cúal zona
+            rural</label>
+
+            
+          
+
+
+          <ejs-multiselect #muliselectZonaRural
+            *ngIf="(srv.$tipoZonasGeograficasRurales | async) as zonaGeografica; else loadingZonaGeografica"
+            class="form-select form-select-sm" name="motivo" id="motivo" mode='Box'
+            [formControl]="zonasGeograficasControl" [maximumSelectionLength]="1" [dataSource]='zonaGeografica'
+            [placeholder]='"Seleccionar una zona rural"' [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('zonasGeograficas',$event)"
+            (removing)="srv.quitarMulticampo('zonasGeograficas',$event)"></ejs-multiselect>
+          <ng-template #loadingZonaGeografica>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('zonasGeograficas')">
+            <div *ngIf="!srv.isValid('required','zonasGeograficas')">* Cúal zona rural es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label for="nombre-zona-rural" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','nombreZonaGeografica')">*</span>Nombre de la zona
+            rural</label>
+          <input type="text" formControlName="nombreZonaGeografica" class="form-control" name="nombre-zona-rural"
+            id="nombre-zona-rural" aria-describedby="helpNombreZonaRural" placeholder="Nombre Zona Rural"
+            [ngClass]="srv.formControlValidStyle('nombreZonaGeografica')">
+
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('nombreZonaGeografica')">
+            <div *ngIf="!srv.isValid('required','nombreZonaGeografica')">* Nombre zona rural es requerido</div>
+            <div *ngIf="!srv.isValid('minlength','nombreZonaGeografica')">* Debe tener mínimo
+              {{srv.getRequiredMinlength('nombreZonaGeografica')}}
+              caracteres</div>
+            <div *ngIf="!srv.isValid('maxlength','nombreZonaGeografica')">* Debe tener máximo
+              {{srv.getRequiredMaxlength('nombreZonaGeografica')}}
+              caracteres</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!----------------------------------------------
+        HIDROCARBUROS
+        ////////////////////////////////////////////////
+               PRIORIZAR POBLACION VULNERABLE
+               TIPO POBLACION
+        ////////////////////////////////////////////////
+        ----------------------------------------------->
+    <div class="row" *ngIf="srv.isVacanteHidrocarburos()">
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label for="priorizarPoblacionVulnerable" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','priorizarPoblacionVulnerable')">*</span> Priorizar
+            población vulnerable</label>
+          <select class="form-select form-select-sm" formControlName="priorizarPoblacionVulnerable"
+            name="priorizarPoblacionVulnerable" id="priorizarPoblacionVulnerable"
+            aria-describedby="helpPriorizarPoblacionVulnerable"
+            [ngClass]="srv.formControlValidStyle('priorizarPoblacionVulnerable')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="true">SI</option>
+            <option [value]="false">NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('priorizarPoblacionVulnerable')">
+            <div *ngIf="!srv.isValid('required','priorizarPoblacionVulnerable')">* Priorizar población vulnerable es
+              requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="isVacanteHidrocarburosPoblacionVulnerable()">
+        <div class="form-group mb-3">
+          <label for="tipo-poblacion" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','poblacionesVulnerables')">*</span> Tipo población
+            vulnerable</label>
+          <ejs-multiselect #muliselectpoblacionesVulnerables
+            *ngIf="(srv.$tiposPoblacionesVulnerables | async) as poblacionesVulnerables; else loadingTipoPoblacionVulnerable"
+            class="form-select form-select-sm" name="motivo" id="motivo" mode='Box'
+            [formControl]="poblacionesVulnerablesControl" [dataSource]='poblacionesVulnerables'
+            [placeholder]='"Seleccionar una o varias población vulnerable"' [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('poblacionesVulnerables',$event)"
+            (removing)="srv.quitarMulticampo('poblacionesVulnerables',$event)"></ejs-multiselect>
+          <ng-template #loadingTipoPoblacionVulnerable>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('poblacionesVulnerables')">
+            <div *ngIf="!srv.isValid('required','poblacionesVulnerables')">* Tipo población vulnerable es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- isTipoPoblacionVulnerable('condicionSaludMental') -->
+
+
+    <div class="row" *ngIf="srv.isVacanteHidrocarburos()">
+      <div class="col-md-6" *ngIf="isTipoPoblacionVulnerable('discapacidades')">
+        <div class="form-group mb-3">
+          <label for="discapacidades" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','discapacidades')">*</span> Seleccione al menos un
+            tipo
+            de discapacidad</label>
+          <ejs-multiselect #muliselectdiscapacidades
+            *ngIf="(srv.$discapacidades | async) as discapacidades; else loadingdiscapacidades"
+            [formControl]="discapacidadesControl" class="form-select form-select-sm" name="motivo" id="motivo"
+            mode='Box' [dataSource]='discapacidades' [placeholder]='"Seleccione al menos un tipo de discapacidad"'
+            [fields]=" { text: 'nombre', value: 'id' }" (select)="srv.seleccionarMultiCampo('discapacidades',$event)"
+            (removing)="srv.quitarMulticampo('discapacidades',$event)"></ejs-multiselect>
+          <ng-template #loadingdiscapacidades>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('discapacidades')">
+            <div *ngIf="!srv.isValid('required','discapacidades')">
+              * Debe seleccionar al menos una discapacidad.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="isTipoPoblacionVulnerable('gruposEtnicos')">
+        <div class="form-group mb-3">
+          <label for="tipo-grupos-etnico" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','gruposEtnicos')">*</span> Seleccione al menos un
+            grupos étnico</label>
+          <ejs-multiselect #muliselectgruposEtnicos
+            *ngIf="(srv.$tiposGruposEtnicos | async) as tiposGruposEtnicos; else loadingtiposGruposEtnicos"
+            class="form-select form-select-sm" name="motivo" id="motivo" mode='Box' [formControl]="gruposEtnicosControl"
+            [dataSource]='tiposGruposEtnicos' [placeholder]='"Seleccionar una o varios grupos étnicos"'
+            [fields]=" { text: 'nombre', value: 'id' }" (select)="srv.seleccionarMultiCampo('gruposEtnicos',$event)"
+            (removing)="srv.quitarMulticampo('gruposEtnicos',$event)"></ejs-multiselect>
+          <ng-template #loadingtiposGruposEtnicos>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('gruposEtnicos')">
+            <div *ngIf="!srv.isValid('required','gruposEtnicos')">* Grupos Étnicos es requerido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="srv.isVacanteHidrocarburos()">
+      <div class="col-md-6" *ngIf="isTipoPoblacionVulnerable('tiposPoblacion')">
+        <div class="form-group mb-3">
+          <label for="tipo-poblacion" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','tiposPoblacion')">*</span> Seleccione al menos
+            un tipo de población</label>
+          <ejs-multiselect #muliselecttiposPoblacion
+            *ngIf="(srv.$tiposPoblaciones | async) as tiposPoblacion; else loadingTipoPoblacion"
+            [formControl]="tiposPoblacionControl" class="form-select form-select-sm" name="motivo" id="motivo"
+            mode='Box' [dataSource]='tiposPoblacion' [placeholder]='"Seleccione al menos un tipo de población"'
+            [fields]=" { text: 'nombre', value: 'id' }" (select)="srv.seleccionarMultiCampo('tiposPoblacion',$event)"
+            (removing)="srv.quitarMulticampo('tiposPoblacion',$event)"></ejs-multiselect>
+          <ng-template #loadingTipoPoblacion>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('tiposPoblacion')">
+            <div *ngIf="!srv.isValid('required','tiposPoblacion')">
+              * Debe seleccionar al menos un tipo de población.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-6" *ngIf="isTipoPoblacionVulnerable('condicionesSaludMental')">
+        <div class="form-group mb-3">
+          <label for="tipo-grupos-etnico" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','condicionesSaludMental')">*</span> Seleccione al
+            menos un
+            tipo condición de salud mental</label>
+          <ejs-multiselect #muliselectcondicionesSaludMental
+            *ngIf="(srv.$tiposCodicionSaludMental | async) as tiposondicionMental; else loadingtiposCondicionesSaludMental"
+            class="form-select form-select-sm" name="motivo" id="motivo" mode='Box'
+            [formControl]="condicionesSaludMentalControl" [dataSource]='tiposondicionMental'
+            [placeholder]='"Seleccionar una o varios condición de salud mental"'
+            [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('condicionesSaludMental',$event)"
+            (removing)="srv.quitarMulticampo('condicionesSaludMental',$event)"></ejs-multiselect>
+          <ng-template #loadingtiposCondicionesSaludMental>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </ng-template>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('condicionesSaludMental')">
+            <div *ngIf="!srv.isValid('required','condicionesSaludMental')">* Tipo condición de salud mental es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!--
+        ------------------------------------------------
+          VIAJA POR TRABAJO
+          PERSONAS A CARGO
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="viajar-por-trabajo" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereViajarPorTrabajo')">*</span> ¿Se
+            requiere viajar por trabajo?</label>
+          <select class="form-select form-select-sm" formControlName="requiereViajarPorTrabajo"
+            name="viajar-por-trabajo" id="viajar-por-trabajo" aria-describedby="helpViajarPorTrabajo"
+            [ngClass]="srv.formControlValidStyle('requiereViajarPorTrabajo')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="true">SI</option>
+            <option [value]="false">NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('requiereViajarPorTrabajo')">
+            <div *ngIf="!srv.isValid('required','requiereViajarPorTrabajo')">* ¿Se requiere viajar por trabajo? es
+              requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="personas-a-cargo" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','tendraPersonasCargo')">*</span> ¿Tendrá personas
+            a cargo?</label>
+          <select class="form-select form-select-sm" formControlName="tendraPersonasCargo" name="personas-a-cargo"
+            id="personas-a-cargo" aria-describedby="helpPersonasACargo"
+            [ngClass]="srv.formControlValidStyle('tendraPersonasCargo')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="true">SI</option>
+            <option [value]="false">NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('tendraPersonasCargo')">
+            <div *ngIf="!srv.isValid('required','tendraPersonasCargo')">* ¿Tendrá personas a cargo? es requerido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+        ------------------------------------------------
+          REQUIERE LICENCIA
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="require-licencia-conduccion" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereLicenciaConduccion')">*</span> ¿Se
+            requiere licencia de conducción?</label>
+          <select class="form-select form-select-sm" formControlName="requiereLicenciaConduccion"
+            name="require-licencia-conduccion" id="require-licencia-conduccion"
+            aria-describedby="helpRequiereLicenciaConduccion"
+            [ngClass]="srv.formControlValidStyle('requiereLicenciaConduccion')">
+            <option selected value="">Seleccionar</option>
+            <option value=true>SI</option>
+            <option value=false>NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('requiereLicenciaConduccion')">
+            <div *ngIf="!srv.isValid('required','requiereLicenciaConduccion')">* ¿Se requiere licencia de conducción?
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+    <!--
+        ------------------------------------------------
+          LICENCIA CARRO
+        ------------------------------------------------
+        -->
+
+
+    <div class="row" *ngIf="IsRequiereLicenciaConduccion()">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="require-licencia-conduccion-carro" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereLicenciaConduccionCarro')">*</span> ¿Se
+            requiere licencia de conducción para carro?</label>
+          <select class="form-select form-select-sm" formControlName="requiereLicenciaConduccionCarro"
+            name="require-licencia-conduccion-carro" id="require-licencia-conduccion-carro"
+            aria-describedby="helpRequiereLicenciaConduccionCarro"
+            [ngClass]="srv.formControlValidStyle('requiereLicenciaConduccionCarro')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]=true>SI</option>
+            <option [value]=false>NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('requiereLicenciaConduccionCarro')">
+            <div *ngIf="!srv.isValid('required','requiereLicenciaConduccionCarro')">* ¿Se requiere licencia de
+              conducción para carro? es requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col" *ngIf="IsRequiereLicenciaConduccionCarro()">
+        <div class="form-group mb-3">
+          <label for="categoria-licencia-carro" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','categoriaLicenciaCarroId')">*</span> Categoría
+            licencia de carro</label>
+          <select class="form-select form-select-sm" formControlName="categoriaLicenciaCarroId"
+            name="categoria-licencia-carro" id="categoria-licencia-carro" aria-describedby="helpCategoriaLicenciaCarro"
+            [ngClass]="srv.formControlValidStyle('categoriaLicenciaCarroId')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="categoriaCarro.id"
+              *ngFor="let categoriaCarro of this.srv.$categoriaLicenciaCarro | async ">{{categoriaCarro.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('categoriaLicenciaCarroId')">
+            <div *ngIf="!srv.isValid('required','categoriaLicenciaCarroId')">* Categoría licencia de carro es
+              requerido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+        ------------------------------------------------
+          LICENCIA MOTO
+        ------------------------------------------------
+        -->
+
+    <div class="row" *ngIf="IsRequiereLicenciaConduccion()">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="require-licencia-conduccion-moto" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','requiereLicenciaConduccionMoto')">*</span> ¿Se
+            requiere licencia de conducción para moto?</label>
+          <select class="form-select form-select-sm" formControlName="requiereLicenciaConduccionMoto"
+            name="require-licencia-conduccion-moto" id="require-licencia-conduccion-moto"
+            aria-describedby="helpRequiereLicenciaConduccionMoto"
+            [ngClass]="srv.formControlValidStyle('requiereLicenciaConduccionMoto')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]=true>SI</option>
+            <option [value]=false>NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('requiereLicenciaConduccionMoto')">
+            <div *ngIf="!srv.isValid('required','requiereLicenciaConduccionMoto')">* ¿Se requiere licencia de
+              conducción para moto? es requerida</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col" *ngIf="IsRequiereLicenciaConduccionMoto()">
+        <div class="form-group mb-3">
+          <label for="categoria-licencia-moto" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','categoriaLicenciaMotoId')">*</span> Categoría
+            licencia de moto</label>
+          <select class="form-select form-select-sm" formControlName="categoriaLicenciaMotoId"
+            name="categoria-licencia-moto" id="categoria-licencia-moto" aria-describedby="helpCategoriaLicenciaMoto"
+            [ngClass]="srv.formControlValidStyle('categoriaLicenciaMotoId')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="categoriaMoto.id" *ngFor="let categoriaMoto of this.srv.$categoriaLicenciaMoto | async ">
+              {{categoriaMoto.nombre}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <!--
+        ------------------------------------------------
+          AREA DE LA EMPRESA
+          RESPONSABLE DE LA VACANTE
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="area-empresa" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','areaEmpresaId')">*</span> Área de la
+            empresa</label>
+          <select class="form-select form-select-sm" formControlName="areaEmpresaId" name="area-empresa"
+            id="area-empresa" aria-describedby="helpAreaEmpresa" [ngClass]="srv.formControlValidStyle('areaEmpresaId')">
+            <option selected [value]="''">Seleccionar</option>
+            <option *ngFor="let area of srv.$areasEmpresa |async" [value]="area.id">{{area.nombre}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('areaEmpresaId')">
+            <div *ngIf="!srv.isValid('required','areaEmpresaId')">* Área de la empresa es requerida</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="responsable-vacante" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','responsableId')">*</span> Responsable de la
+            vacante</label>
+          <select class="form-select form-select-sm" formControlName="responsableId" name="responsable-vacante"
+            id="responsable-vacante" aria-describedby="helpRespopnsableVacante"
+            [ngClass]="srv.formControlValidStyle('responsableId')">
+            <option selected [value]="''">Seleccionar</option>
+            <option *ngFor="let responsable of $responsables| async" [value]="responsable.id">
+              {{responsable.primerNombre}} {{responsable.primerApellido}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('responsableId')">
+            <div *ngIf="!srv.isValid('required','responsableId')">* Responsable de la vacante es requerido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+        ------------------------------------------------
+          FECHA DE VENCIMIENTO (OCULTA POR NEGOCIO)
+          FECHA DE OCUPACION
+          FECHA LIMITE ENVIO DE HV
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <!--
+          -------------------------------------------------------------------------------------------------------
+          Se oculta el pampo de fecha de vencimiento de la vacante mientras se define con Negocio si va o no
+          -------------------------------------------------------------------------------------------------------
+          -->
+      <div class="col" *ngIf="false">
+        <div class="form-group mb-3">
+          <label for="fecha-vencimiento-vancante" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','fechaVencimientoVacante')">*</span> Fecha de
+            vencimiento de la vacante</label>
+          <input type="date" class="form-control" formControlName="fechaVencimientoVacante"
+            name="fecha-vencimiento-vancante" id="fecha-vencimiento-vancante"
+            aria-describedby="helpFechaVencimientoVacante" placeholder="dd/mm/yyyy">
+        </div>
+
+      </div>
+      <div class="col-md-6">
+
+
+        <div class="form-group mb-3">
+          <label for="fechaLimiteEnvioHv" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','fechaLimiteEnvioHv')">*</span>
+            Fecha límite de envío de hojas de vida
+          </label>
+          <div class="form-group">
+            <div class="input-group date">
+              <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="fechaLimiteEnvioHv"
+                id="fechaLimiteEnvioHv" name="fechaLimiteEnvioHv" [minDate]="fechaMinimalimiteEnvioHV"
+                [maxDate]="fechaMaximaLimiteEnvioHV" ngbDatepicker #fechaLimiteEnvioHvDP="ngbDatepicker"
+                (click)="fechaLimiteEnvioHvDP.toggle()" [ngClass]="srv.formControlValidStyle('fechaLimiteEnvioHv')">
+              <div class="input-group-append" role="button" (click)="fechaLimiteEnvioHvDP.toggle()">
+                <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+            <div class="invalid-feedback" style="color: #DD2D2B" *ngIf="srv.isDirtyOrTouched('fechaLimiteEnvioHv')">
+              <div *ngIf="!srv.isValid('required','fechaLimiteEnvioHv')">
+                * Fecha límite de envío de hojas de vida requerida
+              </div>
+              <div *ngIf="!srv.isValid('fechaMayorQueFechaActual','fechaLimiteEnvioHv')">
+                * Fecha límite de envío debe ser mayor que la fecha actual
+              </div>
+              <div *ngIf="!srv.isValid('fechaMenorQueFechaActualMasXMeses','fechaLimiteEnvioHv')">
+                * Fecha límite de envío debe ser menor a 6 meses contados a partir de la fecha actual
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="col mb-6" *ngIf="srv.getFormControl('fechaLimiteEnvioHv').valid">
+        <label>
+          <span class="text-danger" *ngIf="!srv.isValid('required','fechaEstimadaOcupacionCargo')">*</span>
+          Fecha estimada ocupación cargo
+        </label>
+        <div class="form-group">
+          <div class="input-group date">
+            <input type="text" class="form-control" placeholder="dd/mm/yyyy"
+              formControlName="fechaEstimadaOcupacionCargo" [minDate]="fechaMinimaEstimadaOcupacionCargo"
+              [maxDate]="fechaMaximaEstimadaOcupacionCargo" ngbDatepicker #fechaEstimadaOcupacionCargoDP="ngbDatepicker"
+              (click)="fechaEstimadaOcupacionCargoDP.toggle()"
+              [ngClass]="srv.formControlValidStyle('fechaEstimadaOcupacionCargo')">
+            <div class="input-group-append" role="button" (click)="fechaEstimadaOcupacionCargoDP.toggle()">
+              <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('fechaEstimadaOcupacionCargo')">
+            <div *ngIf="!srv.isValid('required','fechaEstimadaOcupacionCargo')">
+              * Fecha estimada ocupación cargo requerida
+            </div>
+            <div *ngIf="!srv.isValid('ngbDate','fechaEstimadaOcupacionCargo')">
+              * La fecha estimada de ocupación debe ser mayor que la fecha limite
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+        ------------------------------------------------
+          VACANTE CONFIDENCIAL?
+        ------------------------------------------------
+        -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="vacante-confidencial" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','confidencial')">*</span> ¿Su vacante es
+            confidencial?</label>
+          <div class="input-group">
+            <select class="form-select form-select-sm" formControlName="confidencial" name="vacante-confidencial"
+              id="vacante-confidencial" aria-describedby="helpVacanteConfidencia"
+              [ngClass]="srv.formControlValidStyle('confidencial')">
+              <option selected [value]="''">Seleccionar</option>
+              <option [value]="true">SI</option>
+              <option [value]="false">NO</option>
+            </select>
+            <div class="input-group-append">
+              <span role="button" class="glyphicon glyphicon-info input-group-text" style="height: 100%;"
+                placement="left"
+                ngbPopover="El empleador puede conservar su confidencialidad, caso en el cual se omitirá publicar su nombre, razón social y su número de identificación"
+                popoverTitle="Información">
+                <i class="fa fa-info text-danger" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('confidencial')">
+            <div *ngIf="!srv.isValid('required','confidencial')">* ¿Su vacante es confidencial? es requerido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+        ------------------------------------------------
+          VACANTE EXCEPCIONALIDAD PARA LA PUBLICACION
+          MOTIVO
+        ------------------------------------------------
+        -->
+    <hr>
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="vacante-excepcionalidad-publicacion" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','solicitudExcepcionalidad')">*</span> ¿Su vacante
+            tiene excepcionalidad para la publicación?</label>
+          <div class="input-group">
+            <select class="form-select form-select-sm" formControlName="solicitudExcepcionalidad"
+              name="vacante-excepcionalidad-publicacion" id="vacante-excepcionalidad-publicacion"
+              aria-describedby="helpExcepcionalidadPUblicacion"
+              [ngClass]="srv.formControlValidStyle('solicitudExcepcionalidad')">
+              <option selected [value]="''">Seleccionar</option>
+              <option [value]="true">SI</option>
+              <option [value]="false">NO</option>
+            </select>
+            <div class="input-group-append">
+              <span role="button" class="glyphicon glyphicon-info input-group-text" style="height: 100%;"
+                placement="left"
+                ngbPopover="Según lo previsto en el parágrafo 3° del artículo 13 del Decreto 2852 de 2013, el artículo 6° de la Resolución 2605 de 2014 y en el artículo 7° de la resolución 129 de 2015."
+                popoverTitle="Información">
+                <i class="fa fa-info text-danger" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('solicitudExcepcionalidad')">
+            <div *ngIf="!srv.isValid('required','solicitudExcepcionalidad')">* ¿Su vacante tiene excepcionalidad para
+              la publicación? es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="row" *ngIf="IsSolicitudExcepcionalidad()">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="motivo" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','motivosExcepcionalidad')">*</span>
+            Motivo</label>
+          <ejs-multiselect [maximumSelectionLength]="1" class="form-select form-select-sm" name="motivo" id="motivo"
+            mode='Box' [formControl]="motivosExcepcionalidadControl" [dataSource]='srv.$motivosExcepcionalidad | async'
+            [placeholder]='"Seleccionar uno o varios motivos"' [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('motivosExcepcionalidad',$event)"
+            (removing)="srv.quitarMulticampo('motivosExcepcionalidad',$event)"></ejs-multiselect>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('motivosExcepcionalidad')">
+            <div *ngIf="!srv.isValid('required','motivosExcepcionalidad')">
+              * Motivo es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="solicitudAutorizacionExcepcionalidadFile" class="form-label">
+            <span class="text-danger"
+              *ngIf="!srv.isValid('required','solicitudAutorizacionExcepcionalidadFile')">*</span> Solicitud de
+            autorización de excepcionalidad</label>
+          <input type="file" [formControl]="solicitudAutorizacionExcepcionalidadFile" class="form-control"
+            name="solicitudAutorizacionExcepcionalidadFile" id="solicitudAutorizacionExcepcionalidadFile" placeholder=""
+            aria-describedby="fileHelpId" (change)="onFileSelect($event)"
+            [ngClass]="srv.formControlValidStyle('solicitudAutorizacionExcepcionalidadFile')">
+          <div id="fileHelpId" class="form-text">Seleccione un archivo</div>
+        </div>
+      </div>
+    </div>
+    <hr *ngIf="!srv.isVacanteHidrocarburos()">
+    <!--
+        ------------------------------------------------
+          VACANTE PERSONAS CON DISCAPACIDAD
+          VACANTE GESTIONADA POR EL PRESTADOR
+          VACANTE CON PRESTADOR ALTERNO
+        ------------------------------------------------
+        -->
+
+
+    <div class="row">
+      <div class="col" *ngIf="!srv.isVacanteHidrocarburos()">
+        <div class="form-group mb-3">
+          <label for="aptaParaPersonasConDiscapacidad" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','aptaParaPersonasConDiscapacidad')">*</span>
+            ¿Vacante acta para personas con discapacidad?</label>
+          <select class="form-select form-select-sm" formControlName="aptaParaPersonasConDiscapacidad"
+            name="aptaParaPersonasConDiscapacidad" id="aptaParaPersonasConDiscapacidad"
+            [ngClass]="srv.formControlValidStyle('aptaParaPersonasConDiscapacidad')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="true">SI</option>
+            <option [value]="false">NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('aptaParaPersonasConDiscapacidad')">
+            <div *ngIf="!srv.isValid('required','aptaParaPersonasConDiscapacidad')">
+              * ¿Vacante acta para personas con discapacidad? es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" *ngIf="IsAptaParaPersonasConDiscapacidad()">
+        <div class="form-group mb-3">
+          <label for="discapacidades" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','discapacidades')">*</span> Seleccione al menos
+            un tipo de discapacidad</label>
+          <ejs-multiselect [formControl]="discapacidadesControl" class="form-select form-select-sm" name="motivo"
+            id="motivo" mode='Box' [dataSource]='srv.$discapacidades | async'
+            [placeholder]='"Seleccione al menos un tipo de discapacidad"' [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('discapacidades',$event)"
+            (removing)="srv.quitarMulticampo('discapacidades',$event)"></ejs-multiselect>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('discapacidades')">
+            <div *ngIf="!srv.isValid('required','discapacidades')">
+              * Debe seleccionar al menos una discapacidad.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="vacanteGestionadaPorPrestador" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','gestionadaPorPrestador')">*</span> ¿Desea que la
+            vacante sea gestionada por su prestador?</label>
+          <select class="form-select form-select-sm" formControlName="gestionadaPorPrestador"
+            name="vacanteGestionadaPorPrestador" id="vacanteGestionadaPorPrestador"
+            [ngClass]="srv.formControlValidStyle('gestionadaPorPrestador')">
+            <option selected [value]="''">Seleccionar</option>
+            <option [value]="true">SI</option>
+            <option [value]="false">NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('gestionadaPorPrestador')">
+            <div *ngIf="!srv.isValid('required','gestionadaPorPrestador')">
+              * ¿Desea que la vacante sea gestionada por su prestador? es requerida.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="vacanteGestionadaPorPrestadorAlterno" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','gestionadaPorPrestadorAlterno')">*</span> ¿Desea
+            seleccionar un prestador alterno para la gestión de la vacante?</label>
+          <select class="form-select form-select-sm" formControlName="gestionadaPorPrestadorAlterno"
+            name="vacanteGestionadaPorPrestadorAlterno" id="vacanteGestionadaPorPrestadorAlterno"
+            [ngClass]="srv.formControlValidStyle('gestionadaPorPrestadorAlterno')">
+            <option selected [value]="''" disabled>Seleccionar</option>
+            <option [value]="true">SI</option>
+            <option [value]="false" disabled>NO</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('gestionadaPorPrestadorAlterno')">
+            <div *ngIf="!srv.isValid('required','gestionadaPorPrestadorAlterno')">
+              * ¿Desea que la vacante sea gestionada por su prestador? es requerida.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" *ngIf="IsGestionadaPorPrestadorAlterno()">
+        <div class="form-group mb-3">
+          <label for="prestadorAlterno" class="form-label">
+            <span class="text-danger" *ngIf="!srv.isValid('required','prestadoresAlternos')">*</span> Seleccione hasta
+            2 prestadores alternos para la gestión de la vacante</label>
+          <ejs-multiselect class="form-select form-select-sm" name="motivo" id="motivo" mode='Box'
+            [maximumSelectionLength]="2" [formControl]="prestadoresAlternosControl"
+            [dataSource]='srv.$prestadoresAlternos | async' [placeholder]='"Selecciona un prestador"'
+            [fields]=" { text: 'nombre', value: 'id' }"
+            (select)="srv.seleccionarMultiCampo('prestadoresAlternos',$event)"
+            (removing)="srv.quitarMulticampo('prestadoresAlternos',$event)"></ejs-multiselect>
+          <div class="invalid-feedback" *ngIf="srv.isDirtyOrTouched('prestadoresAlternos')">
+            <div *ngIf="!srv.isValid('required','prestadoresAlternos')">
+              * ¿Desea que la vacante sea gestionada por su prestador? es requerida.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<!--
+------------------------------------------------------------
+| MODAL ADICIONAL UBICACIÓN / PUESTOS DE TRABAJO           |
+------------------------------------------------------------
+-->
+<ng-template #modal_ubicacion let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar ubicación de la vacante</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="ubicacionForm">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="departamento" class="form-label">
+                <span class="text-danger" *ngIf="ubicacionForm.get('departamentoID')?.invalid">*</span>
+                Departamento</label>
+              <ejs-dropdownlist formControlName="departamentoID" [dataSource]='srv.$departamentos | async'
+                id='ddlelement' [allowFiltering]='true' [fields]=" { text: 'nombre', value: 'id' }"
+                floatLabelType='Auto'>
+                <ng-template #noRecordsTemplate>
+                  <span class='norecord'> Departamentos no disponibles </span>
+                </ng-template>
+              </ejs-dropdownlist>
+              <div class="invalid-feedback"
+                *ngIf="ubicacionForm.get('departamentoID')?.invalid && (ubicacionForm.get('departamentoID')?.dirty || ubicacionForm.get('departamentoID')?.touched)">
+                <div *ngIf="ubicacionForm.get('departamentoID')?.errors?.['required']">* Departamento es requerido</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="ciudades" class="form-label">
+                <span class="text-danger" *ngIf="ubicacionForm.get('municipioID')?.invalid">*</span>
+                Ciudad</label>
+              <ejs-dropdownlist formControlName="municipioID" [dataSource]='$municipios | async' id='ddlelement'
+                [allowFiltering]='true' [fields]=" { text: 'nombre', value: 'id' }" floatLabelType='Auto'>
+                <ng-template #noRecordsTemplate>
+                  <span class='norecord'> Ciudades no disponibles </span>
+                </ng-template>
+              </ejs-dropdownlist>
+              <div class="invalid-feedback"
+                *ngIf="ubicacionForm.get('municipioID')?.invalid && (ubicacionForm.get('municipioID')?.dirty || ubicacionForm.get('municipioID')?.touched)">
+                <div *ngIf="ubicacionForm.get('municipioID')?.errors?.['required']">* Municipio es requerido</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6" *ngIf="!srv.isVacanteHidrocarburos()">
+            <div class="form-group mb-3">
+              <label for="localidad" class="form-label">
+                <!-- <span class="text-danger" *ngIf="!srv.isValid('required','localidadComunaId')">*</span>  -->
+                Localidad/Comuna</label>
+              <ejs-dropdownlist formControlName="localidadComunaId" [dataSource]='$localidades | async' id='ddlelement'
+                [allowFiltering]='true' [fields]=" { text: 'nombre', value: 'id' }" floatLabelType='Auto'>
+                <ng-template #noRecordsTemplate>
+                  <span class='norecord'> Localidades/Comunas no disponibles </span>
+                </ng-template>
+              </ejs-dropdownlist>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="NumeroPuestosTrabajo" class="form-label">
+                <span class="text-danger" *ngIf="ubicacionForm.get('numeroPuestos')?.invalid">*</span>
+                Puestos de trabajo</label>
+              <input type="number" placeholder="Puestos de trabajo" formControlName="numeroPuestos" class="form-control"
+                name="NumeroPuestosTrabajo" id="NumeroPuestosTrabajo" aria-describedby="helpIdNumeroDePuestosDeTrabajo">
+              <div class="invalid-feedback"
+                *ngIf="ubicacionForm.get('numeroPuestos')?.invalid && (ubicacionForm.get('numeroPuestos')?.dirty || ubicacionForm.get('numeroPuestos')?.touched)">
+                <div *ngIf="ubicacionForm.get('numeroPuestos')?.errors?.['pattern']">* Puestos de trabajo solo se
+                  permiten valores numéricos</div>
+                <div *ngIf="ubicacionForm.get('numeroPuestos')?.errors?.['required']">* Puestos de trabajo es requerido
+                </div>
+                <div *ngIf="ubicacionForm.get('numeroPuestos')?.errors?.['min']">* Puestos de trabajo debe ser mayor que
+                  cero</div>
+                <div *ngIf="ubicacionForm.get('numeroPuestos')?.errors?.['max']">* Puestos de trabajo no pude ser mayor
+                  a 9999</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12"*ngIf="validarcantidadCargosUbicacionVacante() ">
+          <div class="invalid-feedback">
+            <div>* La sumatoria de puestos de las ubicaciones debe ser igual al número de puestos definidos en la vacante.</div>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="validarUbicacionEsDuplicada()">
+          <div class="invalid-feedback">
+            <div>*Registro de ubicación duplicado.</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <button type="button" class="btn btn-primary-form"
+      [disabled]="validarForumalarioUbibacion()"
+      (click)="modal.close('ubicaciones')">Agregar</button>
+  </div>
+</ng-template>

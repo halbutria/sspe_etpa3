@@ -1,0 +1,199 @@
+<div class="container-fluid m-2">
+  <div class="container-load clearfix cargando" *ngIf="showLoading">
+    <div class="spinner-border float-end" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- CONOCIMIENTOS -->
+  <form [formGroup]="conocimientosForm" (ngSubmit)="addConocimientos()" novalidate autocomplete="off">
+    <nav class="navbar navbar-expand-lg head-navigation mt-4 mb-2">
+      <div class="container">
+        <span class="navbar-brand">CONOCIMIENTOS O COMPETENCIAS</span>
+      </div>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex">
+        <!-- Conocimientos -->
+        <div class="col-md-6 mb-2">
+          <div class="form-group-no-border">
+            <ejs-dropdownlist id='conocimientoId' class="form-select sinflecha_ejs" [placeholder]='"Seleccione..."'
+              formControlName="conocimientoId" [dataSource]='cvService.$cuocConocimientosBase | async'
+              [fields]=" { text: 'nombre', value: 'id' }"></ejs-dropdownlist>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-warning" type="submit" [disabled]="!this.conocimientosForm.valid">
+          <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+        </button>
+      </div>
+    </nav>
+
+    <div class="row pt-4 pe-4 pb-4 ps-4">
+      <div class="table-responsive">
+        <table class="table caption-top">
+          <caption>Descripción del conocimiento seleccionado</caption>
+          <tbody>
+            <tr *ngFor="let cmto of listConocimientos">
+              <td>{{ this.parametricosService.getById(cmto.conocimientoId.toString(),
+                PARAMETRICOS.CONOCIMIENTOS_BASE) | async }}</td>
+              <td class="td-informacion">
+                <button class="btn" placement="top" [ngbPopover]="getInformacionConocimiento(cmto.conocimientoId)"
+                  popoverTitle="Información">
+                  <fa-icon class="text-danger" [icon]="['fas', 'info-circle']"></fa-icon>
+                </button>
+              </td>
+              <td class="td-eliminar">
+                <button class="btn" (click)="deleteConocimiento(cmto)">
+                  <fa-icon class="text-danger" [icon]="['fas', 'trash-alt']"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+
+  <!-- DESTREZAS -->
+  <form [formGroup]="habilidadesForm" (ngSubmit)="addDestrezas()" novalidate autocomplete="off">
+    <nav class="navbar navbar-expand-lg head-navigation mt-4 mb-2">
+      <div class="container">
+        <span class="navbar-brand">DESTREZAS O HABILIDADES</span>
+      </div>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex">
+        <!-- Destrezas -->
+        <div class="col-md-6 mb-2">
+          <div class="form-group-no-border">
+            <ejs-dropdownlist id='habilidadId' class="form-select sinflecha_ejs" [placeholder]='"Seleccione..."'
+              formControlName="habilidadId" [dataSource]='cvService.$cuocDestrezasBase | async'
+              [fields]=" { text: 'nombre', value: 'id' }"></ejs-dropdownlist>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-warning" type="submit" [disabled]="!this.habilidadesForm.valid">
+          <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+        </button>
+      </div>
+    </nav>
+
+    <div class="row pt-4 pe-4 pb-4 ps-4">
+      <div class="table-responsive">
+        <table class="table caption-top">
+          <caption>Descripción de destreza seleccionada</caption>
+          <tbody>
+            <tr *ngFor="let habilidad of listHabilidades">
+              <td>{{ this.parametricosService.getById(habilidad.habilidadId.toString(),
+                PARAMETRICOS.DESTREZAS_BASE) | async }}</td>
+              <td class="td-informacion">
+                <button class="btn" placement="top" [ngbPopover]="getInformacionConocimiento(habilidad.habilidadId)"
+                  popoverTitle="Información">
+                  <fa-icon class="text-danger" [icon]="['fas', 'info-circle']"></fa-icon>
+                </button>
+              </td>
+              <td class="td-eliminar">
+                <button class="btn" (click)="deleteDestrezas(habilidad)">
+                  <fa-icon class="text-danger" [icon]="['fas', 'trash-alt']"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+
+  <nav class="navbar navbar-expand-lg head-navigation mt-4 mb-2">
+    <div class="container">
+      <span class="navbar-brand">CONOCIMIENTOS Y DESTREZAS ADICIONALES</span>
+    </div>
+  </nav>
+
+  <div class="row">
+    <blockquote class="p-4 fs-6">
+      Podrás ingresar conocimientos y destrezas que no se encuentren dentro de los desplegados en las opciones
+      anteriores.
+    </blockquote>
+  </div>
+
+  <form [formGroup]="conocimientosAdForm" (ngSubmit)="addConocimientosAd()" novalidate autocomplete="off">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex">
+        <!-- Conocimientos Adicionales -->
+        <div class="col-md-6 mb-2">
+          <label>
+            Conocimientos adicionales
+          </label>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="" formControlName="nombre">
+          </div>
+        </div>
+
+        <button class="btn btn-outline-warning" type="submit" [disabled]="!this.conocimientosAdForm.valid">
+          <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+        </button>
+      </div>
+    </nav>
+
+    <div class="row pe-4 pb-4 ps-4">
+      <div class="table-responsive">
+        <table class="table caption-top">
+          <caption>Descripción del conocimiento seleccionado</caption>
+          <tbody>
+            <tr *ngFor="let cmtoAd of listConocimientosAdicionales">
+              <td>{{ cmtoAd.nombre }}</td>
+              <td class="td-eliminar">
+                <button class="btn" (click)="deleteConocimientoAd(cmtoAd)">
+                  <fa-icon class="text-danger" [icon]="['fas', 'trash-alt']"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+
+  <form [formGroup]="habilidadesAdForm" (ngSubmit)="addDestrezasAd()" novalidate autocomplete="off">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex">
+        <!-- Habilidades y destrezas Adicionales -->
+        <div class="col-md-6 mb-2">
+          <label>
+            Destrezas adicionales
+          </label>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="" formControlName="nombre">
+          </div>
+        </div>
+
+        <button class="btn btn-outline-warning" type="submit" [disabled]="!this.habilidadesAdForm.valid">
+          <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+        </button>
+      </div>
+    </nav>
+
+    <div class="row pe-4 pb-4 ps-4">
+      <div class="table-responsive">
+        <table class="table caption-top">
+          <caption>Descripción de destreza seleccionada</caption>
+          <tbody>
+            <tr *ngFor="let hbAd of listHabilidadesAdicionales">
+              <td>{{ hbAd.nombre }}</td>
+              <td class="td-eliminar">
+                <button class="btn" (click)="deleteDestrezasAd(hbAd)">
+                  <fa-icon class="text-danger" [icon]="['fas', 'trash-alt']"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+
+</div>

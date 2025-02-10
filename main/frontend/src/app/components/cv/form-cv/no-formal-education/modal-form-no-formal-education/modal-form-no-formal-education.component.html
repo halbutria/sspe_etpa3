@@ -1,0 +1,146 @@
+<form [formGroup]="noFormalEducationForm" (ngSubmit)="addNoFormalEducation()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ typeStr }} - Educación informal</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row pt-4 pe-4 pb-4 ps-4">
+      <!-- Tipo de capacitación o certificación -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['tipoCertificadoCapacitacionId'].hasError('required')">*</span>
+          Tipo de capacitación o certificación
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="tipoCertificadoCapacitacionId"
+            [ngClass]="{ 'is-valid': (f['tipoCertificadoCapacitacionId'].dirty || submitted) && !f['tipoCertificadoCapacitacionId'].errors,
+                  'is-invalid': (f['tipoCertificadoCapacitacionId'].dirty || submitted) && f['tipoCertificadoCapacitacionId'].errors }">
+            <option [value]="tipoCap.id" *ngFor="let tipoCap of cvService.$tipoCapacitacion | async">
+              {{tipoCap.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['tipoCertificadoCapacitacionId'].dirty || submitted) && f['tipoCertificadoCapacitacionId'].errors">
+            * Tipo de capacitación o certificación requerido
+          </div>
+        </div>
+      </div>
+      <!-- Nombre del programa -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['nombrePrograma'].hasError('required')">*</span>
+          Nombre del programa
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="nombrePrograma" [ngClass]="{ 'is-valid': (f['nombrePrograma'].dirty || submitted) && !f['nombrePrograma'].errors,
+                'is-invalid': (f['nombrePrograma'].dirty || submitted) && f['nombrePrograma'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['nombrePrograma'].dirty || submitted) && f['nombrePrograma'].errors">
+            * Nombre del programa requerido
+          </div>
+        </div>
+      </div>
+      <!-- Institución -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['institucion'].hasError('required')">*</span>
+          Institución
+        </label>
+        <div class="form-group-no-border">
+          <input type="text" class="form-control" placeholder="" formControlName="institucion" [ngClass]="{ 'is-valid': (f['institucion'].dirty || submitted) && !f['institucion'].errors,
+                'is-invalid': (f['institucion'].dirty || submitted) && f['institucion'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['institucion'].dirty || submitted) && f['institucion'].errors">
+            * Institución requerido
+          </div>
+        </div>
+      </div>
+      <!-- País -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['paisId'].hasError('required')">*</span>
+          País
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="paisId" [ngClass]="{ 'is-valid': (f['paisId'].dirty || submitted) && !f['paisId'].errors,
+                  'is-invalid': (f['paisId'].dirty || submitted) && f['paisId'].errors }">
+            <option [value]="pais.id" *ngFor="let pais of cvService.$paisesNacimiento | async">
+              {{pais.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="(f['paisId'].dirty || submitted) && f['paisId'].errors">
+            * País requerido
+          </div>
+        </div>
+      </div>
+      <!-- Estado -->
+      <div class="col-md-6 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['estadoId'].hasError('required')">*</span>
+          Estado
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" placeholder="" formControlName="estadoId" [ngClass]="{ 'is-valid': (f['estadoId'].dirty || submitted) && !f['estadoId'].errors,
+                  'is-invalid': (f['estadoId'].dirty || submitted) && f['estadoId'].errors }">
+            <option [value]="estado.id" *ngFor="let estado of cvService.$estadoEducacionNoFormal | async">
+              {{estado.nombre}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="(f['estadoId'].dirty || submitted) && f['estadoId'].errors">
+            * Estado requerido
+          </div>
+        </div>
+      </div>
+      <!-- Duración en horas -->
+      <div class="col-md-6 mb-2" *ngIf="showDataCertificacion">
+        <label>
+          <span class="text-danger" *ngIf="f['duracion'].hasError('required')">*</span>
+          Duración en horas
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" formControlName="duracion"
+            (keyup)="validateOnlyNumberInput($event, 'duracion')" [ngClass]="{ 'is-valid': (f['duracion'].dirty || submitted) && !f['duracion'].errors,
+                'is-invalid': (f['duracion'].dirty || submitted) && f['duracion'].errors }">
+          <div class="invalid-feedback" *ngIf="(f['duracion'].dirty || submitted) && f['duracion'].errors">
+            <span class="text-danger" *ngIf="f['duracion'].hasError('required')">
+              * Duración en horas requerido
+            </span>
+            <span class="text-danger" *ngIf="f['duracion'].hasError('maxlength')">
+              * No puede superar los 9999
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Fecha de certificación -->
+      <div class="col-md-6 mb-2" *ngIf="showDataCertificacion">
+        <label>
+          <span class="text-danger" *ngIf="f['fechaCertificacion'].hasError('required')">*</span>
+          Fecha de certificación
+        </label>
+        <div class="form-group">
+          <div class="input-group date">
+            <input class="form-control" placeholder="dd/mm/yyyy" formControlName="fechaCertificacion"
+              [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="fechaCertificacion" ngbDatepicker
+              #dIngreso="ngbDatepicker" (click)="dIngreso.toggle()" [ngClass]="{ 'is-valid': (f['fechaCertificacion'].dirty || submitted) && !f['fechaCertificacion'].errors,
+                  'is-invalid': (f['fechaCertificacion'].dirty || submitted) && f['fechaCertificacion'].errors }">
+            <div class="input-group-append" role="button" (click)="dIngreso.toggle()">
+              <span class="glyphicon glyphicon-calendar input-group-text" style="height: 100%;">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback"
+            *ngIf="(f['fechaCertificacion'].dirty || submitted) && f['fechaCertificacion'].errors">
+            * Fecha de certificación requerida
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+FROM node:16.15 as node
+# set working directory
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+COPY . /usr/
+RUN npm install
+RUN ls
+#ARG env=prod
+RUN npm run build
+
+
+
+
+FROM nginx:1.15.0-alpine
+LABEL version="1.0"
+
+RUN apk update
+RUN apk add openssl
+RUN apk add ca-certificates
+RUN apk add curl
+#COPY openssl.cnf /etc/ssl/openssl.cnf
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY  --from=node /usr/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

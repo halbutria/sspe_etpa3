@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{NAME}#
+
+  namespace: #{NS}#
+spec:
+  replicas: #{REPL}#
+  selector:
+    matchLabels:
+      app: #{NAME}#
+  template:
+    metadata:
+      labels:
+        app: #{NAME}#
+    spec:
+      containers:
+      - name: #{NAME}#
+        image: #{CIMAGE}#
+        imagePullPolicy: Always
+        ports:
+        - containerPort: #{CPORT}#
+        livenessProbe:
+          httpGet:
+            path: health
+            port: 80
+        readinessProbe:
+          httpGet:
+            path: health
+            port: 80
+        resources:
+          limits:
+            cpu: 140m
+            memory: 256Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi
+        env:
+          - name: CbcCiudadano
+            value: #{DB_STRING_CIUDADANO}#
+          - name: Parametricos
+            value: #{URL_PARAMETRICOS}#
+          - name: serviceUsuarios
+            value: #{URL_USUARIOS}#
+          - name: CbcParametricos
+            value: #{DB_STRING_PARAMETRICO}#
+          - name: AzureBlobStorage__ConnectionString
+            value: #{CSBLOB_STORAGE}#
+          - name: AutomaticMigrations__Enabled
+            value: "#{AUT_MIG}#"
+          - name: UseAccessMiddleware__Enabled
+            value: "#{USE_ACCESS_MIDDLEWARE}#"
+          - name: SwaggerDoc__UseSwaggerUI
+            value: "#{SWAGGERDOC__USESWAGGERUI}#"
+          - name: JwtSettings__SecretKey
+            value: "#{JWTSETTINGS__SECRETKEY}#"
+          - name: QueueOptions__QueueName
+            value: "#{QUEUENAME}#"
+          - name: QueueOptions__TaskDelay
+            value: "#{TASKDELAY}#"
+          - name: QueueOptions__WaitAndRetry
+            value: "#{WAITANDRETRY}#"
+          - name: QueueOptions__ConnectionString
+            value: #{QUEUEOPTIONS_CONNECTIONSTRING}#

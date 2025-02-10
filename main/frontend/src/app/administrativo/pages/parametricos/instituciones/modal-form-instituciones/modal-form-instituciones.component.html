@@ -1,0 +1,74 @@
+<form [formGroup]="institucionesForm" (ngSubmit)="saveForm()" novalidate autocomplete="off">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ title }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row pt-4 pe-4 pb-4 ps-4 d-flex">
+      <!-- Id -->
+      <input type="hidden" class="form-control" placeholder="" formControlName="id" [ngClass]="{ 'is-valid': (f['id'].dirty || submitted) && !f['id'].errors,
+          'is-invalid': (f['id'].dirty || submitted) && f['id'].errors }">
+
+      <!-- Depende del tipo entonces pinta la institucion -->
+      <div class="col-md-8 mb-2" [ngSwitch]="type">
+        <ng-container *ngSwitchCase="'new'">
+          <label>
+            <span class="text-danger" *ngIf="f['nombre'].hasError('required')">*</span>
+            Institución
+          </label>
+          <div class="form-group-no-border">
+            <input type="text" class="form-control" placeholder="" formControlName="nombre" [ngClass]="{ 'is-valid': (f['nombre'].dirty || submitted) && !f['nombre'].errors,
+                  'is-invalid': (f['nombre'].dirty || submitted) && f['nombre'].errors }">
+            <div class="invalid-feedback" *ngIf="(f['nombre'].dirty || submitted) && f['nombre'].errors">
+              * El nombre de la institución es requerida
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'associate'">
+          <label>
+            <span class="text-danger" *ngIf="f['institucionId'].hasError('required')">*</span>
+            Institución
+          </label>
+          <div class="form-group-no-border">
+            <select class="form-select" formControlName="institucionId" [ngClass]="{ 'is-valid': (f['institucionId'].dirty || submitted) && !f['institucionId'].errors,
+              'is-invalid': (f['institucionId'].dirty || submitted) && f['institucionId'].errors }">
+              <option *ngIf="isLoadingSelect" value="" disabled> Cargando... </option>
+              <option *ngFor="let inst of listInstituciones" [value]="inst.id">
+                {{ inst.nombre }}
+              </option>
+            </select>
+            <div class="invalid-feedback" *ngIf="(f['institucionId'].dirty || submitted) && f['institucionId'].errors">
+              * La institución es requerida
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="col-md-4 mb-2">
+        <label>
+          <span class="text-danger" *ngIf="f['nivelEducativoId'].hasError('required')">*</span>
+          Nivel Educativo
+        </label>
+        <div class="form-group-no-border">
+          <select class="form-select" formControlName="nivelEducativoId" [ngClass]="{ 'is-valid': (f['nivelEducativoId'].dirty || submitted) && !f['nivelEducativoId'].errors,
+                'is-invalid': (f['nivelEducativoId'].dirty || submitted) && f['nivelEducativoId'].errors }">
+            <option *ngFor="let option of listNiveles" [value]="option.id">
+              {{ option.nombre }}
+            </option>
+          </select>
+          <div class="invalid-feedback"
+            *ngIf="(f['nivelEducativoId'].dirty || submitted) && f['nivelEducativoId'].errors">
+            * El nivel educativo es requerido
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+    <button type="submit" class="btn btn-primary-form">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="showLoading"></span>
+      {{ typeStr }}
+    </button>
+  </div>
+</form>

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{NAME}#
+
+  namespace: #{NS}#
+spec:
+  replicas: #{REPL}#
+  selector:
+    matchLabels:
+      app: #{NAME}#
+  template:
+    metadata:
+      labels:
+        app: #{NAME}#
+    spec:
+      containers:
+      - name: #{NAME}#
+        image: 125264681808.dkr.ecr.us-east-1.amazonaws.com/#{CIMAGE}#
+        imagePullPolicy: Always
+        ports:
+        - containerPort: #{CPORT}#
+        resources:
+          limits:
+            cpu: 140m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi
