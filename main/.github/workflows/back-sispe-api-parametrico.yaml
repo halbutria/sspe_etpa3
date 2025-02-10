@@ -1,0 +1,241 @@
+name: back-sispe-api-parametrico
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: backend/
+env:
+  NAME: back-api-parametrico
+  CPORT: 80
+  FOLDER: backend/SispeServiciosApiParametrico/Manifests
+  DOCKERFILEFOLDER: SispeServiciosApiParametrico
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout source code 
+        uses: actions/checkout@v3
+
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_DEV_CREDENTIALS }}' 
+      - name: Build and push image to ACR
+        run: |
+          pwd
+          az acr build --image ${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }} --registry ${{ secrets.REGISTRY }} -g ${{ secrets.RESOURCE_DEV_GROUP }} --file ${{ env.DOCKERFILEFOLDER }}/Dockerfile  .
+  CI-UAESPE:
+    runs-on: ubuntu-latest
+    environment: UAESPE-QA-SISPE
+    steps:
+      - name: Checkout source code 
+        uses: actions/checkout@v3
+
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}' 
+      - name: Build and push image to ACR
+        run: |
+          pwd
+          az acr build --image ${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }} --registry ${{ secrets.REGISTRY }} -g ${{ secrets.RESOURCE_GROUP }} --file ${{ env.DOCKERFILEFOLDER }}/Dockerfile  .          
+  PRELOGIN:
+    needs: CI
+    runs-on: ubuntu-latest
+    environment: prelogin
+    steps:
+      - name: Checkout source code 
+        uses: actions/checkout@v3
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_DEV_CREDENTIALS }}' 
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.RESOURCE_DEV_GROUP }}' 
+          cluster-name: '${{ secrets.CLUSTER_DEV_NAME }}'
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["${{ env.FOLDER }}/**"]'
+        env:
+          REPL: 1
+          CIMAGE: ${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}
+          NAME: ${{ env.NAME }}
+          CPORT: ${{ env.CPORT }}
+          NS: ${{ secrets.NS }}
+          SA: ${{ env.SA }}
+          DB_STRING_PARAMETRICO: ${{ secrets.DB_STRING_PARAMETRICO }}
+          DB_STRING_CIUDADANO: ${{ secrets.DB_STRING_CIUDADANO }}
+
+
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+      - name: Get env variables
+        run: |
+          pwd
+          kubectl get pods -n prelogin
+      - name: Deploy to AKS
+        id: deploy-aks
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: ${{ secrets.NS }}
+          manifests: |
+             ${{ env.FOLDER }}
+          images: '${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}'
+          pull-images: false 
+  DEV:
+    needs: CI
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout source code 
+        uses: actions/checkout@v3
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_DEV_CREDENTIALS }}' 
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.RESOURCE_DEV_GROUP }}' 
+          cluster-name: '${{ secrets.CLUSTER_DEV_NAME }}'
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["${{ env.FOLDER }}/**"]'
+        env:
+          REPL: 1
+          CIMAGE: ${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}
+          NAME: ${{ env.NAME }}
+          CPORT: ${{ env.CPORT }}
+          NS: ${{ secrets.NS }}
+          SA: ${{ env.SA }}
+          ENV: DEV
+          DB_STRING_PARAMETRICO: ${{ secrets.DB_STRING_PARAMETRICO }}
+          DB_STRING_CIUDADANO: ${{ secrets.DB_STRING_CIUDADANO }}
+
+
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+      - name: Get env variables
+        run: |
+          pwd
+          kubectl get pods -n sispe-ns
+      - name: Deploy to AKS
+        id: deploy-aks
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: ${{ secrets.NS }}
+          manifests: |
+             ${{ env.FOLDER }}
+          images: '${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}'
+          pull-images: false 
+  QA:
+    needs: DEV
+    runs-on: ubuntu-latest
+    environment: qa
+    steps:
+      - name: Checkout source code 
+        uses: actions/checkout@v3
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_DEV_CREDENTIALS }}' 
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.RESOURCE_DEV_GROUP }}' 
+          cluster-name: '${{ secrets.CLUSTER_DEV_NAME }}'
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["${{ env.FOLDER }}/**"]'
+        env:
+          REPL: 1
+          CIMAGE: ${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}
+          NAME: ${{ env.NAME }}
+          CPORT: ${{ env.CPORT }}
+          NS: ${{ secrets.NS }}
+          SA: ${{ env.SA }}
+          DB_STRING_PARAMETRICO: ${{ secrets.DB_STRING_PARAMETRICO }}
+          DB_STRING_CIUDADANO: ${{ secrets.DB_STRING_CIUDADANO }}
+
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+      - name: Get env variables
+        run: |
+          pwd
+          kubectl get pods -n ${{ secrets.NS }}
+      - name: Deploy to AKS
+        id: deploy-aks
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: ${{ secrets.NS }}
+          manifests: |
+             ${{ env.FOLDER }}
+          images: '${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}'
+          pull-images: false 
+  UAESPE-CD:
+    needs: CI-UAESPE
+    runs-on: ubuntu-latest
+    environment: UAESPE-QA-SISPE
+    steps:
+      - name: Checkout source code 
+        uses: actions/checkout@v3
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: ${{ vars.BACKEND_APPROVERS }}
+          minimum-approvals: 1
+          issue-title: "Deploying to staging from Ministerio"
+          issue-body: "Please approve or deny the deployment sispe-ciudadano"
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}' 
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.RESOURCE_GROUP }}' 
+          cluster-name: '${{ secrets.CLUSTER_NAME }}'
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["${{ env.FOLDER }}/**"]'
+        env:
+          REPL: 1
+          CIMAGE: ${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}
+          NAME: ${{ env.NAME }}
+          CPORT: ${{ env.CPORT }}
+          NS: ${{ secrets.NS }}
+          SA: ${{ env.SA }}
+          SUBNET: ${{ secrets.SUBNET }}
+          DB_STRING_CIUDADANO: ${{ secrets.DB_STRING_CIUDADANO }}
+          DB_STRING_PARAMETRICO: ${{ secrets.DB_STRING_PARAMETRICO }}
+          URL_PARAMETRICOS: ${{ secrets.URL_PARAMETRICOS }}
+          URL_USUARIOS: ${{ secrets.URL_USUARIOS }}  
+          CSBLOB_STORAGE: ${{ secrets.CSBLOB_STORAGE }}        
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+      - name: Get env variables
+        run: |
+          pwd
+          kubectl get pods -n ${{ secrets.NS }}
+      - name: Deploy to AKS
+        id: deploy-aks
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: ${{ secrets.NS }}
+          manifests: |
+             ${{ env.FOLDER }}
+          images: '${{ secrets.REGISTRY }}.azurecr.io/${{ env.NAME }}:${{ github.sha }}'
+          pull-images: false 
